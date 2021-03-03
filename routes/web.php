@@ -25,16 +25,31 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     Route::resource('/students','App\Http\Controllers\StudentController');
     Route::get('/getdata', '\App\Http\Controllers\AjaxController@getdata')->name('getdata');
 
+    Route::get('export', 'App\Http\Controllers\MyController@export')->name('export');
+ 
+    Route::post('import', 'App\Http\Controllers\MyController@import')->name('import');
+    
+    
+    
+});
+Route::group(['middleware' => ['auth','role:Admin']], function () 
+{
+    Route::get('/roles-permissions', 'App\Http\Controllers\RolePermissionController@roles')->name('roles-permissions');
+    Route::get('/role-create', 'App\Http\Controllers\RolePermissionController@createRole')->name('role.create');
+    Route::post('/role-store', 'App\Http\Controllers\RolePermissionController@storeRole')->name('role.store');
+    Route::get('/role-edit/{id}', 'App\Http\Controllers\RolePermissionController@editRole')->name('role.edit');
+    Route::put('/role-update/{id}', 'App\Http\Controllers\RolePermissionController@updateRole')->name('role.update');
 
-    
-    
-    
+    Route::get('/permission-create', 'App\Http\Controllers\RolePermissionController@createPermission')->name('permission.create');
+    Route::post('/permission-store', 'App\Http\Controllers\RolePermissionController@storePermission')->name('permission.store');
+    Route::get('/permission-edit/{id}', 'App\Http\Controllers\RolePermissionController@editPermission')->name('permission.edit');
+    Route::put('/permission-update/{id}', 'App\Http\Controllers\RolePermissionController@updatePermission')->name('permission.update');
+
+    Route::resource('assignrole', 'App\Http\Controllers\RoleAssign');
+
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
-Route::get('export', 'App\Http\Controllers\MyController@export')->name('export');
- 
-    Route::post('import', 'App\Http\Controllers\MyController@import')->name('import');
