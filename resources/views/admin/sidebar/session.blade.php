@@ -22,16 +22,7 @@
                     </div>
                 </div>
                 <div class="tabel-head">
-                    <div class="form-group" style="display:none">
-                                    <label>Class</label>
-                                    
-                                    <select name="gbs_id" id="gbs_id">
-                                    <option value="0">Select Class</option>
-                                    @foreach($tests as $test)
-                                        <option value="{{$test->id}}" >{{$test->class_name}}</option>
-                                    @endforeach
-                                    </select>
-                                </div>
+                    
                 <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
 
                 @csrf
@@ -40,9 +31,9 @@
 
                 <br>
                 <input type="submit" id="submit"  style="display: none;">
-                <button style="display:none" type="button" class="btn btn-success import">Import Student Data</button>
+                <button type="button" class="btn btn-success import">Import Student Data</button>
                 <!--<a class="btn btn-warning" href="{{ route('export') }}">Export Student Data</a>-->
-                <a style="display:none" href="#" class="btn btn-warning" id ="export" role='button'>Export Student Data</a>
+                <a href="#" class="btn btn-warning" id ="export" role='button'>Export Student Data</a>
             </form>
                 </div>
                 <div class="page-table" id="dvData">

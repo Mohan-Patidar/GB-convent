@@ -29,8 +29,9 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
  
     Route::post('import', 'App\Http\Controllers\MyController@import')->name('import');
     
-    
-    
+    Route::get('classes/{id}', 'App\Http\Controllers\SidebarController@classData')->name('classData');
+    Route::get('session/{id}', 'App\Http\Controllers\SidebarController@sessionData')->name('sessionData');
+    Route::resource('assignrole', 'App\Http\Controllers\RoleAssign');
 });
 // Route::group(['middleware' => ['auth','role:Admin']], function () 
 // {
@@ -45,7 +46,7 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     // Route::get('/permission-edit/{id}', 'App\Http\Controllers\RolePermissionController@editPermission')->name('permission.edit');
     // Route::put('/permission-update/{id}', 'App\Http\Controllers\RolePermissionController@updatePermission')->name('permission.update');
 
-    Route::resource('assignrole', 'App\Http\Controllers\RoleAssign');
+   
 
 // });
 

@@ -12,7 +12,8 @@ class ClassController extends Controller
         return view('admin.class.index',compact("tests"));
     }
     public function create(){
-        return view('admin.class.create');
+        $tests = Gb::all();
+        return view('admin.class.create',compact("tests"));
     }
     public function store(Request $request){
 

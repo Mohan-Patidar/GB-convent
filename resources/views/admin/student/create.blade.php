@@ -14,6 +14,15 @@
                 <div class="page-title">
                     Add <span> Student</span>
                 </div>
+                <div class="page-btn">
+                        <a href="{{url('/students')}}" class="add-btn">
+                            <span>
+                                    <img src="{{url('/')}}/assets/image/Icon-arrow-back.svg" class="btn-arrow-show" alt="">
+                                    <img src="{{url('/')}}/assets/image/Icon-arrow-back-2.svg" class="btn-arrow-hide" alt="">
+                                </span>
+                            <span>Back</span>
+                        </a>
+                    </div>
             </div>
             <div class="page-table">
                 <div class="profile-box container-fluid">
@@ -112,11 +121,6 @@
                                         <option>2022-2023</option>
                                         <option>2023-2024</option>
                                         <option>2024-2025</option>
-                                        <option>2025-2026</option>
-                                        <option>2026-2027</option>
-                                        <option>2027-2028</option>
-                                        <option>2028-2029</option>
-                                        <option>2029-2030</option>
                                     </select>
                                 </div>
                             </div>

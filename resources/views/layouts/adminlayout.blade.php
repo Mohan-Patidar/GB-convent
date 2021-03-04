@@ -43,10 +43,10 @@
                                 <span>Student</span>
                             </a>
                         </li>
-                        <li>
+                        <li @if(request()->segment(1) == 'add_class') class="active" @endif>
                             <a href="{{ url('/add_class') }}">
                                 <i>
-                                    <img src="{{url('/')}}/assets/image/blackboard.svg" class="menu-show" alt="">
+                                    <img src="{{url('/')}}/assets/image/money.svg" class="menu-show" alt="">
                                 </i>
                                 <span>Fees Structure</span>
                             </a>
@@ -61,26 +61,22 @@
                                     <img src="{{url('/')}}/assets/image/arrow-down.svg" alt="">
                                 </span>
                             </a>
+                        @php
+
+                        $posts=  App\Models\Gb::get();
+
+                        @endphp
                             <ul class='sub-menus'>
-                                <li><a href='javascript:void(0)' >Nursery</a></li>
-                                <li><a href='javascript:void(0)' >LKG</a></li>
-                                <li><a href='javascript:void(0)' >UKG</a></li>
-                                <li><a href='javascript:void(0)' >First</a></li>
-                                <li><a href='javascript:void(0)' >Second</a></li>
-                                <li><a href='javascript:void(0)' >Third</a></li>
-                                <li><a href='javascript:void(0)' >Fourth</a></li>
-                                <li><a href='javascript:void(0)' >Fifth</a></li>
-                                <li><a href='javascript:void(0)' >Sixth</a></li>
-                                <li><a href='javascript:void(0)' >Seventh</a></li>
-                                <li><a href='javascript:void(0)' >Eight</a></li>
-                                <li><a href='javascript:void(0)' >Ninth</a></li>
-                                <li><a href='javascript:void(0)' >Tenth</a></li>
-                            </ul>
+                            @foreach($posts as $post)
+                            <li><a href="{{ url('classes',$post->id) }}"  >{{$post->class_name}}</a></li>
+                            @endforeach
+  
                         </li>
+                    </ul>
                         <li>
                             <a href="javascript:void(0)">
                                 <i>
-                                    <img src="{{url('/')}}/assets/image/blackboard.svg" class="menu-show" alt="">
+                                    <img src="{{url('/')}}/assets/image/Session.svg" class="menu-show" alt="">
                                 </i>
                                 <span>Session</span>
                                 <span class="drop-arrow">
@@ -88,14 +84,14 @@
                                 </span>
                             </a>
                             <ul class='sub-menus'>
-                                <li><a href='javascript:void(0)' >2017-2018</a></li>
-                                <li><a href='javascript:void(0)' >2018-2019</a></li>
-                                <li><a href='javascript:void(0)' >2019-2020</a></li>
-                                <li><a href='javascript:void(0)' >2020-2021</a></li>
-                                <li><a href='javascript:void(0)' >2021-2022</a></li>
-                                <li><a href='javascript:void(0)' >2022-2023</a></li>
-                                <li><a href='javascript:void(0)' >2023-2024</a></li>
-                                <li><a href='javascript:void(0)' >2024-2025</a></li>
+                                <li><a href="{{ url('session','2017-2018') }}" >2017-2018</a></li>
+                                <li><a href="{{ url('session','2018-2019') }}" >2018-2019</a></li>
+                                <li><a href="{{ url('session','2019-2020') }}" >2019-2020</a></li>
+                                <li><a href="{{ url('session','2020-2021') }}" >2020-2021</a></li>
+                                <li><a href="{{ url('session','2021-2022') }}" >2021-2022</a></li>
+                                <li><a href="{{ url('session','2022-2023') }}" >2022-2023</a></li>
+                                <li><a href="{{ url('session','2023-2024') }}" >2023-2024</a></li>
+                                <li><a href="{{ url('session','2024-2025') }}" >2024-2025</a></li>
                             </ul>
                         </li>
                         @if(Auth::check() && Auth::user()->user_type  == "Admin")
