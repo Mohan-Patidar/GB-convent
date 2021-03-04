@@ -25,7 +25,6 @@
                         <tr>
                             <th>S.No.</th>
                             <th>Name</th>
-                            <th>Email</th>
                             <th>Role</th>
                             <th>Assign</th>
                         </tr>
@@ -36,7 +35,6 @@
                         <tr>
                             <td>@php echo ++$i @endphp</td>
                             <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
                             <td class="sorting_1">{{ $user->user_type }}</td>
                             
                             <td>
@@ -45,7 +43,11 @@
                                         <a class="" href="{{ route('assignrole.edit',$user->id) }}">
                                             <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
                                     </button>
-                                   
+                                    @if(Auth::check() && Auth::user()->user_type  == "Admin")
+                                        <button type="submit" class="delete-btn role-delete" data-id="{{$user->id}}" data-name="{{ $user->name }}" > 
+                                            <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
+                                        </button>
+                                        @endif
                                 </div>
                             </td>
                         </tr>

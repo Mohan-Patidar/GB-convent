@@ -40,6 +40,11 @@
                             </label>
                             @enderror
                             </div>
+                            <div class="form-group">
+                                <label>Fees Structure</label>
+                                <input type="text" placeholder="Fees Structure" name="fees" id="fees">
+                              
+                            </div>
                            
                             <div class="btn btn-box">
                                 <button type="submit" class="add-btn margin-top-15">Add Class</button>

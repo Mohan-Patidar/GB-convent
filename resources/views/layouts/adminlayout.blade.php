@@ -50,10 +50,20 @@
                                 <i>
                                     <img src="{{url('/')}}/assets/image/blackboard.svg" class="menu-show" alt="">
                                 </i>
-                                <span>Class</span>
+                                <span>Fees Structure</span>
                             </a>
                         </li>
+                        <li @if(request()->segment(1) == 'classes') class="active" @endif>
+                            <a href="{{ url('/classes') }}">
+                                <i>
+                                    <img src="{{url('/')}}/assets/image/blackboard.svg" class="menu-show" alt="">
+                                </i>
+                                <span>Classes</span>
+                            </a>
+                        </li>
+                        @if(Auth::check() && Auth::user()->user_type  == "Admin")
                         <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
+                        
                             <a href="{{ url('/assignrole') }}">
                                 <i>
                                     <img src="{{url('/')}}/assets/image/expertise-area.svg" class="menu-show" alt="">
@@ -61,6 +71,7 @@
                                 <span>Assign Role</span>
                             </a>
                         </li>
+                        @endif
                         <!-- <li @if(request()->segment(1) == 'roles-permissions') class="active" @endif>
                             <a href="{{ url('/roles-permissions') }}">
                                 <i>
@@ -72,19 +83,14 @@
 
                         <li>
 
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
+                        <a href="{{ url('/logout') }}">
                                 <i>
                                     <img src="{{url('/')}}/assets/image/logout-1.svg" class="menu-show" alt="">
 
                                 </i>
                                 <span>Log Out</span>
-
-
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                         </a>
+                           
                         </li>
                     </ul>
                 </div>
@@ -181,6 +187,37 @@
                     if (willDelete) {
                         $.ajax({
                             url: "{{route('students.store')}}" + '/' + id,
+                            type: "DELETE",
+                            data: {
+                                id: id,
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function(data) {
+                                location.reload();
+
+
+                            }
+
+                        });
+                    }
+                });
+        });
+        $('.role-delete').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            var id = $(this).data("id");
+            event.preventDefault();
+            swal({
+                    title: `Are you sure you want to delete ${name}?`,
+
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: "{{route('assignrole.store')}}" + '/' + id,
                             type: "DELETE",
                             data: {
                                 id: id,

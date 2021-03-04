@@ -101,10 +101,11 @@
                                             href="{{route('students.edit',$student->id)}}">
                                             <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
                                         </button>
-                                 
+                                        @if(Auth::check() && Auth::user()->user_type  == "Admin")
                                         <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{ $student->name }}" > 
                                             <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
                                         </button>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

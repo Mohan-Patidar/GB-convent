@@ -43,6 +43,11 @@
                             </label>
                             @enderror
                             </div>
+                            <div class="form-group">
+                                <label>Fees Structure</label>
+                                <input type="text" placeholder="Fees Structure" name="fees" id="fees" class="form-control"  value="{{ $tests->fees}}">
+                              
+                            </div>
                            
                             <div class="btn btn-box">
                                 <button type="submit" class="cstm-btn margin-top-15">update Class</button>

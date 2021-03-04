@@ -23,6 +23,7 @@ class ClassController extends Controller
 
         $tests= new Gb;
         $tests->class_name=$request->class_name;
+        $tests->fees=$request->fees;
       
         
         $tests->save();
@@ -51,7 +52,7 @@ class ClassController extends Controller
         ]);
        $test =Gb::where("id", "=", $id)->first();
        $test->class_name=$request->class_name; 
-        
+       $test->fees=$request->fees;
        $test->update(); 
         Session::flash('message', ' data updated successfuly!');
         return redirect('add_class');

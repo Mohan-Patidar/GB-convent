@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
-   
+    Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
    
     Route::resource('/add_class','App\Http\Controllers\ClassController');
     Route::resource('/students','App\Http\Controllers\StudentController');

@@ -27,13 +27,13 @@ class RoleAssign extends Controller
     {
         $request->validate([
             'name'      => 'required|string|max:255',
-            'email'     => 'required|string|email|max:255|unique:users',
+          
             'password'  => 'required|string|min:8',
         ]);
 
         $user = User::create([
             'name'      => $request->name,
-            'email'     => $request->email,
+           
             'password'  => Hash::make($request->password),
             'user_type' =>$request->user_type
         ]);
@@ -54,14 +54,13 @@ class RoleAssign extends Controller
     {
         $request->validate([
             'name'  => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'.$id
+            
         ]);
 
         $user = User::findOrFail($id);
 
         $user->update([
             'name'  => $request->name,
-            'email' => $request->email,
             'user_type' =>$request->user_type
         ]);
 

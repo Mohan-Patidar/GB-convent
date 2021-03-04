@@ -25,6 +25,7 @@
                             <tr>
                                  <th>S.No.</th>
                                 <th>Class Name</th>
+                                <th>Fees Structure</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -34,6 +35,7 @@
                             <tr>
                                  <td>@php echo ++$i @endphp</td>
                                 <td>{{$test->class_name}}</td>
+                                <td>{{$test->fees}}</td>
                                 <td>
                                     <div class="d-flex">
                                         <button class="edit-btn">
@@ -41,10 +43,11 @@
                                             href="{{route('add_class.edit',$test->id)}}">
                                             <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
                                         </button>
-                                 
+                                        @if(Auth::check() && Auth::user()->user_type  == "Admin")
                                         <button type="submit" class="delete-btn delete-confirm" data-id="{{$test->id}}" data-name="{{ $test->class_name }}"> 
                                             <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
                                         </button>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
