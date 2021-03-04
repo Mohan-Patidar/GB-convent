@@ -24,44 +24,55 @@ $(document).ready(function() {
         jQuery("body").removeClass("open");
     });
 
-
+    // 
+    var nav = $('.side-menu > li');
+    nav.find('ul').hide();
+    nav.click(function() {
+        nav.not(this).find('ul').hide();
+        $(this).find('ul').slideToggle();
+        $('.side-menu > li').removeClass('active');
+        $(this).addClass('active');
+    });
 });
 
 $(document).ready(function() {
     $('.table').DataTable({
-      //disable sorting on last column
-    //   "scrollY": 500,
+        //disable sorting on last column
+        //   "scrollY": 500,
         "scrollX": true,
-      "columnDefs": [
-        { "orderable": false, "targets": 5 }
-      ],
-    "lengthMenu": [ [5,10, 50, 100, -1], [5,10, 50, 100, "All"] ],
-      dom: 'lBfrtip',
-      buttons: [
-          'csv'
-      ],
-      "oLanguage": {
-        "sEmptyTable":     "My Custom Message On Empty Table"
-    }
-    //   'language': {
-    //     //customize pagination prev and next buttons: use arrows instead of words
-    //     'paginate': {
-    //       'previous': '<span class="fa fa-chevron-left"></span>',
-    //       'next': '<span class="fa fa-chevron-right"></span>'
-    //     },
-         
-    //   // customize number of elements to be displayed
-    //     // "lengthMenu": 'Display <select id="target">'+
-    //     // '<option value="-1">All</option>'+
-    //     // '<option value="5" selected>5</option>'+
-    //     // '<option value="20">20</option>'+
-    //     // '<option value="30">30</option>'+
-    //     // '<option value="40">40</option>'+
-    //     // '<option value="50">50</option>'+
-    //     // '</select> results'
-    //   }
-    })  
-} );
+        "columnDefs": [
+            { "orderable": false, "targets": 5 }
+        ],
+        "lengthMenu": [
+            [5, 10, 50, 100, -1],
+            [5, 10, 50, 100, "All"]
+        ],
+        dom: 'lBfrtip',
+        buttons: [
+            'csv'
+        ],
+        "oLanguage": {
+            "sEmptyTable": "My Custom Message On Empty Table"
+        }
+        //   'language': {
+        //     //customize pagination prev and next buttons: use arrows instead of words
+        //     'paginate': {
+        //       'previous': '<span class="fa fa-chevron-left"></span>',
+        //       'next': '<span class="fa fa-chevron-right"></span>'
+        //     },
+
+        //   // customize number of elements to be displayed
+        //     // "lengthMenu": 'Display <select id="target">'+
+        //     // '<option value="-1">All</option>'+
+        //     // '<option value="5" selected>5</option>'+
+        //     // '<option value="20">20</option>'+
+        //     // '<option value="30">30</option>'+
+        //     // '<option value="40">40</option>'+
+        //     // '<option value="50">50</option>'+
+        //     // '</select> results'
+        //   }
+    })
+});
 
 // $(document).ready(function() {
 // $("#target").val($("#target option:first").val());

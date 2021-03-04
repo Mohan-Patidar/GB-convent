@@ -1,3 +1,31 @@
+.drop-arrow {
+    float: right;
+}
+
+.active .sub-menus {
+    position: absolute;
+    background: #fff;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+
+.sub-menus li a:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 40px;
+    width: 8px;
+    height: 8px;
+    background: #4b5687;
+    border-radius: 50%;
+    transform: translatey(-50%);
+}
+
+
+/* .active .drop-arrow {
+    transform: rotate( 180deg);
+} */
+
 .main-aside {
     width: 240px;
     height: 100%;
@@ -5,6 +33,7 @@
     top: 0;
     left: 0;
     bottom: 0;
+    overflow: auto;
 }
 
 .main-logo {
@@ -21,15 +50,20 @@
     display: block;
     font-weight: 500;
     font-size: 15px;
-    padding: 20px 40px;
+    padding: 20px 30px;
     color: #4B5687;
     line-height: 1.5 !important;
     text-transform: capitalize;
     transition: all 0.3s;
 }
 
+.sub-menus li a {
+    padding: 10px 20px 10px 70px !important;
+    position: relative;
+}
+
 .main-menus ul li a:hover,
-.main-menus ul li.active {
+.main-menus ul li.active>a {
     width: 100%;
     background-color: #4b56871a;
 }
@@ -149,7 +183,7 @@ table.dataTable thead .th-max-width {
 .dataTables_wrapper .dataTables_length label select {
     color: #4B5687;
     border-color: #4B5687;
-    display:inline;
+    display: inline;
 }
 
 .dataTables_wrapper .dataTables_filter label input {
@@ -195,10 +229,12 @@ table.dataTable thead .th-max-width {
     position: relative;
     margin: 0 5px;
 }
+
 .dataTables_paginate {
     display: flex;
     margin-top: 20px;
 }
+
 .dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled,
 .dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled {
     background-color: #E2E2E2 !important;
@@ -254,14 +290,16 @@ table.dataTable thead .th-max-width {
 .dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background-color: #FFFFFF !important;
-       background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4b5687), color-stop(100%, #4b5687));
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4b5687), color-stop(100%, #4b5687));
     border-color: #4B5687 !important;
     color: #4B5687 !important;
 }
+
 .dataTables_wrapper.no-footer .dataTables_scrollBody {
     border-bottom: 1px solid #dee2e6 !important;
     max-height: 381px !important;
 }
+
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background: linear-gradient(to bottom, #4b5687 0%, #4b5687 100%);
 }
@@ -395,7 +433,7 @@ form textarea {
     background-color: #FFFFFF;
     border-radius: 10px;
     padding: 50px;
-    position:relative;
+    position: relative;
 }
 
 .login-heading {
@@ -434,9 +472,11 @@ form textarea {
 .text-center p a:hover {
     color: #DF352D;
 }
+
 .dataTables_scrollBody tr:first-child td {
     border-top: 0;
 }
+
 .dataTables_scrollBody thead {
     display: none;
 }
@@ -451,42 +491,51 @@ form textarea {
     flex-wrap: wrap;
     margin: 20px 0;
 }
+
 .add-student-form .add-btn {
-    max-width:200px;
+    max-width: 200px;
 }
- img.student-img {
+
+img.student-img {
     width: 70px;
     height: 70px;
     object-fit: cover;
     border-radius: 50%;
 }
+
 .table-bordered tr th:first-child {
-     min-width: 50px;
+    min-width: 50px;
     max-width: 50px;
 }
+
 .table-bordered th {
-           min-width: 150px;
+    min-width: 150px;
     max-width: 150px;
 }
- .table-bordered td {
-           min-width: 150px;
+
+.table-bordered td {
+    min-width: 150px;
     max-width: 150px;
 }
+
 .table-bordered tr td:first-child {
-     min-width: 50px;
+    min-width: 50px;
     max-width: 50px;
 }
+
 .table.table-bordered tbody {
     max-height: 400px;
 }
+
 div#DataTables_Table_0_paginate {
     display: flex;
     align-items: center;
     margin-top: 30px;
 }
-@media screen and (max-width: 640px) {
-.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter {
-    text-align: left !important; 
-}
 
+@media screen and (max-width: 640px) {
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        text-align: left !important;
+    }
 }
