@@ -19,17 +19,6 @@
                             <span>Back</span>
                         </a>
                     </div>
-    
-                <a href="{{ route('role.create') }}" class="">
-                <span>
-                Role
-                   </span>
-                </a>
-                <a href="{{ route('permission.create') }}" class="">
-                <span>
-                Permission
-                   </span>
-                </a>
             </div>
         </div>
 
@@ -58,28 +47,22 @@
                                 @enderror
                     </div>
                     <div class="col-6">
-                                <div class="form-group">
-                                    <label> Assign Role</label>
-                                    <select name="selectedrole" id="grid-state">
-                                    <option value="">--Select Role--</option>
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role->name }}"
-                                        @foreach ($user->roles as $item)
-                                            {{ ($item->id === $role->id) ? 'selected' : '' }}
-                                        @endforeach
-                                    >
-                                        {{ $role->name }}
-                                    </option>
-                                @endforeach
+                        <div class="form-group">
+                            <label> Assign Role</label>
+                            <select name="user_type" id="user_type">
+                                <option value="">--Select Role--</option>
+                                        <option>Admin</option>
+                                        <option>Accountant</option>
+                                        <option>Manager</option>
                             </select>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
                     <div class="btn btn-box">
-                                <input type="submit" class="cstm-btn margin-top-15"> Update User</button>
+                                <input type="submit" class="login-btn" value="Update User">
                             </div>
                         </form>
                 
-   
+   </section>
 @endsection
    
 

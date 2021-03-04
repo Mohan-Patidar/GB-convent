@@ -59,11 +59,11 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label> Assign Role</label>
-                            <select name="role" id="grid-state">
+                            <select name="user_type" id="user_type">
                                 <option value="">--Select Role--</option>
-                                @foreach ($roles as $role)
-                                <option value="{{ $role->name }}">{{ $role->name }}</option>
-                                @endforeach
+                                        <option>Admin</option>
+                                        <option>Accountant</option>
+                                        <option>Manager</option>
                             </select>
                         </div>
                     </div>

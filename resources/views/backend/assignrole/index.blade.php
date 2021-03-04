@@ -37,15 +37,15 @@
                             <td>@php echo ++$i @endphp</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            @foreach ($user->roles as $role)
-                            <td class="sorting_1">{{ $role->name }}</td>
-                            @endforeach
+                            <td class="sorting_1">{{ $user->user_type }}</td>
+                            
                             <td>
                                 <div class="d-flex">
                                     <button class="edit-btn">
                                         <a class="" href="{{ route('assignrole.edit',$user->id) }}">
                                             <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
                                     </button>
+                                   
                                 </div>
                             </td>
                         </tr>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+// use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class RoleAssign extends Controller
@@ -12,16 +12,15 @@ class RoleAssign extends Controller
 
     public function index()
     {
-        $users = User::with('roles')->latest()->paginate(10);
-
+        $users = User::get();
+      
         return view('backend.assignrole.index', compact('users'));
     }
 
     public function create()
     {
-        $roles = Role::latest()->get();
-        
-        return view('backend.assignrole.create', compact('roles'));
+    
+        return view('backend.assignrole.create');
     }
 
     public function store(Request $request)
@@ -35,20 +34,20 @@ class RoleAssign extends Controller
         $user = User::create([
             'name'      => $request->name,
             'email'     => $request->email,
-            'password'  => Hash::make($request->password)
+            'password'  => Hash::make($request->password),
+            'user_type' =>$request->user_type
         ]);
 
-        $user->assignRole($request->role);
+        
 
         return redirect()->route('assignrole.index');
     }
 
     public function edit($id)
     {
-        $user = User::with('roles')->findOrFail($id);
-        $roles = Role::latest()->get();
+        $user = User::where("id", "=", $id)->first();
         
-        return view('backend.assignrole.edit', compact('user','roles'));
+        return view('backend.assignrole.edit', compact('user'));
     }
 
     public function update(Request $request, $id)
@@ -62,36 +61,44 @@ class RoleAssign extends Controller
 
         $user->update([
             'name'  => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'user_type' =>$request->user_type
         ]);
 
-        $user->syncRoles($request->selectedrole);
+        
 
         return redirect()->route('assignrole.index');
     }
 
-    // NOT DONE
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        
-        // $user->removeRole('writer');
-        // $user->syncRoles(['writer', 'admin']);
+    public function destroy(request $request){
+        $id = $request->all();
+        User::destroy($id);
+        // Session::flash('message', ' data delete successfuly!');
+       
 
-        // if ($user->delete()) {
-
-        //     if($user->profile_picture != 'avatar.png') {
-
-        //         $image_path = public_path() . '/images/profile/' . $user->profile_picture;
-
-        //         if (is_file($image_path) && file_exists($image_path)) {
-
-        //             unlink($image_path);
-        //         }
-        //     }
-            
-        // }
-
-        return back();
     }
+    // NOT DONE
+    // public function destroy($id)
+    // {
+    //     $user = User::findOrFail($id);
+        
+    //     // $user->removeRole('writer');
+    //     // $user->syncRoles(['writer', 'admin']);
+
+    //     // if ($user->delete()) {
+
+    //     //     if($user->profile_picture != 'avatar.png') {
+
+    //     //         $image_path = public_path() . '/images/profile/' . $user->profile_picture;
+
+    //     //         if (is_file($image_path) && file_exists($image_path)) {
+
+    //     //             unlink($image_path);
+    //     //         }
+    //     //     }
+            
+    //     // }
+
+    //     return back();
+    // }
 }
