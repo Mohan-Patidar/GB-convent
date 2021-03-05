@@ -47,7 +47,6 @@
                         @enderror
                     </div>
 
-                    <div class="col-6">
                         <div class="form-group">
                             <label> Assign Role</label>
                             <select name="user_type" id="user_type">
@@ -57,8 +56,7 @@
                                         <option>Manager</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="col-12 text-center">
+                    <div class=" text-center">
                         <input type="submit" name="save" class="login-btn" id="save" value="Create User">
                     </div>
 

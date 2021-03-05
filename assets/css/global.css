@@ -67,17 +67,23 @@ h2 {
     font-size: 40px;
     line-height: 50px;
 }
+
+
 /* Chrome, Safari, Edge, Opera */
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
+
 /* Firefox */
+
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
+
 select {
     color: #707070;
     border-color: #C9C9C9;
@@ -88,37 +94,55 @@ select {
     display: block;
     width: 100%;
 }
-.tabel-head select {
 
+.tabel-head select {
     color: #4b5687;
     border-color: #4b5687;
 }
+
 .my-profile-choose-file {
     opacity: 0;
     width: 100% !important;
     height: 100% !important;
     padding: 0 !important;
     border-radius: 50%;
-    display:none;
+    display: none;
 }
-.buttons-csv{
-    display:none;
+
+.buttons-csv {
+    display: none;
 }
+
 .save-alert {
- position: absolute;
-       top: 0px;
+    position: absolute;
+    top: 20px;
     left: 50%;
     z-index: 9;
-    width: 300px;
-    background: rgb(40 167 69 / 50%);
+    max-width: max-content;
+    width: 100%;
     transform: translate(-50%);
+    padding: 15px 30px !important;
+    text-align: center;
 }
+
 .save-alert p {
-    margin-bottom:0;
+    margin-bottom: 0;
 }
+
 .fade.in:not(.show) {
     opacity: 1;
 }
+
 .swal-footer {
     text-align: center !important;
+}
+
+.alert-dismissible .close {
+    position: absolute;
+    top: -25px;
+    right: -25px;
+    z-index: 2;
+    font-size: 30px;
+    padding: .75rem 1.25rem;
+    color: inherit;
 }

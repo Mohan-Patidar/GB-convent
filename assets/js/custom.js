@@ -10,7 +10,6 @@ $(document).ready(function() {
         search: "_INPUT_",
         searchPlaceholder: "Search..."
     });
-
 });
 
 // data table js end
@@ -52,25 +51,8 @@ $(document).ready(function() {
             'csv'
         ],
         "oLanguage": {
-            "sEmptyTable": "My Custom Message On Empty Table"
+            "sEmptyTable": "No data available in table"
         }
-        //   'language': {
-        //     //customize pagination prev and next buttons: use arrows instead of words
-        //     'paginate': {
-        //       'previous': '<span class="fa fa-chevron-left"></span>',
-        //       'next': '<span class="fa fa-chevron-right"></span>'
-        //     },
-
-        //   // customize number of elements to be displayed
-        //     // "lengthMenu": 'Display <select id="target">'+
-        //     // '<option value="-1">All</option>'+
-        //     // '<option value="5" selected>5</option>'+
-        //     // '<option value="20">20</option>'+
-        //     // '<option value="30">30</option>'+
-        //     // '<option value="40">40</option>'+
-        //     // '<option value="50">50</option>'+
-        //     // '</select> results'
-        //   }
     })
 });
 

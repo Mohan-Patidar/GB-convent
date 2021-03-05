@@ -155,6 +155,7 @@
                         id: id,
                     },
                     success: function(data) {
+                       
                         $('#student-table').html(data);
                     }
                 });

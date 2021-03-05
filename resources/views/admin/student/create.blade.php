@@ -15,14 +15,14 @@
                     Add <span> Student</span>
                 </div>
                 <div class="page-btn">
-                        <a href="{{url('/students')}}" class="add-btn">
-                            <span>
-                                    <img src="{{url('/')}}/assets/image/Icon-arrow-back.svg" class="btn-arrow-show" alt="">
-                                    <img src="{{url('/')}}/assets/image/Icon-arrow-back-2.svg" class="btn-arrow-hide" alt="">
-                                </span>
-                            <span>Back</span>
-                        </a>
-                    </div>
+                    <a href="{{url('/students')}}" class="add-btn">
+                        <span>
+                            <img src="{{url('/')}}/assets/image/Icon-arrow-back.svg" class="btn-arrow-show" alt="">
+                            <img src="{{url('/')}}/assets/image/Icon-arrow-back-2.svg" class="btn-arrow-hide" alt="">
+                        </span>
+                        <span>Back</span>
+                    </a>
+                </div>
             </div>
             <div class="page-table">
                 <div class="profile-box container-fluid">
@@ -30,7 +30,7 @@
                         <!-- <div class="profile-title">
                                 Personal Information
                             </div> -->
-                         @csrf
+                        @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -90,10 +90,10 @@
                                 <div class="form-group">
                                     <label>Class</label>
                                     <select name="gbs_id" id="gbs_id">
-                                    <option value="" selected>Select Class</option>
-                                    @foreach($tests as $test)
-                                        <option value="{{$test->id}}" >{{$test->class_name}}</option>
-                                    @endforeach
+                                        <option value="" selected>Select Class</option>
+                                        @foreach($tests as $test)
+                                        <option value="{{$test->id}}">{{$test->class_name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                                 <div class="form-group">
                                     <label>Add Session</label>
                                     <select name="add_session">
-                                    <option value="" selected>Select Session</option>
+                                        <option value="" selected>Select Session</option>
                                         <option>2018-2019</option>
                                         <option>2019-2020</option>
                                         <option>2020-2021</option>

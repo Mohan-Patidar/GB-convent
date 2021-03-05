@@ -287,12 +287,13 @@ table.dataTable thead .th-max-width {
     margin: 0 5px;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+.dataTables_wrapper .dataTables_paginate span .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate span .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate span .paginate_button.current:hover {
     background-color: #FFFFFF !important;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4b5687), color-stop(100%, #4b5687));
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4b5687), color-stop(100%, #4b5687)) !important;
     border-color: #4B5687 !important;
-    color: #4B5687 !important;
+    color: #fff !important;
 }
 
 .dataTables_wrapper.no-footer .dataTables_scrollBody {
@@ -300,9 +301,10 @@ table.dataTable thead .th-max-width {
     max-height: 381px !important;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background: linear-gradient(to bottom, #4b5687 0%, #4b5687 100%);
-}
+
+/* .dataTables_wrapper .dataTables_paginate span .paginate_button:hover {
+    background: linear-gradient(to bottom, #4b5687 0%, #4b5687 100%) !important;
+} */
 
 .edit-btn,
 .delete-btn {
@@ -458,7 +460,7 @@ form textarea {
 }
 
 .login-btn:hover {
-    opacity: 70%;
+    opacity: 0.9;
 }
 
 .text-center p a {
@@ -486,7 +488,7 @@ form textarea {
 
 .tabel-head {
     display: inline-flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 100%;
     flex-wrap: wrap;
     margin: 20px 0;
