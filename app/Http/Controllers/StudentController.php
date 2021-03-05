@@ -64,7 +64,8 @@ class StudentController extends Controller
     public function show($id)
     {
     
-       //
+        $students =Student::where("id", "=", $id)->first();
+        var_dump($students);
     
     }
     public function edit($student){

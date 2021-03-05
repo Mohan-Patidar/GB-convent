@@ -64,11 +64,13 @@
                         @php
 
                         $posts=  App\Models\Gb::get();
-
+                        $a=date("Y")-1;
+                        $b=date("Y");
+                      $c=$a."-".$b;
                         @endphp
                             <ul class='sub-menus'>
                             @foreach($posts as $post)
-                            <li><a href="{{ url('classes',$post->id) }}"  >{{$post->class_name}}</a></li>
+                            <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',$post->id) }}"  >{{$post->class_name}}</a></li>
                             @endforeach
   
                         </li>
@@ -83,15 +85,16 @@
                                     <img src="{{url('/')}}/assets/image/arrow-down.svg" alt="">
                                 </span>
                             </a>
+                            
                             <ul class='sub-menus'>
-                                <li><a href="{{ url('session','2017-2018') }}" >2017-2018</a></li>
-                                <li><a href="{{ url('session','2018-2019') }}" >2018-2019</a></li>
-                                <li><a href="{{ url('session','2019-2020') }}" >2019-2020</a></li>
-                                <li><a href="{{ url('session','2020-2021') }}" >2020-2021</a></li>
-                                <li><a href="{{ url('session','2021-2022') }}" >2021-2022</a></li>
-                                <li><a href="{{ url('session','2022-2023') }}" >2022-2023</a></li>
-                                <li><a href="{{ url('session','2023-2024') }}" >2023-2024</a></li>
-                                <li><a href="{{ url('session','2024-2025') }}" >2024-2025</a></li>
+                                <li @if(request()->segment(2) == '2017-2018') class="active" @endif ><a href="{{ url('session','2017-2018') }}" >2017-2018</a></li>
+                                <li @if(request()->segment(2) == '2018-2019') class="active" @endif><a href="{{ url('session','2018-2019') }}" >2018-2019</a></li>
+                                <li @if(request()->segment(2) == '2019-2020') class="active" @endif><a href="{{ url('session','2019-2020') }}" >2019-2020</a></li>
+                                <li @if(request()->segment(2) == '2020-2021') class="active" @endif><a href="{{ url('session','2020-2021') }}" >2020-2021</a></li>
+                                <li @if(request()->segment(2) == '2021-2022') class="active" @endif><a href="{{ url('session','2021-2022') }}" >2021-2022</a></li>
+                                <li @if(request()->segment(2) == '2022-2023') class="active" @endif><a href="{{ url('session','2022-2023') }}" >2022-2023</a></li>
+                                <li @if(request()->segment(2) == '2023-2024') class="active" @endif><a href="{{ url('session','2023-2024') }}" >2023-2024</a></li>
+                                <li @if(request()->segment(2) == '2024-2025') class="active" @endif><a href="{{ url('session','2024-2025') }}" >2024-2025</a></li>
                             </ul>
                         </li>
                         @if(Auth::check() && Auth::user()->user_type  == "Admin")

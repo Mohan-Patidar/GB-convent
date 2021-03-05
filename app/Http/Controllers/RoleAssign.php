@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 // use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
-
+use Session;
 class RoleAssign extends Controller
 {
 
@@ -38,7 +38,7 @@ class RoleAssign extends Controller
             'user_type' =>$request->user_type
         ]);
 
-        
+        Session::flash('message', 'Role assign added successfuly!');
 
         return redirect()->route('assignrole.index');
     }

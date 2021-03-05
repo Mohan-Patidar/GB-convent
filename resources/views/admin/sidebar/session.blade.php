@@ -20,9 +20,14 @@
                 </div>
             </div>
             <div class="tabel-head">
+
                 <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
+
                     @csrf
+
                     <input type="file" name="file" id="file" class="my-profile-choose-file">
+
+                    <br>
                     <input type="submit" id="submit" style="display: none;">
                     <button type="button" class="btn btn-success import">Import Student Data</button>
                     <!--<a class="btn btn-warning" href="{{ route('export') }}">Export Student Data</a>-->
@@ -34,6 +39,7 @@
                     <thead>
                         <tr>
                             <th>S.No.</th>
+                            <th>Actions</th>
                             <th>Student Id</th>
                             <th>Profile</th>
                             <th>Name</th>
@@ -49,14 +55,27 @@
                             <th>Mobile No. 2</th>
                             <th>Bank Acc/No.</th>
                             <th>Session</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="result">
                         @php $i = 0; @endphp
                         @foreach($students as $student)
                         <tr>
+
                             <td>@php echo ++$i @endphp</td>
+                            <td>
+                                <div class="d-flex">
+                                    <button class="edit-btn">
+                                        <a class="" href="{{route('students.edit',$student->id)}}">
+                                            <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
+                                    </button>
+                                    @if(Auth::check() && Auth::user()->user_type == "Admin")
+                                    <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{ $student->name }}">
+                                        <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
+                                    </button>
+                                    @endif
+                                </div>
+                            </td>
                             <td>{{$student->student_id}}</td>
                             <td><img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" /></td>
                             <td>{{$student->name}}</td>
@@ -76,19 +95,6 @@
                             <td>{{$student->mobile_no2}}</td>
                             <td>{{$student->account_no}}</td>
                             <td>{{$student->add_session}}</td>
-                            <td>
-                                <div class="d-flex">
-                                    <button class="edit-btn">
-                                        <a class="" href="{{route('students.edit',$student->id)}}">
-                                            <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
-                                    </button>
-                                    @if(Auth::check() && Auth::user()->user_type == "Admin")
-                                    <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{ $student->name }}">
-                                        <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
-                                    </button>
-                                    @endif
-                                </div>
-                            </td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -1,13 +1,14 @@
 @extends('layouts.adminlayout')
 
 @section('content')
+
 <div class="page-inner ad-inr">
     @if(Session::has('message'))
-    <div class="alert alert-success alert-dismissible fade in" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <div class="save-alert alert alert-success alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">×</span></button>
         <p>{{ Session::get('message') }}</p>
     </div>
-</div>
     @endif
     <section class="main-wrapper">
         <div class="page-color">

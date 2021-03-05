@@ -31,6 +31,10 @@ $(document).ready(function() {
         $(this).find('ul').slideToggle();
         $('.side-menu > li').removeClass('active');
         $(this).addClass('active');
+        var a =new Date().getFullYear();
+        var b = a-1;
+        var c = b+"-"+a;
+        console.log(c);
     });
 });
 
