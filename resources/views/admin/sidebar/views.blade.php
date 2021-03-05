@@ -18,6 +18,7 @@
                 <div class="page-btn">
                     <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
                 </div>
+            </div>
                 <div class="page-table" id="dvData">
                     <table id="student-table" class="table table-bordered table-striped" style="width:100%;">
                         <thead>
