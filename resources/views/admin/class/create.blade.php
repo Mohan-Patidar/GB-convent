@@ -31,18 +31,31 @@
                         <form id="class-form" method="Post" action="{{route('add_class.store')}}"
                         enctype="multipart/form-data" >
                         @csrf
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" placeholder="Student Class" name="class_name" id="class_name">
-                                @error('name')
-                            <label class="error" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </label>
-                            @enderror
+                        <div class="col-md-6 last-input-margin">
+                                <div class="form-group">
+                                    <label>Add Session</label>
+                                    <select name="years_id" id="years_id">
+                                        <option value="" selected>Select Session</option>
+                                        @foreach($year as $y)
+                                        <option value="{{$y->id}}">{{$y->years}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Class</label>
+                                    <select name="student_classes_id" id="student_classes_id">
+                                        <option value="" selected>Select Class</option>
+                                        @foreach($tests as $test)
+                                        <option value="{{$test->id}}">{{$test->class_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Fees Structure</label>
-                                <input type="text" placeholder="Fees Structure" name="fees" id="fees">
+                                <input type="text" placeholder="Fees Structure" name="amount" id="amount">
                               
                             </div>
                            

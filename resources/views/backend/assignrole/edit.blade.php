@@ -43,9 +43,9 @@
                             <label> Assign Role</label>
                             <select name="user_type" id="user_type">
                                 <option value="">--Select Role--</option>
-                                        <option>Admin</option>
-                                        <option>Accountant</option>
-                                        <option>Manager</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Accountant">Accountant</option>
+                                        <option value="Manager">Manager</option>
                             </select>
                         </div>
                     </div>

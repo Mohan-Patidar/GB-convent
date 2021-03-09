@@ -51,6 +51,7 @@
                                 <span>Fees Structure</span>
                             </a>
                         </li>
+                        
                         <li>
                             <a href="javascript:void(0)">
                                 <i>
@@ -61,13 +62,10 @@
                                     <img src="{{url('/')}}/assets/image/arrow-down.svg" alt="">
                                 </span>
                             </a>
-                        @php
+                            @php
 
-                        $posts=  App\Models\Gb::get();
-                        $a=date("Y")-1;
-                        $b=date("Y");
-                      $c=$a."-".$b;
-                        @endphp
+                            $posts=  App\Models\Student_classe::get();
+                            @endphp
                             <ul class='sub-menus'>
                             @foreach($posts as $post)
                             <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',$post->id) }}"  >{{$post->class_name}}</a></li>
@@ -75,30 +73,9 @@
   
                         </li>
                     </ul>
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i>
-                                    <img src="{{url('/')}}/assets/image/Session.svg" class="menu-show" alt="">
-                                </i>
-                                <span>Session</span>
-                                <span class="drop-arrow">
-                                    <img src="{{url('/')}}/assets/image/arrow-down.svg" alt="">
-                                </span>
-                            </a>
-                            
-                            <ul class='sub-menus'>
-                                <li @if(request()->segment(2) == '2017-2018') class="active" @endif ><a href="{{ url('session','2017-2018') }}" >2017-2018</a></li>
-                                <li @if(request()->segment(2) == '2018-2019') class="active" @endif><a href="{{ url('session','2018-2019') }}" >2018-2019</a></li>
-                                <li @if(request()->segment(2) == '2019-2020') class="active" @endif><a href="{{ url('session','2019-2020') }}" >2019-2020</a></li>
-                                <li @if(request()->segment(2) == '2020-2021') class="active" @endif><a href="{{ url('session','2020-2021') }}" >2020-2021</a></li>
-                                <li @if(request()->segment(2) == '2021-2022') class="active" @endif><a href="{{ url('session','2021-2022') }}" >2021-2022</a></li>
-                                <li @if(request()->segment(2) == '2022-2023') class="active" @endif><a href="{{ url('session','2022-2023') }}" >2022-2023</a></li>
-                                <li @if(request()->segment(2) == '2023-2024') class="active" @endif><a href="{{ url('session','2023-2024') }}" >2023-2024</a></li>
-                                <li @if(request()->segment(2) == '2024-2025') class="active" @endif><a href="{{ url('session','2024-2025') }}" >2024-2025</a></li>
-                            </ul>
-                        </li>
-                        @if(Auth::check() && Auth::user()->user_type  == "Admin")
-                        <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
+
+                    @if(Auth::check() && Auth::user()->user_type  == "Admin")
+                        <!-- <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
                         
                             <a href="{{ url('/assignrole') }}">
                                 <i>
@@ -106,8 +83,8 @@
                                 </i>
                                 <span>Assign Role</span>
                             </a>
-                        </li>
-                        @endif
+                        </li> -->
+                    @endif
                         <!-- <li @if(request()->segment(1) == 'roles-permissions') class="active" @endif>
                             <a href="{{ url('/roles-permissions') }}">
                                 <i>
@@ -193,33 +170,33 @@
                     }
                 });
         });
-        $('body').on('click', '.student-delete', function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            var id = $(this).data("id");
-            event.preventDefault();
-            swal({
-                    title: `Are you sure you want to delete ${name}?`,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: "{{route('students.store')}}" + '/' + id,
-                            type: "DELETE",
-                            data: {
-                                id: id,
-                                "_token": "{{ csrf_token() }}",
-                            },
-                            success: function(data) {
-                                location.reload();
-                            }
-                        });
-                    }
-                });
-        });
+        // $('body').on('click', '.student-delete', function(event) {
+        //     var form = $(this).closest("form");
+        //     var name = $(this).data("name");
+        //     var id = $(this).data("id");
+        //     event.preventDefault();
+        //     swal({
+        //             title: `Are you sure you want to delete ${name}?`,
+        //             icon: "warning",
+        //             buttons: true,
+        //             dangerMode: true,
+        //         })
+        //         .then((willDelete) => {
+        //             if (willDelete) {
+        //                 $.ajax({
+        //                     url: "{{route('students.store')}}" + '/' + id,
+        //                     type: "DELETE",
+        //                     data: {
+        //                         id: id,
+        //                         "_token": "{{ csrf_token() }}",
+        //                     },
+        //                     success: function(data) {
+        //                         location.reload();
+        //                     }
+        //                 });
+        //             }
+        //         });
+        // });
         $('.role-delete').click(function(event) {
             var form = $(this).closest("form");
             var name = $(this).data("name");

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGbsTable extends Migration
+class CreateRecordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateGbsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gbs', function (Blueprint $table) {
-            $table->id();
+        Schema::create('records', function (Blueprint $table) {
+            $table->increments('id');
+            $table->tinyInteger('students_id')->unsigned();
+            $table->foreign('students_id')->references('id')->on('students');
             $table->string('class_name')->nullable();
+            $table->string('session')->nullable();
+            $table->string('fees')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreateGbsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gbs');
+        Schema::dropIfExists('records');
     }
 }

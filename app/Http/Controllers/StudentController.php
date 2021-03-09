@@ -1,23 +1,32 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Gb;
+
+use App\Models\Year;
+use App\Models\Student_classe;
 use App\Models\Student;
+use App\Models\Record;
+use App\Models\Report;
+
+use App\Models\Student_fee;
 use Illuminate\Http\Request;
 use Session;
 class StudentController extends Controller
 {
     public function index(){
-        $tests = Gb::all();
+        $tests = Student_classe::get();
+        $records = Record::get();
+        $year= Year::get();
         $students = Student::get();
-        return view('admin.student.index',compact("students","tests"));
+        return view('admin.student.index',compact("students","tests","records","year"));
     }
 
     public function create()
     {
-       
-        $tests = Gb::all();
-        return view('admin.student.create',compact("tests"));
+        $tests = Student_classe::all();
+        $year= Year::all();
+        
+        return view('admin.student.create',compact("tests","year"));
     }
 
     public function store(Request $request){
@@ -36,12 +45,13 @@ class StudentController extends Controller
         $students->aadhar_no=$request->aadhar_no;
         $students->samarg_id=$request->samarg_id;
         $students->dob=$request->dob;
-        $students->gbs_id=$request->gbs_id;
+      
         $students->mobile_no=$request->mobile_no;
         $students->mobile_no2=$request->mobile_no2;
-        $students->add_session=$request->add_session;
+       
         $students->account_no=$request->account_no;
-        
+      
+
         if ($request->hasFile('profile_picture')) {
            
                 $profile = $request->file('profile_picture');
@@ -53,26 +63,45 @@ class StudentController extends Controller
             else{
                 $students->profile_picture="";
                 }
-        
-
         $students->save();
+        $records = new Record;
+        $records->students_id = $students->id;
+        $records->class_name = $request->class_name;
+        $records->session = $request->session;
+        $records->save();
         Session::flash('message', 'Student added successfuly!');
        
         return redirect('students');
 
     }
-    public function show($id)
+    public function show(Request $request ,$id)
     {
-    
-        $students =Student::where("id", "=", $id)->first();
-        var_dump($students);
+        $records = Record::where("students_id", "=", $id)->first();
+        
+            $year= Year::where("id", "=",$records->session)->first();
+            $session=$year->years;
+            $session_id=$year->id;
+            $classes = Student_classe::where("id", "=",$records->class_name)->first();
+            $class=$classes->class_name;
+            $tests = Student_fee::where("student_classes_id", "=",$records->class_name)->first();
+            $amount=$tests->amount;
+
+            $sum = Report::where("records_id", "=",$records->id)->sum('fees');
+            
+            $r =$amount - $sum;
+       
+        $students = Student::where("id", "=", $id)->first();
+        $record_id=$records->id;
+        return view('admin.report.index',compact("students","amount","class","session","record_id","session_id","r")); 
     
     }
     public function edit($student){
-        $tests = Gb::all();
+        $tests = Student_classe::all();
+        $year= Year::all();
+        $records = Record::where("students_id", "=", $student)->first();
         $students = Student::where("id", "=", $student)->first();
     
-        return view('admin.student.edit',compact("students","tests"));        
+        return view('admin.student.edit',compact("students","tests","year","records"));        
     }
 
     public function update(Request $request ,$id){
@@ -90,10 +119,10 @@ class StudentController extends Controller
         $students->aadhar_no=$request->aadhar_no;
         $students->samarg_id=$request->samarg_id;
         $students->dob=$request->dob;
-        $students->gbs_id=$request->gbs_id;
+       
         $students->mobile_no=$request->mobile_no;
         $students->mobile_no2=$request->mobile_no2;
-        $students->add_session=$request->add_session;
+       
         $students->account_no=$request->account_no;
         if ($request->hasFile('profile_picture')) {
            
@@ -108,19 +137,32 @@ class StudentController extends Controller
             $profile =  $students->profile_picture;
             $students->profile_picture = $profile;
             }
-        
+           
         $students->update(); 
+
+        $record_id = explode(',',$request->class_name)[1];
+        $class = explode(',',$request->class_name)[0];
+       
+        $records = Record::where("id", "=", $record_id)->first();
+        $records->students_id = $students->id;
+        $records->session = $request->session;
+        $records->class_name = $class;
+        $records->update(); 
         Session::flash('message', 'data updated successfuly!');
         return redirect('students');
 
     
     }
-    public function destroy(request $request){
-        $id = $request->all();
-        Student::destroy($id);
+    public function destroy(Request $request ,$student){
+        $id=$request->record_id;
+        Student::destroy($student);
+        Record::destroy($id);
+        return redirect('students');
         // Session::flash('message', ' data delete successfuly!');
        
 
     }
+
+    
 
 }

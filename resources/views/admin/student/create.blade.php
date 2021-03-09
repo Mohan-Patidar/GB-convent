@@ -89,7 +89,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Class</label>
-                                    <select name="gbs_id" id="gbs_id">
+                                    <select name="class_name" id="class_name">
                                         <option value="" selected>Select Class</option>
                                         @foreach($tests as $test)
                                         <option value="{{$test->id}}">{{$test->class_name}}</option>
@@ -112,15 +112,11 @@
                             <div class="col-md-6 last-input-margin">
                                 <div class="form-group">
                                     <label>Add Session</label>
-                                    <select name="add_session">
+                                    <select name="session" id="session">
                                         <option value="" selected>Select Session</option>
-                                        <option>2018-2019</option>
-                                        <option>2019-2020</option>
-                                        <option>2020-2021</option>
-                                        <option>2021-2022</option>
-                                        <option>2022-2023</option>
-                                        <option>2023-2024</option>
-                                        <option>2024-2025</option>
+                                        @foreach($year as $y)
+                                        <option value="{{$y->id}}">{{$y->years}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

@@ -24,12 +24,12 @@ $(document).ready(function() {
     });
 
     // 
-    var nav = $('.side-menu > li');
+    var nav = $('.side-menu > li, .cus-menu > li');
     nav.find('ul').hide();
     nav.click(function() {
         nav.not(this).find('ul').hide();
         $(this).find('ul').slideToggle();
-        $('.side-menu > li').removeClass('active');
+        $('.side-menu > li, .cus-menu > li').removeClass('active');
         $(this).addClass('active');
         var a =new Date().getFullYear();
         var b = a-1;

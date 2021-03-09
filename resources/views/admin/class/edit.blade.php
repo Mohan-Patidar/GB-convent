@@ -32,20 +32,37 @@
                                 enctype="multipart/form-data" >
                                 <input type="hidden" name="_method" value="PUT">
                         @csrf
-                            <div class="form-group">
-                            <input type="hidden" name="id" value="{{$tests->id}}" />
-                                <label>Name</label>
-                                <input type="text" placeholder="Student Class" name="class_name" id="class_name"
-                                class="form-control"  value="{{ $tests->class_name}}">
-                                @error('name')
-                            <label class="error" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </label>
-                            @enderror
+                        <div class="col-md-6 last-input-margin">
+                                <div class="form-group">
+                                    <label>Add Session</label>
+                                    <select name="years_id" id="years_id">
+                                        <option value="" selected>Select Session</option>
+                                        @foreach($year as $y)
+                                        <option value="{{$y->id}}" 
+                                        <?php
+                                    if($y->id == $tests->years_id){ 
+                                    echo 'selected="selected"'; }?> >{{$y->years}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Class</label>
+                                    <select name="student_classes_id" id="student_classes_id">
+                                        <option value="" selected>Select Class</option>
+                                        @foreach($class as $c)
+                                        <option value="{{$c->id}}"
+                                        <?php
+                                    if($c->id == $tests->student_classes_id){ 
+                                    echo 'selected="selected"'; }?>>{{$c->class_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Fees Structure</label>
-                                <input type="text" placeholder="Fees Structure" name="fees" id="fees" class="form-control"  value="{{ $tests->fees}}">
+                                <input type="text" placeholder="Fees Structure" name="amount" id="amount" class="form-control"  value="{{ $tests->amount}}">
                               
                             </div>
                            

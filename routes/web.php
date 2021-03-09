@@ -23,7 +23,9 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
    
     Route::resource('/add_class','App\Http\Controllers\ClassController');
     Route::resource('/students','App\Http\Controllers\StudentController');
-    Route::get('/getdata', '\App\Http\Controllers\AjaxController@getdata')->name('getdata');
+    Route::resource('/reports','App\Http\Controllers\ReportController');
+    
+    // Route::get('/getdata', '\App\Http\Controllers\AjaxController@getdata')->name('getdata');
 
     Route::get('export', 'App\Http\Controllers\MyController@export')->name('export');
  
@@ -31,6 +33,7 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     
     Route::get('classes/{id}', 'App\Http\Controllers\SidebarController@classData')->name('classData');
     Route::get('session/{id}', 'App\Http\Controllers\SidebarController@sessionData')->name('sessionData');
+    
     Route::resource('assignrole', 'App\Http\Controllers\RoleAssign');
 });
 // Route::group(['middleware' => ['auth','role:Admin']], function () 
