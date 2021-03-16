@@ -165,10 +165,12 @@ class StudentController extends Controller
     }
     public function destroy(Request $request)
     {
-       //
+        
+        // 
+
 
     }
-    public function delete(Request $request)
+     public function delete(Request $request)
     {
         // $id = $request->record_id;
         // Student::destroy($student);

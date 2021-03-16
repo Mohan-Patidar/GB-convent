@@ -16,6 +16,7 @@
                 <div class="page-title">
                     <span>student </span>
                 </div>
+                
                 <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
 
                     @csrf
@@ -29,7 +30,6 @@
                 </form>
                 <div class="page-btn">
                     <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
-                    
                 </div>
             </div>
             <div class="tabel-head">
@@ -44,14 +44,13 @@
                     <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$current_year]) }}">{{$post->class_name}}</a></li>
                             @endforeach
                     </ul>
-                    <input onchange="filterme()" type="checkbox" name="type" value="MX|A|CNAME">All
+                   
                 </div>
             </div>
             <div class="page-table" id="dvData">
-                <table id="" class="table table-bordered table-striped" style="width:100%;">
+                <table id="student-table" class="table table-bordered table-striped" style="width:100%;">
                     <thead>
                         <tr>
-                       
                             <th>S.No.</th>
                             <th>Actions</th>
                             <th>Student Id</th>
@@ -79,7 +78,7 @@
                         @foreach($students as $student)
                         @if(($r->students_id==$student->id) &&($r->session==$y_id))
                         <tr>
-                       
+
                             <td>@php echo ++$i @endphp</td>
                             <td>
                                 <div class="d-flex">
@@ -97,19 +96,6 @@
                                         <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
                                     </button>
                                     @endif
-                                    <!-- <form action="{{route('students.destroy', ['student' => $student->id])}}" method="post">
-
-
-                                        <input type="hidden" name="record_id" value="{{$r->id}}" />
-
-
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <button type="submit" class="delete-btn student-delete">
-                                            <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
-                                        </button>
-                                    </form> -->
-                                    
 
                                 </div>
                             </td>

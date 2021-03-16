@@ -31,6 +31,14 @@
                 <label>Father's Name:</label>
                 {{$students->father_name}}
             </div>
+             <div>
+                <label>Mother's Name:</label>
+                {{$students->mother_name}}
+            </div>
+             <div>
+                <label>Contact No.:</label>
+                {{$students->mobile_no}}
+            </div>
             <div>
                 <label>Address</label>
                 {{$students->address}}

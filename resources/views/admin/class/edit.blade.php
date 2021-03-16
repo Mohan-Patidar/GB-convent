@@ -14,7 +14,7 @@
             <div class="page-color">
                 <div class="page-header">
                     <div class="page-title">
-                        Edit Student <span>class</span>
+                        Edit <span>fees</span>
                     </div>
                     <div class="page-btn">
                         <a href="{{url('/add_class')}}" class="add-btn">
@@ -60,14 +60,15 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-6">
                             <div class="form-group">
-                                <label>Fees Structure</label>
-                                <input type="text" placeholder="Fees Structure" name="amount" id="amount" class="form-control"  value="{{ $tests->amount}}">
-                              
+                                <label>Fees</label>
+                                <input type="text" placeholder="Fees" name="amount" id="amount" class="form-control"  value="{{ $tests->amount}}">
+                                </div>
                             </div>
                            
                             <div class="btn btn-box">
-                                <button type="submit" class="cstm-btn margin-top-15">update Class</button>
+                                <button type="submit" class="cstm-btn margin-top-15">update Fees</button>
                             </div>
                         </form>
                     </div>

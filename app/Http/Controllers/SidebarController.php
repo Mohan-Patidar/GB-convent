@@ -61,7 +61,4 @@ class SidebarController extends Controller
 
         return view('admin.sidebar.years',compact("b","tests","class","year"));
     }
-
-
-    
 }

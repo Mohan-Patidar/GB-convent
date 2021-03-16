@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 use App\Models\Student_fee;
 use App\Models\Year;
 use App\Models\Student_classe;
-use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Record;
+use Illuminate\Http\Request;
+
 use Session;
 class ClassController extends Controller
 {
     public function index(){
-        $years=Year::get();
+        $years=Year::where("status","=",1)->get();
         if($years->isEmpty()){
-            Session::flash('message', 'First add session to database  !!');
+            Session::flash('message', 'First add session and make it current to database  !!');
             return redirect('years');
         }
         $year = Year::where("status","=",1)->get();
@@ -96,7 +97,7 @@ class ClassController extends Controller
      return view('admin.class.view',compact("tests","year","class"));
 
     }
-    public function PromoteData(Request $request){
+     public function PromoteData(Request $request){
 
         $years = Year::where("status","=",1)->get();
         foreach($years as $y){
@@ -124,8 +125,8 @@ class ClassController extends Controller
         $record->session=$year;
         $record->save();
        
-       }
+       } return redirect('students');
       
-       return redirect('students');
+      
  }
 }

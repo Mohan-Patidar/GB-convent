@@ -25,7 +25,7 @@
                         <ul class="cus-menu">
 
                             @php
-                            $posts= App\Models\Year::get();
+                            $posts= App\Models\Year::orderBy('id','DESC')->get();
                             @endphp
                             @foreach($posts as $post)
                             <li class="active"><a href="{{ url('fees',$post->id) }}">{{$post->years}}</a></li>

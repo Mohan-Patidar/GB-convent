@@ -14,17 +14,9 @@
             <div class="page-color">
                 <div class="page-header">
                     <div class="page-title">
-                        Add  <span>session</span>
+                        Add <span>session</span>
                     </div>
-                    <div class="page-btn">
-                        <a href="" class="add-btn">
-                            <span>
-                                    <img src="{{url('/')}}/assets/image/Icon-arrow-back.svg" class="btn-arrow-show" alt="">
-                                    <img src="{{url('/')}}/assets/image/Icon-arrow-back-2.svg" class="btn-arrow-hide" alt="">
-                                </span>
-                            <span>Back</span>
-                        </a>
-                    </div>
+                   
                 </div>
                 <div class="profile-box">
                     <div class="short-code">
@@ -40,15 +32,6 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                                    <!-- <select name="years" id="years">
-                                        <option value="" selected>Select Session</option>
-                                        <option value="2018-2019">2018-2019</option>
-                                        <option value="2019-2020">2019-2020</option>
-                                        <option value="2020-2021">2020-2021</option>
-                                        <option value="2021-2022">2021-2022</option>
-                                        <option value="2022-2023">2022-2023</option>
-                                        <option value="2023-2024">2023-2024</option>
-                                    </select> -->
                                     <label>Make this session as current</label>
                                     <input type="checkbox" name="session[]" value="1">
                                  
