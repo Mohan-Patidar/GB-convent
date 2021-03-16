@@ -40,11 +40,9 @@
                             
                             <td>
                                 <div class="d-flex">
-                                    <button class="edit-btn">
-                                        <a class="" href="{{ route('assignrole.edit',$user->id) }}">
-                                            <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
-                                    </button>
-                                    
+                                        <a class="edit-btn" href="{{ route('assignrole.edit',$user->id) }}">
+                                            <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt="">
+                                        </a>
                                     @if(Auth::check() && Auth::user()->user_type  == "Admin")
                                         <button type="submit" class="delete-btn role-delete" data-id="{{$user->id}}" data-name="{{ $user->name }}" > 
                                             <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">

@@ -87,10 +87,9 @@
                     <td>{{ $permission->name }}</td>
                     <td>
                         <div class="d-flex">
-                            <button class="edit-btn">
-                                <a class="" href="{{ route('permission.edit',$permission->id) }}">
-                                    <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
-                            </button>
+                                <a class="edit-btn" href="{{ route('permission.edit',$permission->id) }}">
+                                    <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt="">
+                                </a>
                         </div>
                     </td>
                 </tr>

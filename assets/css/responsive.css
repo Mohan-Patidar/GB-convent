@@ -158,6 +158,10 @@
 }
 
 @media (max-width: 767px) {
+    .tabel-head .cus-menu li a {
+        padding: 3px 15px;
+        font-size: 12px;
+    }
     .main-wrapper,
     .page-color {
         padding: 30px 20px;
@@ -189,6 +193,27 @@
     .profile-box {
         margin-top: 25px;
     }
+    .dataTables_paginate {
+        justify-content: center;
+    }
+    .paginate_button.next,
+    .paginate_button.previous {
+        width: 35px;
+        height: 35px;
+    }
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        min-width: 35px !important;
+        min-height: 35px;
+        line-height: 33px;
+        max-height: 35px;
+        max-width: 35px;
+        padding: 0 !important;
+    }
+    .btn {
+        padding: 8px 15px !important;
+        font-size: 13px;
+        line-height: 1.3;
+    }
 }
 
 @media (max-width: 424px) {
@@ -208,6 +233,11 @@
     .page-title {
         font-size: 16px;
         margin: 0;
+    }
+    .page-header .page-title {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
     }
     .add-btn {
         padding: 8px 15px;

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <link rel="stylesheet" href="{{url('/')}}/assets/css/data-table.css">
     <link rel="stylesheet" href="{{url('/')}}/assets/css/dataTables.checkboxes.css">
 </head>
-
 <body>
     <!-- dashboard starts here -->
     <main>
@@ -52,8 +50,7 @@
                                 <span>Add Session</span>
                             </a>
                         </li>
-                       
-                        <li >
+                        <li>
                             <a href="javascript:void(0)">
                                 <i>
                                     <img src="{{url('/')}}/assets/image/blackboard.svg" class="menu-show" alt="">
@@ -66,17 +63,14 @@
                             @php
                             $posts= App\Models\Year::orderBy('id', 'DESC')->get();
                             @endphp
-
                             <ul class='sub-menus'>
-                            @foreach($posts as $post)
-                            <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('year',$post->id) }}"  >{{$post->years}}</a></li>
-                            @endforeach
-  
+                                @foreach($posts as $post)
+                                <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('year',$post->id) }}">{{$post->years}}</a></li>
+                                @endforeach
                         </li>
                     </ul>
-
-                    @if(Auth::check() && Auth::user()->user_type  == "Admin")
-                        <!-- <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
+                    @if(Auth::check() && Auth::user()->user_type == "Admin")
+                    <!-- <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
                         
                             <a href="{{ url('/assignrole') }}">
                                 <i>
@@ -94,17 +88,15 @@
                                 <span>Roles & Permission</span>
                             </a>
                         </li> -->
-                        <li @if(request()->segment(1) == 'add_class') class="active" @endif>
-                            <a href="{{ url('/add_class') }}">
-                                <i>
-                                    <img src="{{url('/')}}/assets/image/money.svg" class="menu-show" alt="">
-                                </i>
-                                <span>Fees Structure</span>
-                            </a>
-                        </li>
-                        
-                        <li>
-
+                    <li @if(request()->segment(1) == 'add_class') class="active" @endif>
+                        <a href="{{ url('/add_class') }}">
+                            <i>
+                                <img src="{{url('/')}}/assets/image/money.svg" class="menu-show" alt="">
+                            </i>
+                            <span>Fees Structure</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ url('/logout') }}">
                                 <i>
                                     <img src="{{url('/')}}/assets/image/logout-1.svg" class="menu-show" alt="">
@@ -113,11 +105,9 @@
                          </a>
                         </li>
                     </ul>
-                   
                 </div>
             </div>
         </aside>
-
         @yield('content')
     </main>
     <!-- dashboard ends here -->
@@ -125,18 +115,14 @@
     <!-- data table js -->
     <script src="{{url('/')}}/assets/js/jquery-3.5.1.min.js"></script>
     <script src="{{url('/')}}/assets/js/bootstrap.min.js"></script>
-     <script src="{{url('/')}}/assets/js/datatables1.min.js"></script>
+    <script src="{{url('/')}}/assets/js/datatables1.min.js"></script>
     <script src="{{url('/')}}/assets/js/dataTables.checkboxes.min.js"></script>
-    <!--<script src="{{url('/')}}/assets/js/dataTables.min.js"></script>-->
     <script src="{{url('/')}}/assets/js/dataTables.buttons.min.js"></script>
     <script src="{{url('/')}}/assets/js/buttons.html5.min.js"></script>
     <script src="{{url('/')}}/assets/js/sweetalert.min.js"></script>
     <script src="{{url('/')}}/assets/js/validate.js"></script>
     <!-- custom js -->
     <script src="{{url('/')}}/assets/js/custom.js"></script>
-
-
-   
     <script>
         $('.delete-confirm').click(function(event) {
             var form = $(this).closest("form");
@@ -222,7 +208,6 @@
                     }
                 });
         });
-
     </script>
     <script>
         $('.import').click(function() {
@@ -237,22 +222,22 @@
             $('.buttons-csv').click();
         });
     </script>
-     <script>
-    $(".passingID").click(function () {
-    var ids = $(this).attr('data-id');
-    var record_id = $(this).attr('record-id');
-    var d = $(this).attr('d');
-    var r = $(this).attr('r');
-    var fee = $(this).attr('fee');
-    var dat = $(this).attr('dat');
-    $("#idkl").val(record_id );
-    $('#main_id').val(ids);
-    $('#description').val(d);
-    $('#receipt').val(r);
-    $('#fee').val(fee);
-    $('#date').val(dat);
-    $('#myeditModal').modal('show');
-});
+    <script>
+        $(".passingID").click(function() {
+            var ids = $(this).attr('data-id');
+            var record_id = $(this).attr('record-id');
+            var d = $(this).attr('d');
+            var r = $(this).attr('r');
+            var fee = $(this).attr('fee');
+            var dat = $(this).attr('dat');
+            $("#idkl").val(record_id);
+            $('#main_id').val(ids);
+            $('#description').val(d);
+            $('#receipt').val(r);
+            $('#fee').val(fee);
+            $('#date').val(dat);
+            $('#myeditModal').modal('show');
+        });
     </script>
 </body>
 

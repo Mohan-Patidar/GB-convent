@@ -62,28 +62,19 @@
                             <th>Session</th>
                         </tr>
                     </thead>
-                    <tbody id="result">
-                        
-                    
+                    <tbody id="result">                                      
                         @php $i = 0; @endphp
                         @foreach($tests as $t)
-                        @foreach($b as $student)
-                    
+                        @foreach($b as $student)                   
                         @if(($t->students_id==$student->id))
-                   
                         <tr>
-
                             <td>@php echo ++$i @endphp</td>
                             <td>
                                 <div class="d-flex">
-                                    <button class="edit-btn">
-                                        <a class="" href="{{route('students.edit',$student->id)}}">
+                                        <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
                                             <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
-                                    </button>
-                                    <button class="edit-btn">
-                                        <a class="" href="{{route('students.show',$student->id)}}">
+                                        <a class="edit-btn" href="{{route('students.show',$student->id)}}">
                                             <img src="{{url('/')}}/assets/image/view.svg" width="16px" alt=""></a>
-                                    </button>
                                     @if(Auth::check() && Auth::user()->user_type  == "Admin")
                                     <form action="{{route('students.destroy', ['student' => $student->id])}}" method="post">
                                         <input type="hidden" name="_method" value="DELETE">

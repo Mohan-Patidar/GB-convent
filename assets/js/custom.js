@@ -1,61 +1,34 @@
 // data table js start
-$(document).ready(function () {
+$(document).ready(function() {
     var table = $('#class-table').DataTable({
         "scrollX": true,
-        'columnDefs': [
-            {
-                'targets': 0,
-                'checkboxes': {
-                    'selectRow': true
-                }
+        'columnDefs': [{
+            'targets': 0,
+            'checkboxes': {
+                'selectRow': true
             }
-        ],
+        }],
         'select': {
-            'style': 'multi'
+            style: 'multi',
+            selector: 'td:first-child'
         },
-        'order': [[1, 'asc']]
+        'order': [
+            [1, 'asc']
+        ]
     });
 
     // Handle form submission event 
-    $('#frm-example').on('submit', function (e) {
-
-
+    $('#frm-example').on('submit', function(e) {
         var form = this;
-
         var rows_selected = table.column(0).checkboxes.selected();
-       
-       
-       
-       
-    
-        $b=[];
-      
+        $b = [];
 
         // Iterate over all selected checkboxes
-        $.each(rows_selected, function (index, rowId) {
-           
-          $b.push(rowId); 
-            
+        $.each(rows_selected, function(index, rowId) {
+            $b.push(rowId);
         });
-        var row=JSON.stringify($b);
+        var row = JSON.stringify($b);
         $('#promote').val(row);
-        // $.ajax({
-        //     url: location.origin +'/school_manage/promote',
-        //     type: "get",
-        //     data: {
-        //        'data': row,
-        //     },
-        //     success: function (data) {
-        //          console.log(data);
-        //         // location.reload();
-        //     }
-        // });
-        // FOR DEMONSTRATION ONLY
-        // The code below is not needed in production
-
-        // Output form data to a console     
-        // var a = $('#example-console-rows').text(rows_selected.join(","));
-
         e.preventDefault();
     });
 });
