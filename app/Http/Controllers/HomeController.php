@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Year;
 use Illuminate\Http\Request;
-
+use Session;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +23,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect('students');
+        $years=Year::get();
+        if($years->isEmpty()){
+            Session::flash('message', 'First add session to database  !!');
+            return redirect('years');
+        }
+        else{
+            return redirect('students');
+        }
+       
+        
     }
 }

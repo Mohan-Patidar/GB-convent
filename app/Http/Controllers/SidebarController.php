@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 class SidebarController extends Controller
 {
   
-    public function classData($id){
+    public function classData($classes,$session){
         $year= Year::get();
         $class = Student_classe::get();
-        $tests = Record::where("class_name","=", $id)->get();
+        $tests = Record::where("session","=",$session)->where("class_name","=",$classes)->get();
         $b=array();
       
         foreach($tests as $t){
@@ -26,15 +26,15 @@ class SidebarController extends Controller
            }
            }
         
-           
-      
-        return view('admin.sidebar.views',compact("b","tests","class","year"));
+       
+        return view('admin.sidebar.session',compact("b","tests","class","year"));
+       
     }
 
-    public function sessionData($id){
+    public function sessionData($class,$year){
         $year= Year::get();
         $class = Student_classe::get();
-        $tests =Record::where("session","=", $id)->get();
+        $tests =Record::where("session","=",$year)->where("class_name","=",$class)->get();
         $b=array();
         foreach($tests as $t){
             $a=$t->students_id;
@@ -44,6 +44,24 @@ class SidebarController extends Controller
                }
         }
 
-        return view('admin.sidebar.session',compact("b","tests","class","year"));
+        return view('admin.sidebar.views',compact("b","tests","class","year"));
     }
+    public function YearData(Request $request,$id){
+        $year= Year::get();
+        $class = Student_classe::get();
+        $tests =Record::where("session","=",$id)->get();
+        $b=array();
+        foreach($tests as $t){
+            $a=$t->students_id;
+            $students = Student::where("id","=", $a)->get();
+            foreach($students as $s){
+                array_push($b,$s);
+               }
+        }
+
+        return view('admin.sidebar.years',compact("b","tests","class","year"));
+    }
+
+
+    
 }

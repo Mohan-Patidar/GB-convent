@@ -24,16 +24,20 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     Route::resource('/add_class','App\Http\Controllers\ClassController');
     Route::resource('/students','App\Http\Controllers\StudentController');
     Route::resource('/reports','App\Http\Controllers\ReportController');
-    
-    // Route::get('/getdata', '\App\Http\Controllers\AjaxController@getdata')->name('getdata');
+    Route::resource('/years','App\Http\Controllers\YearController');
 
+    Route::post('report', 'App\Http\Controllers\ReportController@update')->name('update');
+    Route::delete('/delete', 'App\Http\Controllers\StudentController@delete')->name('delete');
     Route::get('export', 'App\Http\Controllers\MyController@export')->name('export');
- 
     Route::post('import', 'App\Http\Controllers\MyController@import')->name('import');
     
-    Route::get('classes/{id}', 'App\Http\Controllers\SidebarController@classData')->name('classData');
-    Route::get('session/{id}', 'App\Http\Controllers\SidebarController@sessionData')->name('sessionData');
-    
+    Route::get('classes/{id}/{yid}', 'App\Http\Controllers\SidebarController@classData')->name('classData');
+    // Route::get('session/{id}/{cid}', 'App\Http\Controllers\SidebarController@sessionData')->name('sessionData');
+    Route::get('year/{id}', 'App\Http\Controllers\SidebarController@YearData')->name('YearData');
+    Route::get('fees/{id}', 'App\Http\Controllers\ClassController@FeesData')->name('FeesData');
+    Route::post('promote', 'App\Http\Controllers\ClassController@PromoteData')->name('PromoteData');
+    Route::get('dashboard', 'App\Http\Controllers\DashboardController@index')->name('index');
+    Route::get('remove/{id}', 'App\Http\Controllers\YearController@RemoveCurrent')->name('RemoveCurrent');
     Route::resource('assignrole', 'App\Http\Controllers\RoleAssign');
 });
 // Route::group(['middleware' => ['auth','role:Admin']], function () 

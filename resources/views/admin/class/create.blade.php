@@ -35,9 +35,11 @@
                                 <div class="form-group">
                                     <label>Add Session</label>
                                     <select name="years_id" id="years_id">
-                                        <option value="" selected>Select Session</option>
+                                       
                                         @foreach($year as $y)
-                                        <option value="{{$y->id}}">{{$y->years}}</option>
+                                        <!-- @if($y->status==1) -->
+                                        <option value="{{$y->id}}" selected>{{$y->years}}</option>
+                                        <!-- @endif -->
                                         @endforeach
                                     </select>
                                 </div>

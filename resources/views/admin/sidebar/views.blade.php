@@ -3,7 +3,6 @@
 @section('content')
 
 
-
 <div class="page-inner ad-inr">
     @if(Session::has('message'))
     <div class="save-alert alert alert-success alert-dismissible fade in" role="alert">
@@ -13,61 +12,33 @@
     @endif
     <section class="main-wrapper">
 
-        <div class="page-color">
-            <div class="page-header">
-                <div class="page-title">
-                    <span>student </span>
-                </div>
+<div class="page-color">
+    <div class="page-header">
+        <div class="page-title">
+            <span>student </span>
+        </div>
 
-                <div class="page-btn">
-                    <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
-                </div>
-            </div>
-            <div class="tabel-head">
-                <div class="form-group" >
-                <ul class="cus-menu">
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i>
-                                    <img src="{{url('/')}}/assets/image/Session.svg" class="menu-show" alt="">
-                                </i>
-                                <span>Session</span>
-                                <span class="drop-arrow">
-                                    <img src="{{url('/')}}/assets/image/arrow-down.svg" alt="">
-                                </span>
-                            </a>
-                            @php
-                            $posts= App\Models\Year::get();
-                            @endphp
-
-                            <ul class='cus-sub-menus'>
-                            @foreach($posts as $post)
-                            <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('session',$post->id) }}"  >{{$post->years}}</a></li>
-                            @endforeach
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- <select name="gbs_id" id="gbs_id">
-                        <option value="0">Select Class</option>
-                        @foreach($tests as $test)
-                        <option value="{{$test->id}}">{{$test->class_name}}</option>
-                        @endforeach
-                    </select> -->
-                </div>
-                <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form" style="display: none;">
-
-                    @csrf
-
-                    <input type="file" name="file" id="file" class="my-profile-choose-file">
-
-                    <br>
-                    <input type="submit" id="submit" style="display: none;">
-                    <button  type="button" class="btn btn-success import">Import Student Data</button>
-                    <!--<a class="btn btn-warning" href="{{ route('export') }}">Export Student Data</a>-->
-                   
-                </form>
-                <a  href="#" class="btn btn-warning" id="export" role='button'>Export Student Data</a>
-            </div>
+            <a  href="#" class="btn btn-warning" id="export" role='button'>Export</a>
+     
+        <div class="page-btn">
+            <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
+        </div>
+    </div>
+    <div class="tabel-head">
+            <h5 class="page-title"><span>Classes </span></h5>
+        <div class="form-group">
+            <ul class="cus-menu">
+            @php
+            $posts= App\Models\Student_classe::get();
+            $y_id=request()->segment(3);
+            @endphp
+            @foreach($posts as $post)
+            <li   ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$y_id]) }}">{{$post->class_name}}</a></li>
+                    @endforeach
+            </ul>
+           
+        </div>
+    </div>
             <div class="page-table" id="dvData">
                 <table id="student-table" class="table table-bordered table-striped" style="width:100%;">
                     <thead>

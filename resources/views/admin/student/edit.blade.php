@@ -120,17 +120,17 @@
                             <div class="col-md-6 last-input-margin">
                                 <div class="form-group">
                                     <label>Add Session</label>
-                                    <select name="session" id="session">
-                                        <option value="" selected>Select Session</option>
+                                    <select name="session" id="session" disabled>
                                       
                                         @foreach($year as $y)
-                                       
-                                        <option value="{{$y->id}}" 
-                                        <?php
-                                    if( $records->session == $y->id){ 
-                                    echo 'selected="selected"'; }?>>{{$y->years}}</option>
-                                     @endforeach
+                                        @if($y->status==1) 
+                                        @php $val = $y->id; @endphp
+                                        <option  value="{{$y->id}}" selected>{{$y->years }}
+                                         </option>
+                                         @endif
+                                        @endforeach
                                     </select>
+                                    <input type="hidden" name="session" value="{{$val}}">
                                 </div>
                             </div>
                             <div class="col-6 last-input-margin">

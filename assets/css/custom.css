@@ -307,7 +307,7 @@ table.dataTable thead .th-max-width {
 } */
 
 .edit-btn,
-.delete-btn {
+.delete-btn, .view-btn {
     width: 35px;
     height: 35px;
     border: none;
@@ -320,13 +320,17 @@ table.dataTable thead .th-max-width {
     background-color: #71b90066;
     margin-right: 10px;
 }
+.view-btn {
+    background:rgb(255 194 5 / 40%);
+     margin-right: 10px;
+}
 
 .delete-btn {
     background-color: #e8534399;
 }
 
 .edit-btn:hover,
-.delete-btn:hover {
+.delete-btn:hover, .view-btn:hover {
     opacity: 70%;
 }
 
@@ -406,6 +410,24 @@ form textarea {
 
 /* short code css end */
 
+.student-dtl {
+    padding: 40px;
+    max-width: 550px;
+    margin: 40px auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+.student-dtl-field {
+    display: flex;
+    margin-bottom: 10px;
+}
+.student-dtl-field label {
+    min-width: 150px;
+    font-weight: 500;
+}
+.student-dtl-field p {
+    margin:0;
+}
 
 /* Login page css start */
 
@@ -483,17 +505,35 @@ form textarea {
     display: none;
 }
 
-
+.modal-backdrop {
+    background-color: rgb(0 0 0 / 50%) !important;
+}
 /* Login page css end */
 
 .tabel-head {
     display: inline-flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     width: 100%;
     flex-wrap: wrap;
     margin: 20px 0;
-}
+    align-items:center;
+}   
 
+.tabel-head .cus-menu {
+    display: flex;
+}
+.tabel-head .cus-menu li a {
+      border: 1px solid #4b5687;
+    margin: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    background: rgb(75 86 135 / 70%);
+    color: #fff;
+}
+.tabel-head .form-group {
+    margin-bottom: 0;
+}
 .add-student-form .add-btn {
     max-width: 200px;
 }

@@ -31,20 +31,19 @@
             <ul class="cus-menu">
             @php
             $posts= App\Models\Student_classe::get();
-            $y_id=request()->segment(3);
+            $y_id=request()->segment(2);
             @endphp
             @foreach($posts as $post)
-            <li   ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$y_id]) }}">{{$post->class_name}}</a></li>
+            <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$y_id]) }}"  >{{$post->class_name}}</a></li>
                     @endforeach
             </ul>
            
         </div>
     </div>
-    <form id="frm-example" action="javascript:void(0)" method="get">
             <div class="page-table" id="dvData">
-                <table id="class-table" class="table-bordered table-striped" style="width:100%;">
+                <table id="student-table" class="table table-bordered table-striped" style="width:100%;">
                     <thead>
-                        <tr><th></th>
+                        <tr>
                             <th>S.No.</th>
                             <th>Actions</th>
                             <th>Student Id</th>
@@ -72,7 +71,7 @@
                         @if($t->students_id==$student->id)
                    
                         <tr>
-                            <td>{{$student->id}}</td>
+
                             <td>@php echo ++$i @endphp</td>
                             <td>
                                 <div class="d-flex">
@@ -121,58 +120,7 @@
                     </tbody>
                 </table>
             </div>
-            <p><button type="submit" data-toggle="modal" data-target="#promoteModal">Promote</button></p>
-            <div class="container">
-
-                <!-- Button to Open the Modal -->
-                <!-- <button type="button" class="add-btn" data-toggle="modal" data-target="#promoteModal">
-                   Promote
-                </button> -->
-
-                <!-- The Modal -->
-                <div class="modal" id="promoteModal">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">Student Promote</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <form action="{{ url('promote') }}" method="post">
-
-                                    @csrf
-                            <input type="hidden" name="students_id" id="promote" value="">
-                                   
-                                    <label>Session </label>
-                                    <select  name="year" id="year">
-                                    @foreach($year as $y)
-                                        <option value="{{$y->id}}">{{$y->years}}</option>
-                                    @endforeach
-                                    </select>
-                                    <label>Class</label>
-                                    <select  name="class" id="class">
-                                    @foreach($class as $c)
-                                   
-                                        <option value="{{$c->id}}">{{$c->class_name}}</option>
-                                   
-                                    @endforeach
-                                    </select>
-                                    <input type="submit"  value="Add">
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-    </form>
-
-
+        </div>
     </section>
     @endsection
     @section('additionalscripts')>

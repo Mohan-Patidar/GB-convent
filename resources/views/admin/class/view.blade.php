@@ -18,22 +18,22 @@
                 <div class="page-btn">
                     <a href="{{route('add_class.create')}}" class="add-btn">Add Fees Structure</a>
                 </div>
-                </div>
                 <div class="tabel-head">
                     <h5 class="page-title"><span>Session </span></h5>
                     <div class="form-group">
                         <ul class="cus-menu">
 
                             @php
-                            $posts= App\Models\Year::get();
+                            $posts= App\Models\Year::orderBy('id', 'DESC')->get();
                             @endphp
                             @foreach($posts as $post)
                             <li class="active"><a href="{{ url('fees',$post->id) }}">{{$post->years}}</a></li>
                             @endforeach
                         </ul>
+                       
                     </div>
                 </div>
-           
+            </div>
             <div class="page-table">
                 <table id="example" class="table-striped table-bordered" style="width:100%;">
                     <thead>
@@ -83,5 +83,5 @@
     </section>
     @endsection
     @section('additionalscripts')
-    
+
     @endsection

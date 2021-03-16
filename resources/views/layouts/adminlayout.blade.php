@@ -7,6 +7,10 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="{{url('/')}}/assets/css/global.css">
     <link rel="stylesheet" href="{{url('/')}}/assets/css/data-table.css">
+    <!-- <link rel="stylesheet" href="{{url('/')}}/assets/css/datatables.min.css"> -->
+    <link rel="stylesheet" href="{{url('/')}}/assets/css/dataTables.checkboxes.css">
+
+
 </head>
 
 <body>
@@ -43,39 +47,39 @@
                                 <span>Student</span>
                             </a>
                         </li>
-                        <li @if(request()->segment(1) == 'add_class') class="active" @endif>
-                            <a href="{{ url('/add_class') }}">
+                        <li @if(request()->segment(1) == 'years') class="active" @endif>
+                            <a href="{{ url('/years') }}">
                                 <i>
-                                    <img src="{{url('/')}}/assets/image/money.svg" class="menu-show" alt="">
+                                    <img src="{{url('/')}}/assets/image/awesome-user-graduate.svg" class="menu-show" alt="">
                                 </i>
-                                <span>Fees Structure</span>
+                                <span>Add Session</span>
                             </a>
                         </li>
-                        
+
                         <li>
                             <a href="javascript:void(0)">
                                 <i>
                                     <img src="{{url('/')}}/assets/image/blackboard.svg" class="menu-show" alt="">
                                 </i>
-                                <span>Classes</span>
+                                <span>Session</span>
                                 <span class="drop-arrow">
                                     <img src="{{url('/')}}/assets/image/arrow-down.svg" alt="">
                                 </span>
                             </a>
                             @php
-
-                            $posts=  App\Models\Student_classe::get();
+                            $posts= App\Models\Year::get();
                             @endphp
+
                             <ul class='sub-menus'>
-                            @foreach($posts as $post)
-                            <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',$post->id) }}"  >{{$post->class_name}}</a></li>
-                            @endforeach
-  
+                                @foreach($posts as $post)
+                                <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('year',$post->id) }}">{{$post->years}}</a></li>
+                                @endforeach
+
                         </li>
                     </ul>
 
-                    @if(Auth::check() && Auth::user()->user_type  == "Admin")
-                        <!-- <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
+                    @if(Auth::check() && Auth::user()->user_type == "Admin")
+                    <!-- <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
                         
                             <a href="{{ url('/assignrole') }}">
                                 <i>
@@ -85,7 +89,7 @@
                             </a>
                         </li> -->
                     @endif
-                        <!-- <li @if(request()->segment(1) == 'roles-permissions') class="active" @endif>
+                    <!-- <li @if(request()->segment(1) == 'roles-permissions') class="active" @endif>
                             <a href="{{ url('/roles-permissions') }}">
                                 <i>
                                     <img src="{{url('/')}}/assets/image/expertise-area.svg" class="menu-show" alt="">
@@ -93,16 +97,26 @@
                                 <span>Roles & Permission</span>
                             </a>
                         </li> -->
-                        <li>
+                    <li @if(request()->segment(1) == 'add_class') class="active" @endif>
+                        <a href="{{ url('/add_class') }}">
+                            <i>
+                                <img src="{{url('/')}}/assets/image/money.svg" class="menu-show" alt="">
+                            </i>
+                            <span>Fees Structure</span>
+                        </a>
+                    </li>
+
+                    <li>
 
                         <a href="{{ url('/logout') }}">
-                                <i>
-                                    <img src="{{url('/')}}/assets/image/logout-1.svg" class="menu-show" alt="">
-                                </i>
-                                <span>Log Out</span>
-                         </a>
-                        </li>
+                            <i>
+                                <img src="{{url('/')}}/assets/image/logout-1.svg" class="menu-show" alt="">
+                            </i>
+                            <span>Log Out</span>
+                        </a>
+                    </li>
                     </ul>
+
                 </div>
             </div>
         </aside>
@@ -114,7 +128,10 @@
     <!-- data table js -->
     <script src="{{url('/')}}/assets/js/jquery-3.5.1.min.js"></script>
     <script src="{{url('/')}}/assets/js/bootstrap.min.js"></script>
-    <script src="{{url('/')}}/assets/js/dataTables.min.js"></script>
+
+    <script src=""></script>
+    <script src="{{url('/')}}/assets/js/datatables1.min.js"></script>
+    <script src="{{url('/')}}/assets/js/dataTables.checkboxes.min.js"></script>
     <script src="{{url('/')}}/assets/js/dataTables.buttons.min.js"></script>
     <script src="{{url('/')}}/assets/js/buttons.html5.min.js"></script>
     <script src="{{url('/')}}/assets/js/sweetalert.min.js"></script>
@@ -122,26 +139,8 @@
     <!-- custom js -->
     <script src="{{url('/')}}/assets/js/custom.js"></script>
 
-    <script>
-        $('select').on('change', function() {
-            var id = $(this).val();
-            if (id == 0) {
-                location.reload();
-            } else {
-                $.ajax({
-                    url: 'getdata',
-                    method: "get",
-                    data: {
-                        id: id,
-                    },
-                    success: function(data) {
-                       
-                        $('#student-table').html(data);
-                    }
-                });
-            }
-        });
-    </script>
+
+
     <script>
         $('.delete-confirm').click(function(event) {
             var form = $(this).closest("form");
@@ -170,33 +169,35 @@
                     }
                 });
         });
-        // $('body').on('click', '.student-delete', function(event) {
-        //     var form = $(this).closest("form");
-        //     var name = $(this).data("name");
-        //     var id = $(this).data("id");
-        //     event.preventDefault();
-        //     swal({
-        //             title: `Are you sure you want to delete ${name}?`,
-        //             icon: "warning",
-        //             buttons: true,
-        //             dangerMode: true,
-        //         })
-        //         .then((willDelete) => {
-        //             if (willDelete) {
-        //                 $.ajax({
-        //                     url: "{{route('students.store')}}" + '/' + id,
-        //                     type: "DELETE",
-        //                     data: {
-        //                         id: id,
-        //                         "_token": "{{ csrf_token() }}",
-        //                     },
-        //                     success: function(data) {
-        //                         location.reload();
-        //                     }
-        //                 });
-        //             }
-        //         });
-        // });
+        $('body').on('click', '.student-delete', function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            var id = $(this).data("id");
+            event.preventDefault();
+            swal({
+                    title: `Are you sure you want to delete ?`,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: "delete",
+                            type: "DELETE",
+                            data: {
+                                id: id,
+                                r_id: name,
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function(data) {
+
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+        });
         $('.role-delete').click(function(event) {
             var form = $(this).closest("form");
             var name = $(this).data("name");
@@ -225,7 +226,6 @@
                     }
                 });
         });
-
     </script>
     <script>
         $('.import').click(function() {
@@ -240,6 +240,55 @@
             $('.buttons-csv').click();
         });
     </script>
+    <script>
+        $(".passingID").click(function() {
+            var ids = $(this).attr('data-id');
+            var record_id = $(this).attr('record-id');
+            var d = $(this).attr('d');
+            var r = $(this).attr('r');
+            var fee = $(this).attr('fee');
+            var dat = $(this).attr('dat');
+            $("#idkl").val(record_id);
+            $('#main_id').val(ids);
+            $('#description').val(d);
+            $('#receipt').val(r);
+            $('#fee').val(fee);
+            $('#date').val(dat);
+            $('#myeditModal').modal('show');
+        });
+    </script>
+    <script>
+        // data table js end
+        $(document).ready(function(){
+                    $(".menu-button").click(function() {
+                        $(this).toggleClass("open");
+                        $("body").toggleClass("open");
+                    });
+                    jQuery(".overlay-close").click(function() {
+                        jQuery(".menu-button").removeClass("open");
+                        jQuery("body").removeClass("open");
+                    });
+
+                    // 
+                    var nav = $('.side-menu > li, .cus-menu > li');
+                    nav.find('ul').hide();
+                    nav.click(function() {
+                        nav.not(this).find('ul').hide();
+                        $(this).find('ul').slideToggle();
+                        $('.side-menu > li, .cus-menu > li').removeClass('active');
+                        $(this).addClass('active');
+                        var a = new Date().getFullYear();
+                        var b = a - 1;
+                        var c = b + "-" + a;
+                       
+                    });
+                });
+    </script>
+    <script>
+    
+    
+    </script>
+
 </body>
 
 </html>

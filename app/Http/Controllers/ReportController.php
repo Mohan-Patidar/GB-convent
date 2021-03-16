@@ -41,12 +41,26 @@ class ReportController extends Controller
        
     
     }
-    public function edit(){
-          
+    public function edit($post){
+        
     }
 
     public function update(Request $request){
+
+        $id = $request->main_id;
        
+        $reports =Report::where("id", "=", $id)->first();
+       
+        $reports->records_id = $request->id;
+        $reports->receipt_no = $request->receipt_no;
+        $reports->fees = $request->fees;
+        $reports->date = $request->date;
+        $reports->description = $request->description;
+       
+        $reports->update(); 
+      
+        return redirect()->back();
+
 
     
     }
@@ -55,4 +69,5 @@ class ReportController extends Controller
        
 
     }
+   
 }

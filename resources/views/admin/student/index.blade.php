@@ -16,60 +16,42 @@
                 <div class="page-title">
                     <span>student </span>
                 </div>
-
-                <div class="page-btn">
-                    <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
-                </div>
-            </div>
-            <div class="tabel-head">
-                <div class="form-group">
-
-                    <ul class="cus-menu">
-                        <li>
-                            <a href="javascript:void(0)">
-                                <i>
-                                    <img src="{{url('/')}}/assets/image/Session.svg" class="menu-show" alt="">
-                                </i>
-                                <span>Session</span>
-                                <span class="drop-arrow">
-                                    <img src="{{url('/')}}/assets/image/arrow-down.svg" alt="">
-                                </span>
-                            </a>
-                            @php
-                            $posts= App\Models\Year::get();
-                            @endphp
-
-                            <ul class='cus-sub-menus'>
-                            @foreach($posts as $post)
-                            <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('session',$post->id) }}">{{$post->years}}</a></li>
-                            @endforeach
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- <select name="gbs_id" id="gbs_id">
-                        <option value="0">Select Class</option>
-                        @foreach($tests as $test)
-                        <option value="{{$test->id}}">{{$test->class_name}}</option>
-                        @endforeach
-                    </select> -->
-                </div>
                 <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
 
                     @csrf
 
                     <input type="file" name="file" id="file" class="my-profile-choose-file">
 
-                    <br>
                     <input type="submit" id="submit" style="display: none;">
-                    <button type="button" class="btn btn-success import">Import Student Data</button>
+                    <button type="button" class="btn btn-success import">Import</button>
                     <!--<a class="btn btn-warning" href="{{ route('export') }}">Export Student Data</a>-->
-                    <a  href="#" class="btn btn-warning" id="export" role='button'>Export Student Data</a>
+                    <a  href="#" class="btn btn-warning" id="export" role='button'>Export</a>
                 </form>
+                <div class="page-btn">
+                    <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
+                    
+                </div>
+            </div>
+            <div class="tabel-head">
+                    <h5 class="page-title"><span>Classes </span></h5>
+                <div class="form-group">
+                    <ul class="cus-menu">
+                    @php
+                    $posts=  App\Models\Student_classe::get();
+                    $current_year=$y_id;
+                    @endphp
+                    @foreach($posts as $post)
+                    <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$current_year]) }}">{{$post->class_name}}</a></li>
+                            @endforeach
+                    </ul>
+                    <input onchange="filterme()" type="checkbox" name="type" value="MX|A|CNAME">All
+                </div>
             </div>
             <div class="page-table" id="dvData">
-                <table id="student-table" class="table table-bordered table-striped" style="width:100%;">
+                <table id="" class="table table-bordered table-striped" style="width:100%;">
                     <thead>
                         <tr>
+                       
                             <th>S.No.</th>
                             <th>Actions</th>
                             <th>Student Id</th>
@@ -86,17 +68,18 @@
                             <th>Mobile No. 1</th>
                             <th>Mobile No. 2</th>
                             <th>Bank Acc/No.</th>
-                            <th>Session</th>
+                            
 
                         </tr>
                     </thead>
                     <tbody id="result">
+                    
                         @php $i = 0; @endphp
                         @foreach($records as $r)
                         @foreach($students as $student)
-                        @if($r->students_id==$student->id)
+                        @if(($r->students_id==$student->id) &&($r->session==$y_id))
                         <tr>
-
+                       
                             <td>@php echo ++$i @endphp</td>
                             <td>
                                 <div class="d-flex">
@@ -104,12 +87,17 @@
                                         <a class="" href="{{route('students.edit',$student->id)}}">
                                             <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
                                     </button>
-                                    <button class="edit-btn">
+                                    <button class="view-btn">
                                         <a class="" href="{{route('students.show',$student->id)}}">
                                             <img src="{{url('/')}}/assets/image/view.svg" width="16px" alt=""></a>
                                     </button>
                                     @if(Auth::check() && Auth::user()->user_type  == "Admin")
-                                    <form action="{{route('students.destroy', ['student' => $student->id])}}" method="post">
+
+                                    <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{$r->id}}">
+                                        <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
+                                    </button>
+                                    @endif
+                                    <!-- <form action="{{route('students.destroy', ['student' => $student->id])}}" method="post">
 
 
                                         <input type="hidden" name="record_id" value="{{$r->id}}" />
@@ -120,8 +108,8 @@
                                         <button type="submit" class="delete-btn student-delete">
                                             <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
                                         </button>
-                                    </form>
-                                    @endif
+                                    </form> -->
+                                    
 
                                 </div>
                             </td>
@@ -143,11 +131,7 @@
                             <td>{{$student->mobile_no}}</td>
                             <td>{{$student->mobile_no2}}</td>
                             <td>{{$student->account_no}}</td>
-                            @foreach($year as $y)
-                            @if($y->id == $r->session)
-                            <td class="sorting_1">{{$y->years}}</td>
-                            @endif
-                            @endforeach
+                            
                         </tr>
                         @endif
                         @endforeach
