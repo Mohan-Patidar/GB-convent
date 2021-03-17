@@ -18,9 +18,13 @@
         <div class="page-title">
             <span>student </span>
         </div>
-
+        <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
+                    @csrf
+                    <input type="file" name="file" id="file" class="my-profile-choose-file">
+                    <input type="submit" id="submit" style="display: none;">
+                    <button type="button" class="btn btn-success import">Import</button>
             <a  href="#" class="btn btn-warning" id="export" role='button'>Export</a>
-     
+            </form>
         <div class="page-btn">
             <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
         </div>
