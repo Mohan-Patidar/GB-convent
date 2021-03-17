@@ -63,7 +63,6 @@
                         </tr>
                     </thead>
                     <tbody id="result">
-                    
                         @php $i = 0; @endphp
                         @foreach($records as $r)
                         @foreach($students as $student)
@@ -84,7 +83,8 @@
                                 </div>
                             </td>
                             <td>{{$student->student_id}}</td>
-                            <td><img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" /></td>
+                            <td>@if($student->profile_picture==NULL)<img class="student-img" src="{{url('/')}}/assets/image/download.png" />
+                                @else<img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" />@endif</td>
                             <td>{{$student->name}}</td>
                             <td>{{$student->scholar_no}}</td>
                             @foreach($tests as $test)

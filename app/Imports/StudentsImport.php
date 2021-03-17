@@ -1,37 +1,53 @@
 <?php
 
 namespace App\Imports;
-
+use App\Models\Record;
 use App\Models\Student;
-use Maatwebsite\Excel\Concerns\ToModel;
-use session;
+use Illuminate\Support\Collection;
+// use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Session;
 
-class StudentsImport implements ToModel
+class StudentsImport implements ToCollection
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function collection(collection $rows)
     {
-        return new Student([
-            'gbs_id'  => $row[0],
-            'student_id'  => $row[1],
-            'scholar_no'  => $row[2],
-            'name'  => $row[3],
-            'dob'  => $row[4],
-            'father_name'  => $row[5],
-            'mother_name'  => $row[6],
-            'address'  => $row[7],
-            'aadhar_no'  => $row[8],
-            'samarg_id'  => $row[9],
-            'mobile_no'  => $row[10],
-            'mobile_no2'  => $row[11],
-            'account_no'  => $row[12],
-            'add_session'  => $row[13],
-            'profile_picture'=>$row[14]
-        ]);
-         Session::flash('message','Import Successful.');
+        $count=0;
+        foreach ($rows as $row) 
+        {
+            if($count!=0){
+            $data=Student::create([
+            'student_id'  => $row[0],
+            'scholar_no'  => $row[1],
+            'name'  => $row[2],
+            'father_name'  => $row[3],
+            'mother_name'  => $row[4],
+            'dob'  => $row[5],
+            'address'  => $row[6],
+            'aadhar_no'  => $row[7],
+            'samarg_id'  => $row[8],
+            'mobile_no'  => $row[9],
+            'mobile_no2'  => $row[10],
+            'account_no'  => $row[11],
+            ]);
+
+            $id=$data->id;
+            Record::create([
+                'students_id' => $id,
+                'class_name' => $row[12],
+                'session' => $row[13],
+            ]);
+        }
+            $count++;
+        }
+       
+        Session::flash('message', 'Import of student data successfull!');
+
+        return redirect('students');
     }
 }

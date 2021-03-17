@@ -83,19 +83,16 @@
                                         <a class="edit-btn" href="{{url('show',['student'=>$student->id,'session'=>$t->session])}}">
                                             <img src="{{url('/')}}/assets/image/view.svg" width="16px" alt=""></a>
                                     
-                                    @if(Auth::check() && Auth::user()->user_type  == "Admin")
-                                    <form action="{{route('students.destroy', ['student' => $student->id])}}" method="post">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <button type="submit" class="delete-btn student-delete">
-                                            <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
-                                        </button>
-                                    </form>
+                                            @if(Auth::check() && Auth::user()->user_type  == "Admin")
+                                    <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{$t->id}}">
+                                        <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
+                                    </button>
                                     @endif
                                 </div>
                             </td>
                             <td>{{$student->student_id}}</td>
-                            <td><img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" /></td>
+                            <td>@if($student->profile_picture==NULL)<img class="student-img" src="{{url('/')}}/assets/image/download.png" />
+                                @else<img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" />@endif</td>
                             <td>{{$student->name}}</td>
                             <td>{{$student->scholar_no}}</td>
                             @foreach($class as $c)

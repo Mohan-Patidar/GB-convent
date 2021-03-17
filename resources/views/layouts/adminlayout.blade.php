@@ -163,6 +163,7 @@
             var form = $(this).closest("form");
             var name = $(this).data("name");
             var id = $(this).data("id");
+            var url = location.origin;
             event.preventDefault();
             swal({
                     title: `Are you sure you want to delete ?`,
@@ -173,7 +174,7 @@
                 .then((willDelete) => {
                     if (willDelete) {
                         $.ajax({
-                            url: "delete",
+                            url: url+"/GB-convent/delete",
                             type: "DELETE",
                             data: {
                                 id: id,
