@@ -71,10 +71,13 @@
                             <td>@php echo ++$i @endphp</td>
                             <td>
                                 <div class="d-flex">
+                                 
                                         <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
                                             <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
-                                        <a class="edit-btn" href="{{route('students.show',$student->id)}}">
+                                
+                                        <a class="edit-btn" href="{{url('show',['student'=>$student->id,'session'=>$t->session])}}">
                                             <img src="{{url('/')}}/assets/image/view.svg" width="16px" alt=""></a>
+                                  
                                     @if(Auth::check() && Auth::user()->user_type  == "Admin")
                                     <form action="{{route('students.destroy', ['student' => $student->id])}}" method="post">
                                         <input type="hidden" name="_method" value="DELETE">

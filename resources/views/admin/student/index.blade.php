@@ -74,7 +74,7 @@
                                 <div class="d-flex">
                                         <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
                                             <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
-                                        <a class="view-btn" href="{{route('students.show',$student->id)}}">
+                                            <a class="view-btn" href="{{url('show',['student'=>$student->id,'session'=>$r->session])}}">
                                             <img src="{{url('/')}}/assets/image/view.svg" width="16px" alt=""></a>
                                     @if(Auth::check() && Auth::user()->user_type  == "Admin")
                                     <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{$r->id}}">

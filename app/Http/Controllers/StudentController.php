@@ -79,34 +79,9 @@ class StudentController extends Controller
 
         return redirect('students');
     }
-    public function show(Request $request, $id)
+    public function show()
     {
-        $records = Record::where("students_id", "=", $id)->first();
-
-        $year = Year::where("id", "=", $records->session)->first();
-        $session = $year->years;
-        $session_id = $year->id;
-        $classes = Student_classe::where("id", "=", $records->class_name)->first();
-        $class = $classes->class_name;
-
-
-        if (Student_fee::where('student_classes_id', $records->class_name)->exists()) {
-            $tests = Student_fee::where("student_classes_id", "=", $records->class_name)->first();
-
-
-            $amount = $tests->amount;
-
-            $sum = Report::where("records_id", "=", $records->id)->sum('fees');
-
-            $r = $amount - $sum;
-
-            $students = Student::where("id", "=", $id)->first();
-            $record_id = $records->id;
-            return view('admin.report.index', compact("students", "amount", "class", "session", "record_id", "session_id", "r"));
-        } else {
-            Session::flash('message', 'First fill fees details of class !!');
-            return redirect()->back();
-        }
+       
     }
     public function edit($student)
     {
@@ -184,5 +159,35 @@ class StudentController extends Controller
         return response()->json();
       
 
+    }
+    public function StudentShow($student,$session){
+        
+       
+        $records = Record::where("students_id", "=", $student)->where("session", "=", $session)->first();
+       
+        $year = Year::where("id", "=",$session)->first();
+        $sessions = $year->years;
+        $session_id = $year->id;
+        $classes = Student_classe::where("id", "=", $records->class_name)->first();
+        $class = $classes->class_name;
+
+
+        if (Student_fee::where('student_classes_id', $records->class_name)->exists()) {
+            $tests = Student_fee::where("student_classes_id", "=", $records->class_name)->where("years_id", "=",$session)->first();
+
+
+            $amount = $tests->amount;
+
+            $sum = Report::where("records_id", "=", $records->id)->sum('fees');
+
+            $r = $amount - $sum;
+
+            $students = Student::where("id", "=", $student)->first();
+            $record_id = $records->id;
+            return view('admin.report.index', compact("students", "amount", "class", "sessions", "record_id", "session_id", "r"));
+        } else {
+            Session::flash('message', 'First fill fees details of class !!');
+            return redirect()->back();
+        }
     }
 }

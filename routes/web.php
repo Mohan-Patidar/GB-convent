@@ -30,13 +30,13 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
       Route::delete('/delete', 'App\Http\Controllers\StudentController@delete')->name('delete');
     Route::get('export', 'App\Http\Controllers\MyController@export')->name('export');
     Route::post('import', 'App\Http\Controllers\MyController@import')->name('import');
-    
+    Route::get('show/{id}/{yid}','App\Http\Controllers\StudentController@StudentShow')->name('StudentShow');
     Route::get('classes/{id}/{yid}', 'App\Http\Controllers\SidebarController@classData')->name('classData');
     // Route::get('session/{id}/{cid}', 'App\Http\Controllers\SidebarController@sessionData')->name('sessionData');
     Route::get('year/{id}', 'App\Http\Controllers\SidebarController@YearData')->name('YearData');
     Route::get('fees/{id}', 'App\Http\Controllers\ClassController@FeesData')->name('FeesData');
     Route::post('promote', 'App\Http\Controllers\ClassController@PromoteData')->name('PromoteData');
-    
+    Route::get('dashboard', 'App\Http\Controllers\DashboardController@index')->name('index');
     Route::get('remove/{id}', 'App\Http\Controllers\YearController@RemoveCurrent')->name('RemoveCurrent');
     Route::resource('assignrole', 'App\Http\Controllers\RoleAssign');
 });

@@ -34,6 +34,14 @@
                         </a>
                     </div>
                     <ul class="side-menu">
+                    <li @if(request()->segment(1) == 'dashboard') class="active" @endif>
+                            <a href="{{ url('/dashboard') }}">
+                                <i>
+                                    <img src="{{url('/')}}/assets/image/awesome-user-graduate.svg" class="menu-show" alt="">
+                                </i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
                         <li @if(request()->segment(1) == 'students') class="active" @endif>
                             <a href="{{ url('/students') }}">
                                 <i>

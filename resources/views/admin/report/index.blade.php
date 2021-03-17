@@ -12,7 +12,7 @@
                 </div>
 
             </div>
-            <h5>Total fees of {{$class}} = {{$amount}} of {{$session}} </h5>
+            <h5>Total fees of {{$class}} = {{$amount}} of {{$sessions}} </h5>
             <div>
                 <label>Student Id:</label>
                 {{$students->student_id}}
