@@ -23,10 +23,11 @@ class StudentController extends Controller
         foreach($year as $y){
             if($y->status==1){
                 $y_id=$y->id;
+                $y_name=$y->years;
             }
         }
         $students = Student::get();
-        return view('admin.student.index', compact("students", "tests", "records","y_id"));
+        return view('admin.student.index', compact("students", "tests", "records","y_id","y_name"));
     }
 
     public function create()
@@ -172,7 +173,7 @@ class StudentController extends Controller
         $class = $classes->class_name;
 
 
-        if (Student_fee::where('student_classes_id', $records->class_name)->exists()) {
+        if (Student_fee::where('student_classes_id', $records->class_name)->where("years_id", "=",$session)->exists()) {
             $tests = Student_fee::where("student_classes_id", "=", $records->class_name)->where("years_id", "=",$session)->first();
 
 

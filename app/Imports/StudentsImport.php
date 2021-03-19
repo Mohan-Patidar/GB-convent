@@ -6,7 +6,7 @@ use App\Models\Student;
 use Illuminate\Support\Collection;
 // use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\ToCollection;
-use Session;
+use session;
 
 class StudentsImport implements ToCollection
 {
@@ -46,8 +46,6 @@ class StudentsImport implements ToCollection
             $count++;
         }
        
-        Session::flash('message', 'Import of student data successfull!');
-
-        return redirect('students');
+        
     }
 }

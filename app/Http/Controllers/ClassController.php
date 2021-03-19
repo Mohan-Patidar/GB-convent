@@ -45,7 +45,7 @@ class ClassController extends Controller
       
         
         $tests->save();
-        Session::flash('message', 'class area added successfuly!');
+        Session::flash('message', 'fees added successfuly!');
        
         return redirect('add_class');
 

@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $years=Year::where("status","=",1)->get();;
+        $years=Year::get();
         if($years->isEmpty()){
             Session::flash('message', 'First add session with selcting checkbox !!');
             return redirect('years');

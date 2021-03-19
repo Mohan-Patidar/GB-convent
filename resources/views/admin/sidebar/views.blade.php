@@ -17,14 +17,15 @@
         <div class="page-title">
             <span>student </span>
         </div>
-        <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
+ <span class="c_session"><b>Current Session</b> {{$y_name}}  </span>
+            <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
                     @csrf
                     <input type="file" name="file" id="file" class="my-profile-choose-file">
                     <input type="submit" id="submit" style="display: none;">
                     <button type="button" class="btn btn-success import">Import</button>
-
             <a  href="#" class="btn btn-warning" id="export" role='button'>Export</a>
             </form>
+     
         <div class="page-btn">
             <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
         </div>
@@ -67,12 +68,17 @@
                             <th>Session</th>
                         </tr>
                     </thead>
-                    <tbody id="result">                                      
+                    <tbody id="result">
+                        
+                    
                         @php $i = 0; @endphp
                         @foreach($tests as $t)
-                        @foreach($b as $student)                   
+                        @foreach($b as $student)
+                    
                         @if(($t->students_id==$student->id))
+                   
                         <tr>
+
                             <td>@php echo ++$i @endphp</td>
                             <td>
                                 <div class="d-flex">
@@ -83,7 +89,7 @@
                                         <a class="edit-btn" href="{{url('show',['student'=>$student->id,'session'=>$t->session])}}">
                                             <img src="{{url('/')}}/assets/image/view.svg" width="16px" alt=""></a>
                                   
-                                            @if(Auth::check() && Auth::user()->user_type  == "Admin")
+                                    @if(Auth::check() && Auth::user()->user_type  == "Admin")
                                     <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{$t->id}}">
                                         <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
                                     </button>

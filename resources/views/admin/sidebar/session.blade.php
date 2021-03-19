@@ -18,14 +18,15 @@
         <div class="page-title">
             <span>student </span>
         </div>
-        <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
+ <span class="c_session"><b>Current Session</b> {{$y_name}}  </span>
+            <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
                     @csrf
                     <input type="file" name="file" id="file" class="my-profile-choose-file">
                     <input type="submit" id="submit" style="display: none;">
                     <button type="button" class="btn btn-success import">Import</button>
-
             <a  href="#" class="btn btn-warning" id="export" role='button'>Export</a>
             </form>
+     
         <div class="page-btn">
             <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
         </div>
@@ -39,7 +40,7 @@
             $y_id=request()->segment(3);
             @endphp
             @foreach($posts as $post)
-            <li   ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$y_id]) }}">{{$post->class_name}}</a></li>
+            <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$y_id]) }}">{{$post->class_name}}</a></li>
                     @endforeach
             </ul>
            
@@ -89,7 +90,7 @@
                                         <a class="view-btn" href="{{url('show',['student'=>$student->id,'session'=>$t->session])}}">
                                             <img src="{{url('/')}}/assets/image/view.svg" width="16px" alt=""></a>
                                     
-                                            @if(Auth::check() && Auth::user()->user_type  == "Admin")
+                                     @if(Auth::check() && Auth::user()->user_type  == "Admin")
                                     <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{$t->id}}">
                                         <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
                                     </button>
@@ -97,7 +98,7 @@
                                 </div>
                             </td>
                             <td>{{$student->student_id}}</td>
-                            <td>@if($student->profile_picture==NULL)<img class="student-img" src="{{url('/')}}/assets/image/download.png" />
+                             <td>@if($student->profile_picture==NULL)<img class="student-img" src="{{url('/')}}/assets/image/download.png" />
                                 @else<img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" />@endif</td>
                             <td>{{$student->name}}</td>
                             <td>{{$student->scholar_no}}</td>
@@ -152,8 +153,8 @@
                                     <label>Session </label>
                                     <select  name="year" id="year">
                                     @foreach($year as $y)
-                                    @if($y->status!=1)
-                                        <option   value="{{$y->id}}">{{$y->years}}</option>
+                                       @if($y->status!=1)
+                                        <option value="{{$y->id}}">{{$y->years}}</option>
                                         @endif
                                     @endforeach
                                     </select>

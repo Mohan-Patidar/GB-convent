@@ -144,7 +144,7 @@
                             <td>{{$post->fees}}</td>
                             <td>{{$post->date}}</td>
                             <td>{{$post->description}}</td>
-                            @if(Auth::check() && Auth::user()->user_type == "Admin")
+                           @if(Auth::check() && Auth::user()->user_type == "Admin")
                             <td> <button class="edit-btn passingID" r="{{$post->receipt_no}}" dat="{{$post->date}}" fee="{{$post->fees}}" data-id="{{$post->id}}" record-id="{{$post->records_id}}" d="{{$post->description}}">
                                     <a class="" href="javascript:void(0)">
                                         <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
@@ -183,7 +183,7 @@
 
                                 </div>
                             </div>
-                            @endif
+                             @endif
                         </tr>
                         @endforeach
                     </tbody>

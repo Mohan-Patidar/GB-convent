@@ -12,7 +12,7 @@
         <div class="page-color">
             <div class="page-header">
                 <div class="page-title">
-                    student <span> class</span>
+                    student <span>Fees</span>
                 </div>
                 
                 <div class="page-btn">
@@ -63,8 +63,10 @@
                             <td>{{$test->amount}}</td>
                             <td>
                                 <div class="d-flex">
-                                        <a class="edit-btn" href="{{route('add_class.edit',$test->id)}}">
+                                    <button class="edit-btn">
+                                        <a class="" href="{{route('add_class.edit',$test->id)}}">
                                             <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
+                                    </button>
                                     @if(Auth::check() && Auth::user()->user_type == "Admin")
                                     <button type="submit" class="delete-btn delete-confirm" data-id="{{$test->id}}" data-name="{{ $test->class_name }}">
                                         <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">

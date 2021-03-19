@@ -7,6 +7,7 @@ use App\Models\Student_classe;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Record;
+use App\Models\Report;
 
 
 class DashboardController extends Controller
@@ -17,6 +18,8 @@ class DashboardController extends Controller
         foreach($session as $s){
             $year=$s->years;
         }
+
+        $reports = Report::get();
        
         return view('admin.dashboard.index',compact("student","year"));
     }

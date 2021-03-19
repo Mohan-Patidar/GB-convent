@@ -10,16 +10,22 @@
     </div>
     @endif
     <section class="main-wrapper">
+
         <div class="page-color">
             <div class="page-header">
                 <div class="page-title">
                     <span>student </span>
                 </div>
+                <span class="c_session"><b>Current Session</b> {{$y_name}}  </span>
                 <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
+
                     @csrf
+
                     <input type="file" name="file" id="file" class="my-profile-choose-file">
+
                     <input type="submit" id="submit" style="display: none;">
                     <button type="button" class="btn btn-success import">Import</button>
+                    <!--<a class="btn btn-warning" href="{{ route('export') }}">Export Student Data</a>-->
                     <a  href="#" class="btn btn-warning" id="export" role='button'>Export</a>
                 </form>
                 <div class="page-btn">
@@ -38,6 +44,7 @@
                     <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$current_year]) }}">{{$post->class_name}}</a></li>
                             @endforeach
                     </ul>
+                   
                 </div>
             </div>
             <div class="page-table" id="dvData">
@@ -60,26 +67,36 @@
                             <th>Mobile No. 1</th>
                             <th>Mobile No. 2</th>
                             <th>Bank Acc/No.</th>
+                            
+
                         </tr>
                     </thead>
                     <tbody id="result">
+                    
                         @php $i = 0; @endphp
                         @foreach($records as $r)
                         @foreach($students as $student)
                         @if(($r->students_id==$student->id) &&($r->session==$y_id))
                         <tr>
+
                             <td>@php echo ++$i @endphp</td>
                             <td>
                                 <div class="d-flex">
-                                        <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
+                                  
+                                        <a  class="edit-btn" href="{{route('students.edit',$student->id)}}">
                                             <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
-                                            <a class="view-btn" href="{{url('show',['student'=>$student->id,'session'=>$r->session])}}">
+                                   
+                                    
+                                        <a class="view-btn" href="{{url('show',['student'=>$student->id,'session'=>$r->session])}}">
                                             <img src="{{url('/')}}/assets/image/view.svg" width="16px" alt=""></a>
+                                  
                                     @if(Auth::check() && Auth::user()->user_type  == "Admin")
+
                                     <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{$r->id}}">
                                         <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
                                     </button>
                                     @endif
+
                                 </div>
                             </td>
                             <td>{{$student->student_id}}</td>
@@ -100,7 +117,8 @@
                             <td>{{$student->samarg_id}}</td>
                             <td>{{$student->mobile_no}}</td>
                             <td>{{$student->mobile_no2}}</td>
-                            <td>{{$student->account_no}}</td>                            
+                            <td>{{$student->account_no}}</td>
+                            
                         </tr>
                         @endif
                         @endforeach
@@ -112,4 +130,5 @@
     </section>
     @endsection
     @section('additionalscripts')>
+
     @endsection

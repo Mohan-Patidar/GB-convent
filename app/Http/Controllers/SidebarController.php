@@ -14,6 +14,11 @@ class SidebarController extends Controller
         $year= Year::get();
         $class = Student_classe::get();
         $tests = Record::where("session","=",$session)->where("class_name","=",$classes)->get();
+        foreach($year as $y){
+            if($y->status==1){
+                $y_name=$y->years;
+            }
+        }
         $b=array();
       
         foreach($tests as $t){
@@ -27,7 +32,7 @@ class SidebarController extends Controller
            }
         
        
-        return view('admin.sidebar.session',compact("b","tests","class","year"));
+        return view('admin.sidebar.session',compact("b","tests","class","year","y_name"));
        
     }
 
@@ -35,6 +40,11 @@ class SidebarController extends Controller
         $year= Year::get();
         $class = Student_classe::get();
         $tests =Record::where("session","=",$year)->where("class_name","=",$class)->get();
+         foreach($year as $y){
+            if($y->status==1){
+                $y_name=$y->years;
+            }
+        }
         $b=array();
         foreach($tests as $t){
             $a=$t->students_id;
@@ -44,12 +54,17 @@ class SidebarController extends Controller
                }
         }
 
-        return view('admin.sidebar.views',compact("b","tests","class","year"));
+        return view('admin.sidebar.views',compact("b","tests","class","year","y_name"));
     }
     public function YearData(Request $request,$id){
         $year= Year::get();
         $class = Student_classe::get();
         $tests =Record::where("session","=",$id)->get();
+         foreach($year as $y){
+            if($y->status==1){
+                $y_name=$y->years;
+            }
+        }
         $b=array();
         foreach($tests as $t){
             $a=$t->students_id;
@@ -59,6 +74,6 @@ class SidebarController extends Controller
                }
         }
 
-        return view('admin.sidebar.years',compact("b","tests","class","year"));
+        return view('admin.sidebar.years',compact("b","tests","class","year","y_name"));
     }
 }
