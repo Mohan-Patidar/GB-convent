@@ -48,7 +48,7 @@
                         <div class="d-flex">
                             <button class="edit-btn">
                                 <a class="" href="{{ route('role.edit',$role->id) }}">
-                                    <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
+                                    <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt=""></a>
                             </button>
                         </div>
                     </td>

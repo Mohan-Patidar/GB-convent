@@ -1,5 +1,4 @@
 @extends('layouts.adminlayout')
-
 @section('content')
 <div class="page-inner ad-inr">
     @if(Session::has('message'))
@@ -12,33 +11,28 @@
         <div class="page-color">
             <div class="page-header">
                 <div class="page-title">
-                    student <span>Fees</span>
-                </div>
-                
-                <div class="page-btn">
+                    <h3>student <span> class</span></h3>
                     <a href="{{route('add_class.create')}}" class="add-btn">Add Fees Structure</a>
                 </div>
+            </div>
+            <div class="tabel-head">
+                <h5 class="page-title"><span>Session </span></h5>
+                <div class="form-group">
+                    <ul class="cus-menu">
+                        @php
+                        $posts= App\Models\Year::orderBy('id','DESC')->get();
+                        @endphp
+                        @foreach($posts as $post)
+                        <li class="active"><a href="{{ url('fees',$post->id) }}">{{$post->years}}</a></li>
+                        @endforeach
+                    </ul>
                 </div>
-                <div class="tabel-head">
-                    <h5 class="page-title"><span>Session </span></h5>
-                    <div class="form-group">
-                        <ul class="cus-menu">
-
-                            @php
-                            $posts= App\Models\Year::orderBy('id','DESC')->get();
-                            @endphp
-                            @foreach($posts as $post)
-                            <li class="active"><a href="{{ url('fees',$post->id) }}">{{$post->years}}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-           
+            </div>
             <div class="page-table">
-                <table id="example" class="table-striped table-bordered" style="width:100%;">
+                <table id="example" class="table table-striped custom-table" style="width:100%;">
                     <thead>
                         <tr>
-                            <th>S.No.</th>
+                            <th>#</th>
                             <th>Session</th>
                             <th>Class Name</th>
                             <th>Fees Structure</th>
@@ -63,13 +57,11 @@
                             <td>{{$test->amount}}</td>
                             <td>
                                 <div class="d-flex">
-                                    <button class="edit-btn">
-                                        <a class="" href="{{route('add_class.edit',$test->id)}}">
-                                            <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
-                                    </button>
+                                    <a class="edit-btn" href="{{route('add_class.edit',$test->id)}}">
+                                        <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt=""></a>
                                     @if(Auth::check() && Auth::user()->user_type == "Admin")
                                     <button type="submit" class="delete-btn delete-confirm" data-id="{{$test->id}}" data-name="{{ $test->class_name }}">
-                                        <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
+                                        <img src="{{url('/')}}/assets/image/feather-trash.svg" width="16px" alt="">
                                     </button>
                                     @endif
                                 </div>
@@ -81,7 +73,7 @@
             </div>
         </div>
     </section>
-    @endsection
-    @section('additionalscripts')
-    
-    @endsection
+</div>
+@endsection
+@section('additionalscripts')
+@endsection

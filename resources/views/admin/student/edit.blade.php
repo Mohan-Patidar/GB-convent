@@ -1,5 +1,4 @@
 @extends('layouts.adminlayout')
-
 @section('content')
 <div class="page-inner ad-inr">
     @if(Session::has('message'))
@@ -12,32 +11,25 @@
         <div class="page-color">
             <div class="page-header">
                 <div class="page-title">
-                    Edit <span> Student</span>
+                    <h3>Edit <span> Student</span></h3>
+                    <a href="{{url('/students')}}" class="add-btn">
+                        <span>
+                            <img src="{{url('/')}}/assets/image/Icon-arrow-back.svg" class="btn-arrow-show" alt="">
+                            <img src="{{url('/')}}/assets/image/Icon-arrow-back-2.svg" class="btn-arrow-hide" alt="">
+                        </span>
+                        <span>Back</span>
+                    </a>
                 </div>
-                <div class="page-btn">
-                        <a href="{{url('/students')}}" class="add-btn">
-                            <span>
-                                    <img src="{{url('/')}}/assets/image/Icon-arrow-back.svg" class="btn-arrow-show" alt="">
-                                    <img src="{{url('/')}}/assets/image/Icon-arrow-back-2.svg" class="btn-arrow-hide" alt="">
-                                </span>
-                            <span>Back</span>
-                        </a>
-                    </div>
             </div>
             <div class="page-table">
                 <div class="profile-box container-fluid">
                     <form class="add-student-form" method="Post" action="{{route('students.update',$students->id)}}" enctype="multipart/form-data">
-                    <input type="hidden" name="_method" value="PUT">
+                        <input type="hidden" name="_method" value="PUT">
                         @csrf
-                        <!-- <div class="profile-title">
-                                Personal Information
-                            </div> -->
-                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                
-                                <input type="hidden" name="id" value="{{$students->id}}" />
+                                    <input type="hidden" name="id" value="{{$students->id}}" />
                                     <label>Student Id</label>
                                     <input type="text" name="student_id" id="student_id" value="{{$students->student_id}}">
                                 </div>
@@ -95,12 +87,11 @@
                                     <label>Class</label>
                                     <select name="class_name" id="class_name">
                                         <option value="" selected>Select Class</option>
-                                    
                                         @foreach($tests as $test)
-                                        <option  value="<?php echo $test->id.','.$records->id; ?>"
-                                        <?php
-                                    if($records->class_name == $test->id){ 
-                                    echo 'selected="selected"'; }?>>{{$test->class_name}}</option>
+                                        <option value="<?php echo $test->id . ',' . $records->id; ?>" <?php
+                                                                                                        if ($records->class_name == $test->id) {
+                                                                                                            echo 'selected="selected"';
+                                                                                                        } ?>>{{$test->class_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -119,15 +110,14 @@
                             </div>
                             <div class="col-md-6 last-input-margin">
                                 <div class="form-group">
-                                    <label>Add Session</label>
+                                    <label>Current Session</label>
                                     <select name="session" id="session" disabled>
-                                      
                                         @foreach($year as $y)
-                                        @if($y->status==1) 
+                                        @if($y->status==1)
                                         @php $val = $y->id; @endphp
-                                        <option  value="{{$y->id}}" selected>{{$y->years }}
-                                         </option>
-                                         @endif
+                                        <option value="{{$y->id}}" selected>{{$y->years }}
+                                        </option>
+                                        @endif
                                         @endforeach
                                     </select>
                                     <input type="hidden" name="session" value="{{$val}}">
@@ -142,7 +132,7 @@
                             <div class="col-6 last-input-margin">
                                 <div class="form-group">
                                     <label> Picture </label>
-                                    <input type="file"  value="{{$students->profile_picture}}" name="profile_picture" id="profile_picture">
+                                    <input type="file" value="{{$students->profile_picture}}" name="profile_picture" id="profile_picture">
                                 </div>
                             </div>
                             <div class="col-12 text-center">
@@ -154,9 +144,7 @@
             </div>
         </div>
     </section>
-
-    @endsection
-    @section('additionalscripts')
-
-
-    @endsection
+</div>
+@endsection
+@section('additionalscripts')
+@endsection

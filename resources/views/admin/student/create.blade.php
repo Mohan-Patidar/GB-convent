@@ -2,19 +2,12 @@
 
 @section('content')
 <div class="page-inner ad-inr">
-    @if(Session::has('message'))
-    <div class="save-alert alert alert-success alert-dismissible fade in" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <p>{{ Session::get('message') }}</p>
-    </div>
-    @endif
+   
     <section class="main-wrapper">
         <div class="page-color">
             <div class="page-header">
                 <div class="page-title">
-                    Add <span> Student</span>
-                </div>
-                <div class="page-btn">
+                    <h3>Add <span> Student</span></h3>
                     <a href="{{url('/students')}}" class="add-btn">
                         <span>
                             <img src="{{url('/')}}/assets/image/Icon-arrow-back.svg" class="btn-arrow-show" alt="">
@@ -25,11 +18,16 @@
                 </div>
             </div>
             <div class="page-table">
+            @if(Session::has('message'))
+    <div class="p-relative">
+    <div class="save-alert alert alert-success alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <p>{{ Session::get('message') }}</p>
+    </div>
+    </div>
+    @endif
                 <div class="profile-box container-fluid">
                     <form class="add-student-form" method="Post" action="{{route('students.store')}}" enctype="multipart/form-data">
-                        <!-- <div class="profile-title">
-                                Personal Information
-                            </div> -->
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
@@ -111,15 +109,14 @@
                             </div>
                             <div class="col-md-6 last-input-margin">
                                 <div class="form-group">
-                                    <label>Add Session</label>
+                                    <label>Current Session</label>
                                     <select name="session" id="session" disabled>
-                                      
                                         @foreach($year as $y)
-                                        @if($y->status==1) 
+                                        @if($y->status==1)
                                         @php $val = $y->id; @endphp
-                                        <option  value="{{$y->id}}" selected>{{$y->years }}
-                                         </option>
-                                         @endif
+                                        <option value="{{$y->id}}" selected>{{$y->years }}
+                                        </option>
+                                        @endif
                                         @endforeach
                                     </select>
                                     <input type="hidden" name="session" value="{{$val}}">
@@ -146,9 +143,7 @@
             </div>
         </div>
     </section>
-
-    @endsection
-    @section('additionalscripts')
-
-
-    @endsection
+</div>
+@endsection
+@section('additionalscripts')
+@endsection

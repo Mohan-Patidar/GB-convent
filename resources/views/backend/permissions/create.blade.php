@@ -71,7 +71,7 @@
             </div>
        
 <div class="page-table" id="">
-        <table id="" class="table table-bordered table-striped" style="width:100%;">
+        <table id="" class="table tabel-res table-striped" style="width:100%;">
             <thead>
                 <tr>
                     <th>S.No.</th>
@@ -89,7 +89,7 @@
                         <div class="d-flex">
                             <button class="edit-btn">
                                 <a class="" href="{{ route('permission.edit',$permission->id) }}">
-                                    <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
+                                    <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt=""></a>
                             </button>
                         </div>
                     </td>

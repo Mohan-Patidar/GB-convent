@@ -23,7 +23,6 @@
                 </a>
             </div>
         </div>
-
         <div class="profile-box">
             <div class="short-code">
                 <form action="{{ route('assignrole.store') }}" method="POST" class="">
@@ -46,26 +45,20 @@
                         </span>
                         @enderror
                     </div>
-
-                        <div class="form-group">
-                            <label> Assign Role</label>
-                            <select name="user_type" id="user_type">
-                                <option value="">--Select Role--</option>
-                                <option value="Accountant">Accountant</option>
-                                <option value="Admin">Admin</option>
-                               
-                                <option value="Manager">Manager</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label> Assign Role</label>
+                        <select name="user_type" id="user_type">
+                            <option value="">--Select Role--</option>
+                            <option value="Accountant">Accountant</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Manager">Manager</option>
+                        </select>
+                    </div>
                     <div class=" text-center">
                         <input type="submit" name="save" class="login-btn" id="save" value="Create User">
                     </div>
-
-
-
                 </form>
             </div>
-
         </div>
-    </section>
+</section>
 @endsection

@@ -1,37 +1,32 @@
 @extends('layouts.adminlayout')
-
 @section('content')
-
-
-@if(Session::has('message'))
-<div class="alert alert-success alert-dismissible fade in" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-            aria-hidden="true">×</span></button>
-    <p>{{ Session::get('message') }}</p>
-</div>
-@endif
-        <section class="main-wrapper">
-            <div class="page-color">
-                <div class="page-header">
-                    <div class="page-title">
-                        Student <span>Fees</span>
-                    </div>
-                    <div class="page-btn">
-                        <a href="{{url('/add_class')}}" class="add-btn">
-                            <span>
-                                    <img src="{{url('/')}}/assets/image/Icon-arrow-back.svg" class="btn-arrow-show" alt="">
-                                    <img src="{{url('/')}}/assets/image/Icon-arrow-back-2.svg" class="btn-arrow-hide" alt="">
-                                </span>
-                            <span>Back</span>
-                        </a>
-                    </div>
+<div class="page-inner ad-inr">
+    @if(Session::has('message'))
+    <div class="alert alert-success alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <p>{{ Session::get('message') }}</p>
+    </div>
+    @endif
+    <section class="main-wrapper">
+        <div class="page-color">
+            <div class="page-header">
+                <div class="page-title">
+                    <h3>Add Student <span>class</span></h3>
+                    <a href="{{url('/add_class')}}" class="add-btn">
+                        <span>
+                            <img src="{{url('/')}}/assets/image/Icon-arrow-back.svg" class="btn-arrow-show" alt="">
+                            <img src="{{url('/')}}/assets/image/Icon-arrow-back-2.svg" class="btn-arrow-hide" alt="">
+                        </span>
+                        <span>Back</span>
+                    </a>
                 </div>
-                <div class="profile-box">
-                    <div class="short-code">
-                        <form id="class-form" method="Post" action="{{route('add_class.store')}}"
-                        enctype="multipart/form-data" >
+            </div>
+            <div class="profile-box">
+                <div class="short-code">
+                    <form id="class-form" method="Post" action="{{route('add_class.store')}}" enctype="multipart/form-data">
                         @csrf
-                        <div class="col-md-6 last-input-margin">
+                        <div class="row">
+                            <div class="col-md-6 last-input-margin">
                                 <div class="form-group">
                                     <label>Add Session</label>
                                     <select name="years_id" id="years_id">
@@ -53,25 +48,29 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Fees</label>
-                                <input type="text" placeholder="Fees Structure" name="amount" id="amount">
-                              
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Fees Structure</label>
+                                    <input type="text" placeholder="Fees Structure" name="amount" id="amount">
+                                </div>
                             </div>
-                           
-                            <div class="btn btn-box">
-                                <button type="submit" class="add-btn margin-top-15">Add Fees</button>
+                            <div class="col-md-12 text-center">
+                                <div class="btn btn-box">
+                                    <button type="submit" class="add-btn margin-top-15">Add Class</button>
+                                </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </section>
-
+        </div>
+    </section>
+</div>
 @endsection
 @section('additionalscripts')
 <script>
     $("#class-form").validate();
-   
 </script>
 @endsection

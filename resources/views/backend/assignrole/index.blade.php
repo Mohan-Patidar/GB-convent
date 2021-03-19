@@ -36,18 +36,17 @@
                         <tr>
                             <td>@php echo ++$i @endphp</td>
                             <td>{{ $user->name }}</td>
-                            <td class="sorting_1">{{ $user->user_type }}</td>
-                            
+                            <td class="sorting_1">{{ $user->user_type }}</td>                          
                             <td>
                                 <div class="d-flex">
                                     <button class="edit-btn">
                                         <a class="" href="{{ route('assignrole.edit',$user->id) }}">
-                                            <img src="{{url('/')}}/assets/image/Icon-edit.svg" width="16px" alt=""></a>
+                                            <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt=""></a>
                                     </button>
                                     
                                     @if(Auth::check() && Auth::user()->user_type  == "Admin")
                                         <button type="submit" class="delete-btn role-delete" data-id="{{$user->id}}" data-name="{{ $user->name }}" > 
-                                            <img src="{{url('/')}}/assets/image/Icon-delete.svg" width="16px" alt="">
+                                            <img src="{{url('/')}}/assets/image/feather-trash.svg" width="16px" alt="">
                                         </button>
                                         @endif
                                 </div>
