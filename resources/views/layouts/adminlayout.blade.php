@@ -75,7 +75,7 @@
   
                         </li>
                     </ul>
-                        <!-- <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
+                        <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
                         
                             <a href="{{ url('/assignrole') }}">
                                 <i>
@@ -83,9 +83,9 @@
                                 </i>
                                 <span>Assign Role</span>
                             </a>
-                        </li> -->
+                        </li>
                   
-                        <!-- <li @if(request()->segment(1) == 'roles-permissions') class="active" @endif>
+                       <!-- <li @if(request()->segment(1) == 'roles-permissions') class="active" @endif>
                             <a href="{{ url('/roles-permissions') }}">
                                 <i>
                                     <img src="{{url('/')}}/assets/image/expertise-area.svg" class="menu-show" alt="">

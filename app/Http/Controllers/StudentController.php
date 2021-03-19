@@ -16,6 +16,7 @@ class StudentController extends Controller
 {
     public function index()
     {
+    
         $tests = Student_classe::get();
         $records = Record::get();
         $year = Year::get();

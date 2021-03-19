@@ -28,13 +28,19 @@ class RoleAssign extends Controller
         $request->validate([
             'name'      => 'required|string|max:255',
             'password'  => 'required|string|min:8',
+            'user_type' =>'required',
         ]);
-
-        $user = User::create([
-            'name'      => $request->name,
-            'password'  => Hash::make($request->password),
-            'user_type' =>$request->user_type
-        ]);
+        $user= new User();
+        $user->name = $request->name;
+        $user->user_type=$request->user_type;
+        $user->password= Hash::make($request->password);
+        $user->save();
+        // $user = User::create([
+        //     'name'      => $request->name,
+        //     'user_type' =>$request->user_type,
+        //     'password'  => Hash::make($request->password),
+           
+        // ]);
 
         Session::flash('message', 'Role assign added successfuly!');
 
@@ -54,15 +60,12 @@ class RoleAssign extends Controller
             'name'  => 'required|string|max:255',
             
         ]);
-
-        $user = User::findOrFail($id);
-       
-
-        $user->update([
-            'name'  => $request->name,
-            'user_type' =>$request->user_type,
-        ]);
-
+        $user = User::where("id", "=", $id)->first();
+        
+        $user->name = $request->name;
+        $user->user_type=$request->user_type;
+        $user->password= Hash::make($request->password);
+        $user->update();
         
 
         return redirect()->route('assignrole.index');
