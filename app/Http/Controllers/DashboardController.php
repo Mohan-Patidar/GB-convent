@@ -13,6 +13,9 @@ use App\Models\Report;
 class DashboardController extends Controller
 {
     public function index(){
+
+        $student=0;
+        $year=0;
         $student = Student::get()->count();
         $session = Year::where('status','=',1)->get();
         foreach($session as $s){

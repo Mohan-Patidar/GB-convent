@@ -146,6 +146,17 @@
     <!-- custom js -->
     <script src="{{url('/')}}/assets/js/custom.js"></script>
     <script>
+
+$("#change").change(function(){
+   
+    var id = $(this).val();
+    var yid = $('#change option:selected').attr("session");
+   
+    location.href = location.origin+'/GB-convent/classes/'+id+'/'+yid;
+
+    });     
+    </script>
+    <script>
         $('.delete-confirm').click(function(event) {
             var form = $(this).closest("form");
             var name = $(this).data("name");

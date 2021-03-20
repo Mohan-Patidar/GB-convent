@@ -49,13 +49,13 @@
                         <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$current_year]) }}">{{$post->class_name}}</a></li>
                         @endforeach
                     </ul> -->
-                        <select>
+                        <select name="change" id="change" >
                             @php
                             $posts= App\Models\Student_classe::get();
                             $current_year=$y_id;
                             @endphp
                             @foreach($posts as $post)
-                            <option value="{{ $post->id }}">{{$post->class_name}}</option>
+                            <option  value="{{ $post->id }}" session="{{$current_year}}">{{$post->class_name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -116,24 +116,15 @@
                                     </div>
                                 </td>
                                 <td>{{$student->student_id}}</td>
-                                <!-- <td><img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" /></td> -->
                                 <td><b>{{$student->name}}</b><br>
                                     <div class="user-dtls">
                                     <span><img src="{{url('/')}}/assets/image/men.svg" alt="">{{$student->father_name}}</span>
                                     <span><img src="{{url('/')}}/assets/image/women.svg" alt="">{{$student->mother_name}}</span>
                                     </div>
                                 </td>
-                                <td>{{$student->scholar_no}}
-                                </td>
-                                @foreach($tests as $test)
-                                @if($test->id == $r->class_name)
-                                <!-- <td class="sorting_1">{{$test->class_name}}</td> -->
-                                @endif
-                                @endforeach
-                                <!-- <td>{{$student->dob}}</td> -->
+                                <td>{{$student->scholar_no}}</td>
                                 <td>{{$student->address}}</td>
                                 <td>{{$student->aadhar_no}}</td>
-                                <!-- <td>{{$student->samarg_id}}</td> -->
                                 <td>{{$student->mobile_no}} <br>
                                     {{$student->mobile_no2}}
                                 </td>

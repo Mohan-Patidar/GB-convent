@@ -16,11 +16,15 @@ class StudentController extends Controller
 {
     public function index()
     {
-    
+        $students=0;  $y_name=0;
+        $tests=0;   $y_id=0; $records=0;
         $tests = Student_classe::get();
         $records = Record::get();
         $year = Year::get();
-        
+        // if($year->isEmpty()){
+        //     Session::flash('message', 'First add session with selcting checkbox !!');
+        //     return redirect('years');
+        // } else{
         foreach($year as $y){
             if($y->status==1){
                 $y_id=$y->id;
@@ -29,7 +33,8 @@ class StudentController extends Controller
         }
         $students = Student::get();
         return view('admin.student.index', compact("students", "tests", "records","y_id","y_name"));
-    }
+    // }
+}
 
     public function create()
     {

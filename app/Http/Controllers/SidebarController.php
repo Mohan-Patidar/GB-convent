@@ -10,13 +10,19 @@ use Illuminate\Http\Request;
 class SidebarController extends Controller
 {
   
-    public function classData($classes,$session){
+    public function classData($id,$yid){
+
+       
         $year= Year::get();
-        $class = Student_classe::get();
-        $tests = Record::where("session","=",$session)->where("class_name","=",$classes)->get();
+        $class = Student_classe::where("id","=",$id)->get();
+        foreach($class as $c){
+            $class_name=$c->class_name;
+        }
+        $tests = Record::where("session","=", $yid)->where("class_name","=",$id)->get();
         foreach($year as $y){
             if($y->status==1){
                 $y_name=$y->years;
+                $y_id=$y->id;
             }
         }
         $b=array();
@@ -32,9 +38,11 @@ class SidebarController extends Controller
            }
         
        
-        return view('admin.sidebar.session',compact("b","tests","class","year","y_name"));
+        return view('admin.sidebar.session',compact("b","tests","class","year","y_name","y_id","class_name"));
+        // return response()->json( $yid );
        
     }
+    
 
     public function sessionData($class,$year){
         $year= Year::get();

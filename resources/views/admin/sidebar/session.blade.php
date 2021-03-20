@@ -11,7 +11,7 @@
         <div class="page-color">
             <div class="page-header">
                 <div class="page-title">
-                    <h3><span>student </span></h3>
+                    <h3><span>{{$class_name}}</span></h3>
                     <span class="c_session"><b>Current Session</b> {{$y_name}} </span>
                     <div class="user-drop-sec">
                         <ul>
@@ -49,13 +49,14 @@
                         <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$current_year]) }}">{{$post->class_name}}</a></li>
                         @endforeach
                     </ul> -->
-                        <select>
+                    
+                        <select name="change" id="change">
                             @php
                             $posts= App\Models\Student_classe::get();
                             $current_year=$y_id;
                             @endphp
                             @foreach($posts as $post)
-                            <option value="{{ $post->id }}">{{$post->class_name}}</option>
+                            <option @if(request()->segment(2) == $post->id) selected  @endif value="{{ $post->id }}" session="{{$current_year}}">{{$post->class_name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -76,25 +77,21 @@
                     <div class="page-table" id="dvData">
                         <table id="class-table" class="table-bordered table-striped" style="width:100%;">
                             <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>S.No.</th>
-                                    <th>Actions</th>
-                                    <th>Student Id</th>
-                                    <th>Profile</th>
-                                    <th>Name</th>
-                                    <th>Scholar No.</th>
-                                    <th>Class</th>
-                                    <th>Father's Name</th>
-                                    <th>Mother's Name</th>
-                                    <th>D.O.B</th>
-                                    <th>Address</th>
-                                    <th>Aadhar Number</th>
-                                    <th>Samagar Id</th>
-                                    <th>Mobile No. 1</th>
-                                    <th>Mobile No. 2</th>
-                                    <th>Bank Acc/No.</th>
-                                </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Actions</th>
+                                <th>Id</th>
+                                <th style="display: none;">Profile</th>
+                                <th>Name</th>
+                                <th>Scholar No.</th>
+                                <!-- <th>Class</th> -->
+                                <!-- <th>D.O.B</th> -->
+                                <th>Address</th>
+                                <th>Aadhar Number</th>
+                                <!-- <th>Samagar Id</th> -->
+                                <th>Mob No.</th>
+                                <th>Bank Acc/No.</th>
+                            </tr>
                             </thead>
                             <tbody id="result">
                                 @php $i = 0; @endphp
@@ -102,7 +99,7 @@
                                 @foreach($b as $student)
                                 @if($t->students_id==$student->id)
                                 <tr>
-                                    <td>{{$student->id}}</td>
+                                   
                                     <td>@php echo ++$i @endphp</td>
                                     <td>
                                         <div class="d-flex">
@@ -120,24 +117,20 @@
                                         </div>
                                     </td>
                                     <td>{{$student->student_id}}</td>
-                                    <td>@if($student->profile_picture==NULL)<img class="student-img" src="{{url('/')}}/assets/image/download.png" />
-                                        @else<img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" />@endif</td>
-                                    <td>{{$student->name}}</td>
+                                    <td style="display: none;">{{$student->father_name}}</td>
+                                    <td><b>{{$student->name}}</b><br>
+                                    <div class="user-dtls">
+                                    <span><img src="{{url('/')}}/assets/image/men.svg" alt="">{{$student->father_name}}</span>
+                                    <span><img src="{{url('/')}}/assets/image/women.svg" alt="">{{$student->mother_name}}</span>
+                                    </div>
+                                    </td>   
                                     <td>{{$student->scholar_no}}</td>
-                                    @foreach($class as $c)
-                                    @if($c->id == $t->class_name)
-                                    <td class="sorting_1">{{$c->class_name}}</td>
-                                    @endif
-                                    @endforeach
-                                    <td>{{$student->father_name}}</td>
-                                    <td>{{$student->mother_name}}</td>
-                                    <td>{{$student->dob}}</td>
                                     <td>{{$student->address}}</td>
                                     <td>{{$student->aadhar_no}}</td>
-                                    <td>{{$student->samarg_id}}</td>
-                                    <td>{{$student->mobile_no}}</td>
-                                    <td>{{$student->mobile_no2}}</td>
-                                    <td>{{$student->account_no}}</td>
+                                    <td>{{$student->mobile_no}} <br>
+                                         {{$student->mobile_no2}}
+                                    </td>
+                                <td>{{$student->account_no}}</td>
                                 </tr>
                                 @endif
                                 @endforeach
