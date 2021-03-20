@@ -147,8 +147,12 @@ class StudentController extends Controller
     }
     public function destroy(Request $request)
     {
-        
-        // 
+        $id = $request->id;
+        $r_id = $request->r_id;
+        Student::destroy($id);
+        Record::destroy($r_id);
+        return response()->json();
+         
 
 
     }
@@ -159,11 +163,7 @@ class StudentController extends Controller
         // Record::destroy($id);
         // return redirect('students');
         // Session::flash('message', ' data delete successfuly!');
-        $id = $request->id;
-        $r_id = $request->r_id;
-        Student::destroy($id);
-        Record::destroy($r_id);
-        return response()->json();
+        
       
 
     }

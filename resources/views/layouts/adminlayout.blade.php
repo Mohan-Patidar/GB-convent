@@ -154,7 +154,8 @@ $("#change").change(function(){
    
     location.href = location.origin+'/GB-convent/classes/'+id+'/'+yid;
 
-    });     
+    });
+     
     </script>
     <script>
         $('.delete-confirm').click(function(event) {
