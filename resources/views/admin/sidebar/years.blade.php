@@ -69,21 +69,21 @@
                     <thead>
                         <tr>
                             <th>S.No.</th>
-                            <th>Actions</th>
-                            <th>Student Id</th>
-                            <th>Profile</th>
                             <th>Name</th>
+                            <th>Id</th>
+                            <!-- <th>Profile</th> -->
                             <th>Scholar No.</th>
-                            <th>Class</th>
-                            <th>Father's Name</th>
-                            <th>Mother's Name</th>
-                            <th>D.O.B</th>
+                            <!-- <th>Class</th> -->
+                            <!-- <th>Father's Name</th>
+                            <th>Mother's Name</th> -->
+                            <!-- <th>D.O.B</th> -->
                             <th>Address</th>
                             <th>Aadhar Number</th>
-                            <th>Samagar Id</th>
-                            <th>Mobile No. 1</th>
-                            <th>Mobile No. 2</th>
-                            <th>Bank Acc/No.</th>
+                            <!-- <th>Samagar Id</th> -->
+                            <th>Mobile No</th>
+                            <!-- <th>Mobile No. 2</th> -->
+                            <!-- <th>Bank Acc/No.</th> -->
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="result">
@@ -93,38 +93,55 @@
                         @if($t->students_id==$student->id)
                         <tr>
                             <td>@php echo ++$i @endphp</td>
+                            <td><b>{{$student->name}}</b><br>
+                                    <div class="user-dtls">
+                                    <span><img src="{{url('/')}}/assets/image/men.svg" alt="">{{$student->father_name}}</span>
+                                    <span><img src="{{url('/')}}/assets/image/women.svg" alt="">{{$student->mother_name}}</span>
+                                    </div>
+                                </td>
+                            <td>{{$student->student_id}}</td>
+                            <!-- <td>@if($student->profile_picture==NULL)<img class="student-img" src="{{url('/')}}/assets/image/download.png" />
+                                @else<img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" />@endif</td> -->
+                            <td>{{$student->scholar_no}}</td>
+                            @foreach($class as $c)
+                            @if($c->id == $t->class_name)
+                            <!-- <td class="sorting_1">{{$c->class_name}}</td> -->
+                            @endif
+                            @endforeach
+                            <!-- <td>{{$student->father_name}}</td>
+                            <td>{{$student->mother_name}}</td> -->
+                            <!-- <td>{{$student->dob}}</td> -->
+                            <td>{{$student->address}}</td>
+                            <td>{{$student->aadhar_no}}</td>
+                            <!-- <td>{{$student->samarg_id}}</td> -->
+                            <td>{{$student->mobile_no}}<br>
+                                    {{$student->mobile_no2}}
+                                </td>
+                            <!-- <td>{{$student->mobile_no2}}</td>
+                            <td>{{$student->account_no}}</td> -->
                             <td>
                                 <div class="d-flex">
+                                <ul class="d-flex">
+                                        <li class="tool tool-edit">
                                     <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
                                         <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt=""></a>
+                                        <span class="tooltips">Edit</span>
+                                        </li>
+                                        <li class="tool tool-view">
                                     <a class="edit-btn" href="{{url('show',['student'=>$student->id,'session'=>$t->session])}}">
                                         <img src="{{url('/')}}/assets/image/feather-eye.svg" width="16px" alt=""></a>
+                                        <span class="tooltips">Preview</span>
+                                        </li>
+                                        <li class="tool tool-delete">
                                     @if(Auth::check() && Auth::user()->user_type == "Admin")
                                     <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{$t->id}}">
                                         <img src="{{url('/')}}/assets/image/feather-trash.svg" width="16px" alt="">
                                     </button>
+                                    <span class="tooltips">Delete</span>
+                                        </li>
                                     @endif
                                 </div>
                             </td>
-                            <td>{{$student->student_id}}</td>
-                            <td>@if($student->profile_picture==NULL)<img class="student-img" src="{{url('/')}}/assets/image/download.png" />
-                                @else<img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" />@endif</td>
-                            <td>{{$student->name}}</td>
-                            <td>{{$student->scholar_no}}</td>
-                            @foreach($class as $c)
-                            @if($c->id == $t->class_name)
-                            <td class="sorting_1">{{$c->class_name}}</td>
-                            @endif
-                            @endforeach
-                            <td>{{$student->father_name}}</td>
-                            <td>{{$student->mother_name}}</td>
-                            <td>{{$student->dob}}</td>
-                            <td>{{$student->address}}</td>
-                            <td>{{$student->aadhar_no}}</td>
-                            <td>{{$student->samarg_id}}</td>
-                            <td>{{$student->mobile_no}}</td>
-                            <td>{{$student->mobile_no2}}</td>
-                            <td>{{$student->account_no}}</td>
                         </tr>
                         @endif
                         @endforeach

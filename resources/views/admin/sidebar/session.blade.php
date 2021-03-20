@@ -40,17 +40,7 @@
             <div class="page-inr">
                 <div class="tabel-head">
                     <div class="form-group">
-                        <!-- <ul class="cus-menu">
-                        @php
-                        $posts= App\Models\Student_classe::get();
-                        $current_year=$y_id;
-                        @endphp
-                        @foreach($posts as $post)
-                        <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$current_year]) }}">{{$post->class_name}}</a></li>
-                        @endforeach
-                    </ul> -->
-                    
-                        <select name="change" id="change">
+                        <select>
                             @php
                             $posts= App\Models\Student_classe::get();
                             $current_year=$y_id;

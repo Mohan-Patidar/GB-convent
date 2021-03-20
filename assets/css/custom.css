@@ -233,8 +233,9 @@ ul.log-our-sec li a {
 }
 
 table.dataTable thead th,
-table.dataTable thead td {
+table.dataTable tbody td {
     border-bottom: none;
+    text-transform: capitalize;
 }
 
 table.dataTable thead th,
@@ -246,7 +247,7 @@ th {
 .tabel-res td,
 .tabel-res th {
     border: none;
-    padding: 20px 10px !important;
+    padding: 23px 10px !important;
     vertical-align: middle;
     font-size: 14px;
 }
@@ -564,11 +565,27 @@ form textarea {
 .logo-box {
     width: 200px;
     margin: 0 auto 50px auto;
+    position: relative;
+    z-index: 9;
+}
+
+.copyright-box {
+    position: relative;
+    z-index: 9;
+    color: rgb(255 255 255 / 60%);
+}
+
+.copyright-box p a {
+    color: rgb(255 255 255 / 60%);
+}
+
+.copyright-box p a:hover {
+    color: #fff;
 }
 
 .login-bg {
-    max-width: 520px;
-    min-width: 520px;
+    max-width: 500px;
+    min-width: 460px;
     width: 100%;
 }
 
@@ -716,31 +733,24 @@ img.student-img {
     color: #FFBB00;
 }
 
-.tabel-res tr th:first-child,
-.tabel-res tr th:nth-child(3),
-.table-bordered tr th:first-child {
-    min-width: 30px;
-    max-width: 30px;
-}
-
 .tabel-res th,
-.table-bordered th {
-    min-width: 150px;
-    max-width: 150px;
+.tabel-res td {
+    min-width: 110px;
+    max-width: 110px;
 }
 
-.tabel-res td,
-.table-bordered td {
-    min-width: 150px;
-    max-width: 150px;
+.tabel-res td {
     color: #000;
 }
 
-.tabel-res tr td:first-child,
-.tabel-res tr td:nth-child(3),
-.table-bordered tr td:first-child {
+.tabel-res .width-30 {
     min-width: 30px;
     max-width: 30px;
+}
+
+.tabel-res .width-200 {
+    min-width: 200px;
+    max-width: 200px;
 }
 
 .table.tabel-res tbody {
@@ -898,10 +908,6 @@ span.c_session {
     border: 1px solid #654fd3;
 }
 
-.copyright-box p a {
-    color: #fff;
-}
-
 .login-head p {
     padding: 0px 20px;
     color: rgb(0 0 0 / 30%);
@@ -935,7 +941,7 @@ span.c_session {
     height: 30px;
     background: url(../image/username.svg);
     background-repeat: no-repeat;
-    object-fit: contain;
+    background-size: contain;
 }
 
 .pass-word:after {
@@ -947,7 +953,7 @@ span.c_session {
     height: 30px;
     background: url(../image/password.svg);
     background-repeat: no-repeat;
-    object-fit: contain;
+    background-size: contain;
 }
 
 .sidebar-wrapper .side-menu {
@@ -1181,4 +1187,59 @@ i[class^=icon-chevron] {
 
 .mob-show {
     display: none;
+}
+
+.tool {
+    position: relative;
+}
+
+.tooltips {
+    opacity: 0;
+    transition: 300ms all;
+    position: absolute;
+    top: -30px;
+    left: 45%;
+    background: #24a249;
+    color: #fff;
+    padding: 5px;
+    z-index: 9;
+    font-size: 11px;
+    line-height: 15px;
+    border-radius: 5px;
+    max-width: 60px;
+    min-width: 60px;
+    text-align: center;
+    text-transform: uppercase;
+    transform: translate(-50%);
+}
+
+.tool-view .tooltips {
+    background: rgb(250 200 0);
+}
+
+.tool-delete .tooltips {
+    background: rgb(255 0 0);
+}
+
+#result li:hover .tooltips {
+    opacity: 1;
+}
+
+.tooltips:after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 40%;
+    width: 10px;
+    height: 10px;
+    background: #24a249;
+    transform: rotate( 45deg);
+}
+
+.tool-view .tooltips:after {
+    background: rgb(250 200 0);
+}
+
+.tool-delete .tooltips:after {
+    background: rgb(255 0 0);
 }
