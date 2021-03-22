@@ -21,8 +21,13 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
    
-    Route::resource('/add_class','App\Http\Controllers\ClassController');
+    Route::resource('/feesstructure','App\Http\Controllers\FeesController');
+    Route::delete('feesdelete', 'App\Http\Controllers\FeesController@destroy')->name('destroy');
+    Route::post('editfees', 'App\Http\Controllers\FeesController@update')->name('update');
     Route::resource('/students','App\Http\Controllers\StudentController');
+    Route::delete('studentdelete', 'App\Http\Controllers\StudentController@destroy')->name('destroy');
+    
+
     Route::resource('/reports','App\Http\Controllers\ReportController');
     Route::resource('/years','App\Http\Controllers\YearController');
 
@@ -34,7 +39,7 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     Route::get('classes/{id}/{yid}', 'App\Http\Controllers\SidebarController@classData')->name('classData');
     // Route::get('session/{id}/{cid}', 'App\Http\Controllers\SidebarController@sessionData')->name('sessionData');
     Route::get('year/{id}', 'App\Http\Controllers\SidebarController@YearData')->name('YearData');
-    Route::get('fees/{id}', 'App\Http\Controllers\ClassController@FeesData')->name('FeesData');
+    Route::get('fees/{id}', 'App\Http\Controllers\FeesController@FeesData')->name('FeesData');
     Route::get('dashboard', 'App\Http\Controllers\DashboardController@index')->name('index');
     Route::post('promote', 'App\Http\Controllers\ClassController@PromoteData')->name('PromoteData');
      Route::get('show/{id}/{yid}','App\Http\Controllers\StudentController@StudentShow')->name('StudentShow');

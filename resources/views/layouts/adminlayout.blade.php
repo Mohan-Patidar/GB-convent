@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{url('/')}}/assets/css/global.css">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
 </head>
+
 <body>
     <!-- dashboard starts here -->
     <main>
@@ -52,7 +53,7 @@
                                 <span>Student</span>
                             </a>
                         </li>
-                        <li >
+                        <li>
                             <a href="javascript:void(0)">
                                 <i>
                                     <img src="{{url('/')}}/assets/image/session-icon.svg" class="menu-show" alt="">
@@ -69,23 +70,23 @@
                             @endphp
 
                             <ul class='sub-menus'>
-                            @foreach($posts as $post)
-                            <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('year',$post->id) }}"  >{{$post->years}}</a></li>
-                            @endforeach
-  
+                                @foreach($posts as $post)
+                                <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('year',$post->id) }}">{{$post->years}}</a></li>
+                                @endforeach
+
                         </li>
                     </ul>
-                        <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
-                        
-                            <a href="{{ url('/assignrole') }}">
-                                <i>
-                                    <img src="{{url('/')}}/assets/image/expertise-area.svg" class="menu-show" alt="">
-                                </i>
-                                <span>Assign Role</span>
-                            </a>
-                        </li>
-                  
-                       <!-- <li @if(request()->segment(1) == 'roles-permissions') class="active" @endif>
+                    <li @if(request()->segment(1) == 'assignrole') class="active" @endif>
+
+                        <a href="{{ url('/assignrole') }}">
+                            <i>
+                                <img src="{{url('/')}}/assets/image/expertise-area.svg" class="menu-show" alt="">
+                            </i>
+                            <span>Assign Role</span>
+                        </a>
+                    </li>
+
+                    <!-- <li @if(request()->segment(1) == 'roles-permissions') class="active" @endif>
                             <a href="{{ url('/roles-permissions') }}">
                                 <i>
                                     <img src="{{url('/')}}/assets/image/expertise-area.svg" class="menu-show" alt="">
@@ -93,24 +94,24 @@
                                 <span>Roles & Permission</span>
                             </a>
                         </li> -->
-                    <li @if(request()->segment(1) == 'add_class') class="active" @endif>
-                        <a href="{{ url('/add_class') }}">
+                    <li @if(request()->segment(1) == 'feesstructure') class="active" @endif>
+                        <a href="{{ url('/feesstructure') }}">
                             <i>
                                 <img src="{{url('/')}}/assets/image/fees-structure-icon.svg" class="menu-show" alt="">
                             </i>
                             <span>Fees Structure</span>
                         </a>
                     </li>
-                    @if(Auth::check() && Auth::user()->user_type  == "Admin")
+                    @if(Auth::check() && Auth::user()->user_type == "Admin")
                     <li @if(request()->segment(1) == 'years') class="active" @endif>
-                            <a href="{{ url('/years') }}">
-                                <i>
-                                    <img src="{{url('/')}}/assets/image/add-session-icon.svg" class="menu-show" alt="">
-                                </i>
-                                <span>Add Session</span>
-                            </a>
-                        </li>
-                        @endif
+                        <a href="{{ url('/years') }}">
+                            <i>
+                                <img src="{{url('/')}}/assets/image/add-session-icon.svg" class="menu-show" alt="">
+                            </i>
+                            <span>Add Session</span>
+                        </a>
+                    </li>
+                    @endif
                     <li>
                         <a href="">
                             <i>
@@ -137,7 +138,7 @@
     <!-- data table js -->
     <script src="{{url('/')}}/assets/js/jquery-3.5.1.min.js"></script>
     <script src="{{url('/')}}/assets/js/bootstrap.min.js"></script>
-     <script src="{{url('/')}}/assets/js/datatables1.min.js"></script>
+    <script src="{{url('/')}}/assets/js/datatables1.min.js"></script>
     <script src="{{url('/')}}/assets/js/dataTables.checkboxes.min.js"></script>
     <script src="{{url('/')}}/assets/js/dataTables.buttons.min.js"></script>
     <script src="{{url('/')}}/assets/js/buttons.html5.min.js"></script>
@@ -145,17 +146,63 @@
     <script src="{{url('/')}}/assets/js/validate.js"></script>
     <!-- custom js -->
     <script src="{{url('/')}}/assets/js/custom.js"></script>
+
+    <!-- fees javascript -->
     <script>
+        $(".addFees").click(function() {
+            $('#myfeesModal').modal('show');
+        });
+        $(".editfees").click(function() {
+            var url = $(this).attr('data-href');
+            // console.log(url);
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(fb) {
+                    var resp = $.parseJSON(fb); 
+                    $('#student_classes_ids').html(resp.output);
+                    $('#year_ids').html(resp.y_output);
+                    $('#main_id').val(resp.id);
+                    $('#amounts').val(resp.amount);
+                }
+            });
+            $('#myEfeesModal').modal('show');
+        });
+        $(document).on('click', '.deleteUser', function() {
+            var userID = $(this).attr('data-id');
+            $('#app_id').val(userID);
+            $('#feesDeleteModal').modal('show');
+        });
+    </script>
+    <!-- class script -->
+    <script>
+        $("#change").change(function() {
 
-$("#change").change(function(){
-   
-    var id = $(this).val();
-    var yid = $('#change option:selected').attr("session");
-   
-    location.href = location.origin+'/GB-convent/classes/'+id+'/'+yid;
+            var id = $(this).val();
+            var yid = $('#change option:selected').attr("session");
 
-    });
-     
+            location.href = location.origin + '/GB-convent/classes/' + id + '/' + yid;
+
+        });
+    </script>
+    <!--  student -->
+    <script>
+        $(".addStudent").click(function() {
+            $('#myaddModal').modal('show');
+        });
+        $(document).on('click', '.deletestudent', function() {
+            var userID = $(this).attr('data-id');
+            var recordID = $(this).attr('data-name');
+            $('#s_id').val(userID);
+            $('#r_id').val(recordID);
+            $('#studentDeleteModal').modal('show');
+        });
+        $(".studentpopup").click(function() {
+            $('#mystudentModal').modal('show');
+        });
+      
+
+
     </script>
     <script>
         $('.delete-confirm').click(function(event) {
@@ -172,7 +219,7 @@ $("#change").change(function(){
                 .then((willDelete) => {
                     if (willDelete) {
                         $.ajax({
-                            url: "{{route('add_class.store')}}" + '/' + id,
+                            url: "{{route('feesstructure.store')}}" + '/' + id,
                             type: "DELETE",
                             data: {
                                 id: id,
@@ -189,7 +236,7 @@ $("#change").change(function(){
             var form = $(this).closest("form");
             var name = $(this).data("name");
             var id = $(this).data("id");
-             var url = location.origin;
+            var url = location.origin;
             event.preventDefault();
             swal({
                     title: `Are you sure you want to delete ?`,
@@ -200,7 +247,7 @@ $("#change").change(function(){
                 .then((willDelete) => {
                     if (willDelete) {
                         $.ajax({
-                            url: url+"/GB-convent/delete",
+                            url: url + "/GB-convent/delete",
                             type: "DELETE",
                             data: {
                                 id: id,
@@ -243,7 +290,6 @@ $("#change").change(function(){
                     }
                 });
         });
-
     </script>
     <script>
         $('.import').click(function() {
@@ -258,22 +304,22 @@ $("#change").change(function(){
             $('.buttons-csv').click();
         });
     </script>
-     <script>
-    $(".passingID").click(function () {
-    var ids = $(this).attr('data-id');
-    var record_id = $(this).attr('record-id');
-    var d = $(this).attr('d');
-    var r = $(this).attr('r');
-    var fee = $(this).attr('fee');
-    var dat = $(this).attr('dat');
-    $("#idkl").val(record_id );
-    $('#main_id').val(ids);
-    $('#description').val(d);
-    $('#receipt').val(r);
-    $('#fee').val(fee);
-    $('#date').val(dat);
-    $('#myeditModal').modal('show');
-});
+    <script>
+        $(".passingID").click(function() {
+            var ids = $(this).attr('data-id');
+            var record_id = $(this).attr('record-id');
+            var d = $(this).attr('d');
+            var r = $(this).attr('r');
+            var fee = $(this).attr('fee');
+            var dat = $(this).attr('dat');
+            $("#idkl").val(record_id);
+            $('#main_id').val(ids);
+            $('#description').val(d);
+            $('#receipt').val(r);
+            $('#fee').val(fee);
+            $('#date').val(dat);
+            $('#myeditModal').modal('show');
+        });
     </script>
     <script>
         $(function() {
@@ -394,4 +440,5 @@ $("#change").change(function(){
         })
     </script>
 </body>
+
 </html>

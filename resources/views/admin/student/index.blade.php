@@ -54,13 +54,13 @@
                         <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$current_year]) }}">{{$post->class_name}}</a></li>
                         @endforeach
                     </ul> -->
-                        <select name="change" id="change" >
+                        <select name="change" id="change">
                             @php
                             $posts= App\Models\Student_classe::get();
                             $current_year=$y_id;
                             @endphp
                             @foreach($posts as $post)
-                            <option  value="{{ $post->id }}" session="{{$current_year}}">{{$post->class_name}}</option>
+                            <option value="{{ $post->id }}" session="{{$current_year}}">{{$post->class_name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -77,7 +77,131 @@
                             </a>
                         </form>
                         <div class="page-btn">
-                            <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
+                            <a href="javascript:void(0)" class="add-btn addStudent">Add Student</a>
+
+                            <div class="modal fade" id="myaddModal" role="dialog">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Add <span> Student</span></h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{route('students.store')}}" id="studentAdd" method="Post" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Student Id</label>
+                                                            <input type="text" name="student_id" id="student_id">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Scholar No.</label>
+                                                            <input type="text" name="scholar_no" id="scholar_no">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Name</label>
+                                                            <input type="text" name="name" id="name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Father name</label>
+                                                            <input type="text" name="father_name" id="father_name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Mother name</label>
+                                                            <input type="text" name="mother_name" id="mother_name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Address</label>
+                                                            <input type="text" name="address" id="address">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Aadhar No.</label>
+                                                            <input type="number" name="aadhar_no" id="aadhar_no">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Samagra Id</label>
+                                                            <input type="number" name="samarg_id" id="samarg_id">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Date of Birth</label>
+                                                            <input type="date" name="dob" id="dob">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Class</label>
+                                                            <select name="class_name" id="class_name">
+                                                                <option value="" selected>Select Class</option>
+                                                                @foreach($tests as $test)
+                                                                <option value="{{$test->id}}">{{$test->class_name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Mobile No. 1</label>
+                                                            <input type="number" name="mobile_no" id="mobile_no">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Mobile No. 2</label>
+                                                            <input type="number" name="mobile_no2" id="mobile_no2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 last-input-margin" style="display: none;">
+                                                        <div class="form-group">
+                                                            <label>Current Session</label>
+                                                            <select name="session" id="session">
+
+                                                                <option value="{{$y_id}}" selected>{{$y_name }}
+                                                                </option>
+
+                                                            </select>
+                                                            <input type="hidden" name="session" value="{{$y_id}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 last-input-margin">
+                                                        <div class="form-group">
+                                                            <label>Bank Account No.</label>
+                                                            <input type="number" name="account_no" id="account_no">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 last-input-margin">
+                                                        <div class="form-group">
+                                                            <label> Picture </label>
+                                                            <input type="file" name="profile_picture" id="profile_picture">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+
+                                                        <input type="submit" name="save" class="add-btn" id="butsave" value="Add Student">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -121,6 +245,11 @@
                                 <td>
                                     <ul class="d-flex">
                                         <li class="tool tool-edit">
+                                            <a class="studentpopup" id="" href="javascript:void(0)">view </a>
+                                           
+
+                                        </li>
+                                        <li class="tool tool-edit">
                                             <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
                                                 <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt=""></a>
                                             <span class="tooltips">Edit</span>
@@ -132,10 +261,7 @@
                                         </li>
                                         <li class="tool tool-delete">
                                             @if(Auth::check() && Auth::user()->user_type == "Admin")
-                                            <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{$r->id}}">
-                                                <img src="{{url('/')}}/assets/image/feather-trash.svg" width="16px" alt="">
-                                            </button>
-                                            <span class="tooltips">Delete</span>
+                                            <a href="javascript:void(0)" type="submit" class="delete-btn deletestudent" data-id="{{$student->id}}" data-name="{{$r->id}}"><img src="{{url('/')}}/assets/image/feather-trash.svg" width="16px" alt=""></a>
                                         </li>
                                         @endif
                                     </ul>
@@ -147,10 +273,52 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- student delete modal -->
+                <div id="studentDeleteModal" class="modal modal-danger fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog" style="width:55%;">
+                        <div class="modal-content">
+                            <form action="{{url('studentdelete')}}" method="POST" class="remove-record-model">
+                                {{ method_field('delete') }}
+                                {{ csrf_field() }}
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title text-center" id="custom-width-modalLabel">Delete Applicant Record</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>You Want You Sure Delete This Record?</h4>
+                                    <input type="hidden" , name="sid" id="s_id">
+                                    <input type="hidden" , name="rid" id="r_id">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-danger waves-effect remove-data-from-delete-form">Delete</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="mystudentModal" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <a href="javascript:void(0)" type="submit" class="" data-id="" data-name=""></a>  
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 </div>
 @endsection
-@section('additionalscripts')>
+@section('additionalscripts')
+
 @endsection

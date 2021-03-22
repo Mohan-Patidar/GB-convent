@@ -12,7 +12,7 @@
             <div class="page-header">
                 <div class="page-title">
                     <h3>student <span> class</span></h3>
-                    <a href="{{route('add_class.create')}}" class="add-btn">Add Fees Structure</a>
+                    <a href="{{route('feesstructure.create')}}" class="add-btn">Add Fees Structure</a>
                 </div>
             </div>
             <div class="tabel-head">
@@ -58,7 +58,7 @@
                             <td>
                                 <div class="d-flex">
                                     @if(Auth::check() && Auth::user()->user_type == "Admin")
-                                    <a class="edit-btn" href="{{route('add_class.edit',$test->id)}}">
+                                    <a class="edit-btn" href="{{route('feesstructure.edit',$test->id)}}">
                                         <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt=""></a>
                                     <button type="submit" class="delete-btn delete-confirm" data-id="{{$test->id}}" data-name="{{ $test->class_name }}">
                                         <img src="{{url('/')}}/assets/image/feather-trash.svg" width="16px" alt="">

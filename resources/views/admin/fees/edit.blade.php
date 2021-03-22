@@ -12,7 +12,7 @@
             <div class="page-header">
                 <div class="page-title">
                     <h3>Edit <span>fees</span></h3>
-                    <a href="{{url('/add_class')}}" class="add-btn">
+                    <a href="{{url('/feesstructure')}}" class="add-btn">
                         <span>
                             <img src="{{url('/')}}/assets/image/Icon-arrow-back.svg" class="btn-arrow-show" alt="">
                             <img src="{{url('/')}}/assets/image/Icon-arrow-back-2.svg" class="btn-arrow-hide" alt="">
@@ -23,7 +23,7 @@
             </div>
             <div class="profile-box">
                 <div class="short-code">
-                    <form id="class-form" method="Post" action="{{route('add_class.update',$tests->id)}}" enctype="multipart/form-data">
+                    <form id="class-form" method="Post" action="{{route('feesstructure.update',$tests->id)}}" >
                         <input type="hidden" name="_method" value="PUT">
                         @csrf
                         <div class="col-md-6 last-input-margin">

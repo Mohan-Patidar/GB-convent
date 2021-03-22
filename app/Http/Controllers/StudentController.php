@@ -18,7 +18,7 @@ class StudentController extends Controller
     {
         $students=0;  $y_name=0;
         $tests=0;   $y_id=0; $records=0;
-        $tests = Student_classe::get();
+        $tests = Student_classe::all();
         $records = Record::get();
         $year = Year::get();
         // if($year->isEmpty()){
@@ -46,7 +46,7 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-
+      
         $request->validate([]);
 
         $students = new Student;
@@ -85,6 +85,7 @@ class StudentController extends Controller
         Session::flash('message', 'Student added successfuly!');
 
         return redirect('students');
+
     }
     public function show()
     {
@@ -146,15 +147,15 @@ class StudentController extends Controller
         return redirect('students');
     }
     public function destroy(Request $request)
-    {
-        $id = $request->id;
-        $r_id = $request->r_id;
+    { 
+        $id = $request->input('sid');
+        $rid = $request->input('rid');
+      
         Student::destroy($id);
-        Record::destroy($r_id);
-        return response()->json();
-         
+        Record::destroy($rid);
 
-
+        Session::flash('message', ' data delete successfuly!');
+        return redirect('students');
     }
      public function delete(Request $request)
     {
