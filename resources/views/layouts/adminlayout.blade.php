@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G.B.Convent</title>
     <link rel="stylesheet" href="{{url('/')}}/assets/css/global.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
 </head>
 
 <body>
@@ -138,25 +137,26 @@
     <!-- data table js -->
     <script src="{{url('/')}}/assets/js/jquery-3.5.1.min.js"></script>
     <script src="{{url('/')}}/assets/js/bootstrap.min.js"></script>
-    <script src="{{url('/')}}/assets/js/datatables1.min.js"></script>
+    <script src="{{url('/')}}/assets/js/datatables.min.js"></script>
     <script src="{{url('/')}}/assets/js/dataTables.checkboxes.min.js"></script>
     <script src="{{url('/')}}/assets/js/dataTables.buttons.min.js"></script>
     <script src="{{url('/')}}/assets/js/buttons.html5.min.js"></script>
     <script src="{{url('/')}}/assets/js/sweetalert.min.js"></script>
     <script src="{{url('/')}}/assets/js/validate.js"></script>
+    <script src="{{url('/')}}/assets/js/bootstrap-datepicker.js"></script>
     <!-- custom js -->
     <script src="{{url('/')}}/assets/js/custom.js"></script>
 
-   
+
     <script>
-    // class script
-    $("#changes").change(function() {
+        // class script
+        $("#changes").change(function() {
             var id = $(this).val();
             var yid = $('#changes option:selected').attr("session");
             location.href = location.origin + '/GB-convent/classes/' + id + '/' + yid;
         });
-    
-    //  fees javascript 
+
+        //  fees javascript 
         $(".addFees").click(function() {
             $('#myfeesModal').modal('show');
         });
@@ -180,8 +180,9 @@
             $('#app_id').val(userID);
             $('#feesDeleteModal').modal('show');
         });
-     // student
-     $(".addStudent").click(function() {
+
+        // student
+        $(".addStudent").click(function() {
             $('#myaddModal').modal('show');
         });
         $(document).on('click', '.deletestudent', function() {
@@ -222,6 +223,7 @@
             $('#sIds').val(id);
             $('#mySEditModal').modal('show');
         });
+
         //import 
         $('.import').click(function() {
             $("#file").click();
@@ -229,10 +231,12 @@
         $('#file').change(function() {
             $('#submit').click();
         });
+
         //export
         $('#export').click(function() {
             $('.buttons-csv').click();
         });
+        
         //edit fees receipt
         $(".passingID").click(function() {
             var ids = $(this).attr('data-id');
@@ -254,6 +258,35 @@
         $(".addUser").click(function() {
             $('#myAssignModal').modal('show');
         });
+        $(".editrole").click(function() {
+            var url = $(this).attr('data-href');
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(fb) {
+                    var resp = $.parseJSON(fb);
+                    $('#student_classes_ids').html(resp.output);
+                    $('#year_ids').html(resp.y_output);
+                    $('#main_id').val(resp.id);
+                    $('#amounts').val(resp.amount);
+                }
+            });
+            $('#myEfeesModal').modal('show');
+        });
+
+        // group calendar
+        $('.input-daterange').datepicker({
+            todayHighlight: true,
+            autoclose: true
+        });
+
+        // inline calendar
+        $('#inline-cal').datepicker({
+            todayHighlight: true,
+            daysOfWeekHighlighted: "0",
+        });
+
+        $('.datepicker-days table').attr('cellspacing', '7');
     </script>
     <script>
         $('.role-delete').click(function(event) {
@@ -284,125 +317,6 @@
                     }
                 });
         });
-        
-    </script>
-    <script>
-        $(function() {
-            function c() {
-                p();
-                var e = h();
-                var r = 0;
-                var u = false;
-                l.empty();
-                while (!u) {
-                    if (s[r] == e[0].weekday) {
-                        u = true
-                    } else {
-                        l.append('<div class="blank"></div>');
-                        r++
-                    }
-                }
-                for (var c = 0; c < 42 - r; c++) {
-                    if (c >= e.length) {
-                        l.append('<div class="blank"></div>')
-                    } else {
-                        var v = e[c].day;
-                        var m = g(new Date(t, n - 1, v)) ? '<div class="today">' : "<div>";
-                        l.append(m + "" + v + "</div>")
-                    }
-                }
-                var y = o[n - 1];
-                a.css("background-color", y).find("h1").text(i[n - 1] + " " + t);
-                f.find("div").css("color", y);
-                l.find(".today").css("background-color", y);
-                d()
-            }
-
-            function h() {
-                var e = [];
-                for (var r = 1; r < v(t, n) + 1; r++) {
-                    e.push({
-                        day: r,
-                        weekday: s[m(t, n, r)]
-                    })
-                }
-                return e
-            }
-
-            function p() {
-                f.empty();
-                for (var e = 0; e < 7; e++) {
-                    f.append("<div>" + s[e].substring(0, 3) + "</div>")
-                }
-            }
-
-            function d() {
-                var t;
-                var n = $("#calendar").css("width", e + "%");
-                n.find(t = "#calendar_weekdays, #calendar_content").css("width", e + "%").find("div").css({
-                    width: e / 7 + "%",
-                    height: 400 / 7 + "px",
-                    "line-height": 400 / 7 + "px"
-                });
-                n.find("#calendar_header").css({
-                    height: 300 * (1 / 5) + "px"
-                }).find('i[class^="icon-chevron"]').css("line-height", e * (1 / 4) + "px")
-            }
-
-            function v(e, t) {
-                return (new Date(e, t, 0)).getDate()
-            }
-
-            function m(e, t, n) {
-                return (new Date(e, t - 1, n)).getDay()
-            }
-
-            function g(e) {
-                return y(new Date) == y(e)
-            }
-
-            function y(e) {
-                return e.getFullYear() + "/" + (e.getMonth() + 1) + "/" + e.getDate()
-            }
-
-            function b() {
-                var e = new Date;
-                t = e.getFullYear();
-                n = e.getMonth() + 1
-            }
-            var e = 100;
-            var t = 2013;
-            var n = 9;
-            var r = [];
-            var i = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-            var s = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-            var o = ["#16a085", "#1abc9c", "#c0392b", "#27ae60", "#FF6860", "#f39c12", "#f1c40f", "#e67e22", "#2ecc71", "#e74c3c", "#d35400", "#2c3e50"];
-            var u = $("#calendar");
-            var a = u.find("#calendar_header");
-            var f = u.find("#calendar_weekdays");
-            var l = u.find("#calendar_content");
-            b();
-            c();
-            a.find('i[class^="icon-chevron"]').on("click", function() {
-                var e = $(this);
-                var r = function(e) {
-                    n = e == "next" ? n + 1 : n - 1;
-                    if (n < 1) {
-                        n = 12;
-                        t--
-                    } else if (n > 12) {
-                        n = 1;
-                        t++
-                    }
-                    c()
-                };
-                if (e.attr("class").indexOf("left") != -1) {
-                    r("previous")
-                } else {
-                    r("next")
-                }
-            })
-        })
     </script>
 </body>
 

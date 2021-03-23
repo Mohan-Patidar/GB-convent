@@ -19,7 +19,7 @@
     .login-btn {
         font-size: 18px;
         height: 50px;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
     }
     .login-heading {
         font-size: 28px;
@@ -42,6 +42,11 @@
 }
 
 @media (max-width: 991px) {
+    .login-right:before,
+    .login-right:after {
+        width: 100px;
+        height: 200px;
+    }
     .overlay-close {
         position: fixed;
         width: 100%;
@@ -198,10 +203,11 @@
         flex: 0 0 100%;
         padding: 50px 0;
         height: auto;
+        display: none;
     }
     .login-right {
         flex: 0 0 100%;
-        height: auto;
+        height: 100%;
     }
     .copyright-box {
         display: none;
@@ -219,9 +225,6 @@
     .login-heading {
         font-size: 26px;
         line-height: 31px;
-    }
-    .login-page-inr {
-        align-items: end;
     }
     .side-menu a span {
         display: none;
@@ -382,9 +385,5 @@
     .short-code form,
     .short-code {
         margin: 15px auto
-    }
-    .login-heading,
-    .login-btn {
-        margin-bottom: 25px;
     }
 }

@@ -28,11 +28,6 @@ $(document).ready(function() {
         var form = this;
 
         var rows_selected = table.column(0).checkboxes.selected();
-
-
-
-
-
         $b = [];
 
 
@@ -95,7 +90,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('.table').DataTable({
+    $('.table').removeAttr('width').DataTable({
         //disable sorting on last column
         //   "scrollY": 500,
         "scrollX": true,

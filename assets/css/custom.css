@@ -12,9 +12,55 @@ a#export {
 
 .active .sub-menus {
     position: absolute;
-    background: #fff;
+    background: #f7f6fd;
     width: calc(100% - 40px);
-    border-bottom: 1px solid #ddd;
+    box-shadow: 3px 10px 20px -6px rgb(0 0 0 / 15%);
+    border-radius: 0 0 10px 10px;
+}
+
+.calender-sec {
+    padding: 30px;
+    border-radius: 20px;
+    background: #fff;
+}
+
+.filter-btn {
+    padding: 8px 30px;
+    background-color: transparent;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 24px;
+    color: #654fd3;
+    text-transform: capitalize;
+    border: 2px solid #654fd3;
+    align-items: baseline;
+    transition: 300ms all;
+}
+
+.filter-btn:hover {
+    background-color: #654fd3;
+    color: #fff;
+}
+
+.input-daterange form {
+    display: flex;
+    align-items: center;
+}
+
+.input-daterange .sec-inp-group {
+    margin: 0 25px;
+}
+
+.input-group-btn {
+    margin-left: -35px;
+}
+
+.date-select input {
+    width: 190px !important;
+}
+
+.range {
+    background: rgb(101, 79, 211, 10%);
 }
 
 .sub-menus li a:after {
@@ -95,9 +141,13 @@ ul.log-our-sec li a {
 .main-menus ul li a:hover,
 .main-menus ul li.active>a {
     width: 100%;
-    background-color: rgb(101 79 211 / 5%);
+    background-color: rgb(247 246 253);
     border-radius: 5px;
     color: #654FD3;
+}
+
+.sub-menus li.active a {
+    background: #ffc5a0 !important;
 }
 
 .main-menus ul li i {
@@ -192,10 +242,10 @@ ul.log-our-sec li a {
 }
 
 .add-btn {
-    padding: 13px 35px;
+    padding: 8px 30px;
     background-color: #654fd3;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 24px;
     color: #FFFFFF;
     text-transform: capitalize;
@@ -254,7 +304,7 @@ th {
 
 .tabel-res thead {
     border-radius: 10px;
-    background: rgb(242 239 249 / 66%);
+    background: #F9F7FE;
 }
 
 table.dataTable thead .th-max-width {
@@ -479,7 +529,7 @@ form textarea {
     border: 0;
     color: #707070;
     font-size: 14px;
-    height: 60px;
+    height: 44px;
     background: #F9F7FE;
 }
 
@@ -546,14 +596,15 @@ form textarea {
 
 /* Login page css start */
 
-.login-page {
+
+/* .login-page {
     width: 100%;
     height: 100%;
     min-height: 100vh;
     background-color: #f5f5f5;
     display: flex;
     align-items: center;
-}
+} */
 
 .login-box {
     width: 100%;
@@ -587,6 +638,8 @@ form textarea {
     max-width: 500px;
     min-width: 460px;
     width: 100%;
+    position: relative;
+    z-index: 9;
 }
 
 .login-heading {
@@ -601,14 +654,14 @@ form textarea {
 .login-btn {
     width: 100%;
     background: #654FD3;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: #FFFFFF;
     text-transform: capitalize;
     transition: all 0.3s;
     margin-top: 20px;
-    margin-bottom: 40px;
-    height: 70px;
+    margin-bottom: 15px;
+    height: 52px;
     border: 0;
     border-radius: 5px;
 }
@@ -935,10 +988,10 @@ span.c_session {
 .user-name:after {
     content: "";
     position: absolute;
-    top: 15px;
+    top: 12px;
     right: 20px;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     background: url(../image/username.svg);
     background-repeat: no-repeat;
     background-size: contain;
@@ -947,10 +1000,10 @@ span.c_session {
 .pass-word:after {
     content: "";
     position: absolute;
-    top: 15px;
+    top: 12px;
     right: 20px;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     background: url(../image/password.svg);
     background-repeat: no-repeat;
     background-size: contain;
@@ -995,7 +1048,7 @@ span.c_session {
 }
 
 .dash-box {
-    width: calc(50% - 20px);
+    width: calc(33% - 20px);
     margin: 10px;
     border-radius: 20px;
     padding: 30px 40px;
@@ -1009,6 +1062,10 @@ span.c_session {
 
 .dash-box-second {
     background: #FFC5A0;
+}
+
+.dash-box-third {
+    background: #A2D39D;
 }
 
 .dash-box-first:after {
@@ -1037,13 +1094,30 @@ span.c_session {
     background-size: contain;
 }
 
+.dash-box-third:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 82%;
+    background: url(../image/design-three.svg);
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: contain;
+}
+
 .dash-box p {
     font-size: 22px;
     font-weight: 500;
+    position: relative;
+    z-index: 1;
 }
 
 .dash-box h2 {
     padding-top: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .dash-wrap-left-inr {
@@ -1081,108 +1155,6 @@ span.c_session {
 
 .user-dtls span img {
     margin-right: 5px;
-}
-
-
-/* calendar css */
-
-#calendar {
-    padding: 30px;
-    background: #fff;
-    height: 100%;
-    border-radius: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#calendar_weekdays div {
-    display: inline-block;
-    vertical-align: top;
-}
-
-#calendar_content,
-#calendar_weekdays,
-#calendar_header {
-    position: relative;
-    width: 320px;
-    overflow: hidden;
-    float: left;
-    z-index: 10;
-    background: #fff;
-}
-
-#calendar_weekdays div,
-#calendar_content div {
-    width: 40px;
-    height: 40px;
-    overflow: hidden;
-    text-align: center;
-    background-color: #FFFFFF;
-    color: #212B36 !important;
-}
-
-#calendar_weekdays div {
-    color: #212B36 !important;
-}
-
-#calendar_content {
-    -webkit-border-radius: 0px 0px 20px 20px;
-    -moz-border-radius: 0px 0px 20px 20px;
-    border-radius: 0px 0px 20px 20px;
-}
-
-#calendar_content div {
-    float: left;
-    border-radius: 5px;
-    margin: 5px 0;
-}
-
-#calendar_content div:nth-child(8),
-#calendar_content div:nth-child(15),
-#calendar_content div:nth-child(22),
-#calendar_content div:nth-child(29),
-#calendar_content div:nth-child(36) {
-    background-color: rgb(255 197 160 / 30%);
-    color: #FFC5A0;
-}
-
-#calendar_content div:hover {
-    background-color: #f7f6fd;
-}
-
-#calendar_content div.blank {
-    background-color: #fff;
-}
-
-#calendar_content div.today {
-    color: #FFFFFF !important;
-    background-color: #654FD3 !important;
-}
-
-#calendar_header {
-    width: 100%;
-    height: 37px;
-    text-align: center;
-    background-color: #FFf !important;
-    padding: 18px 0;
-    -webkit-border-radius: 20px 20px 0px 0px;
-    -moz-border-radius: 20px 20px 0px 0px;
-    border-radius: 20px 20px 0px 0px;
-}
-
-#calendar_header h1 {
-    font-size: 1.5em;
-    color: #000;
-    float: left;
-    width: 70%;
-    line-height: initial;
-}
-
-i[class^=icon-chevron] {
-    color: #000;
-    float: left;
-    width: 15%;
-    border-radius: 50%;
 }
 
 .mob-show {
