@@ -54,7 +54,7 @@
                         <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$current_year]) }}">{{$post->class_name}}</a></li>
                         @endforeach
                     </ul> -->
-                        <select name="change" id="change">
+                        <select name="change" id="changes">
                             @php
                             $posts= App\Models\Student_classe::get();
                             $current_year=$y_id;
@@ -245,8 +245,8 @@
                                 <td>
                                     <ul class="d-flex">
                                         <li class="tool tool-edit">
-                                            <a class="studentpopup" id="" href="javascript:void(0)">view </a>
-                                           
+                                            <a class="studentpopup" data-id="{{$student->id}}" href="javascript:void(0)">view </a>
+
 
                                         </li>
                                         <li class="tool tool-edit">
@@ -304,15 +304,141 @@
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                            <a href="javascript:void(0)" type="submit" class="" data-id="" data-name=""></a>  
+                                <a href="javascript:void(0)"  type="submit" class="studentEditModal" data-id="" data-name="">Edit Student</a>
+                                
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-
+                            <form action="" method="">              
+                                <input type="hidden" name="main_ids" id="main_id" value="">              
+                            </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="modal fade" id="mySEditModal" role="dialog" >
+                    <div class="modal-dialog modal-dialog-centered">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                               <h4>Edit Student</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                            <form  method="Post" action="{{url('editstudent')}}" enctype="multipart/form-data" id="edit-student">
+                      
+                        <input type="hidden" name="sId" id="sIds" value=""> 
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                   
+                                    <label>Student Id</label>
+                                    <input type="text" name="student_id" id="student_ids" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Scholar No.</label>
+                                    <input type="text" name="scholar_no" id="scholar_nos" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" name="name" id="names" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Father name</label>
+                                    <input type="text" name="father_name" id="fname" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Mother name</label>
+                                    <input type="text" name="mother_name" id="mname" value="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" name="address" id="addres" value="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Aadhar No.</label>
+                                    <input type="number" name="aadhar_no" id="aadhar" value="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Samagra Id</label>
+                                    <input type="number" name="samarg_id" id="samargid" value="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <input type="date" name="dob" id="sdob" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Class</label>
+                                    <select name="class_name" id="classes">
+                                        
+                                    
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Mobile No. 1</label>
+                                    <input type="number" name="mobile_no" id="m1" value="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Mobile No. 2</label>
+                                    <input type="number" name="mobile_no2" id="m2" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 last-input-margin">
+                                <div class="form-group">
+                                    <label>Current Session</label>
+                                    <select name="session" id="sessions" >
+                                      
+                                    </select>
+                                   
+                                </div>
+                            </div>
+                            <div class="col-6 last-input-margin">
+                                <div class="form-group">
+                                    <label>Bank Account No.</label>
+                                    <input type="number" name="account_no" id="acc" value="">
+                                </div>
+                            </div>
+                            <div class="col-6 last-input-margin">
+                                <div class="form-group">
+                                    <label> Picture </label>
+                                    <input type="file" value="" name="profile_picture" id="profile">
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <input type="submit" name="save" class="login-btn" id="save" value="Update Student Information">
+                            </div>
+                        </div>
+                    </form>
+                           
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         </div>

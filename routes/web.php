@@ -26,6 +26,8 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     Route::post('editfees', 'App\Http\Controllers\FeesController@update')->name('update');
     Route::resource('/students','App\Http\Controllers\StudentController');
     Route::delete('studentdelete', 'App\Http\Controllers\StudentController@destroy')->name('destroy');
+    Route::get('Sedit/{id}', 'App\Http\Controllers\StudentController@edit')->name('edit');
+    Route::post('editstudent', 'App\Http\Controllers\StudentController@update')->name('update');
     
 
     Route::resource('/reports','App\Http\Controllers\ReportController');

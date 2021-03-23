@@ -147,19 +147,26 @@
     <!-- custom js -->
     <script src="{{url('/')}}/assets/js/custom.js"></script>
 
-    <!-- fees javascript -->
+   
     <script>
+    // class script
+    $("#changes").change(function() {
+            var id = $(this).val();
+            var yid = $('#changes option:selected').attr("session");
+            location.href = location.origin + '/GB-convent/classes/' + id + '/' + yid;
+        });
+    
+    //  fees javascript 
         $(".addFees").click(function() {
             $('#myfeesModal').modal('show');
         });
         $(".editfees").click(function() {
             var url = $(this).attr('data-href');
-            // console.log(url);
             $.ajax({
                 url: url,
                 method: "GET",
                 success: function(fb) {
-                    var resp = $.parseJSON(fb); 
+                    var resp = $.parseJSON(fb);
                     $('#student_classes_ids').html(resp.output);
                     $('#year_ids').html(resp.y_output);
                     $('#main_id').val(resp.id);
@@ -173,21 +180,8 @@
             $('#app_id').val(userID);
             $('#feesDeleteModal').modal('show');
         });
-    </script>
-    <!-- class script -->
-    <script>
-        $("#change").change(function() {
-
-            var id = $(this).val();
-            var yid = $('#change option:selected').attr("session");
-
-            location.href = location.origin + '/GB-convent/classes/' + id + '/' + yid;
-
-        });
-    </script>
-    <!--  student -->
-    <script>
-        $(".addStudent").click(function() {
+     // student
+     $(".addStudent").click(function() {
             $('#myaddModal').modal('show');
         });
         $(document).on('click', '.deletestudent', function() {
@@ -198,70 +192,70 @@
             $('#studentDeleteModal').modal('show');
         });
         $(".studentpopup").click(function() {
+            var ids = $(this).attr('data-id');
+            $('#main_id').val(ids);
             $('#mystudentModal').modal('show');
         });
-      
+        $(".studentEditModal").click(function() {
+            var id = $('#main_id').val();
+            $.ajax({
+                url: "Sedit" + '/' + id,
+                success: function(fb) {
+                    $('#mystudentModal').modal('hide');
+                    var resp = $.parseJSON(fb);
+                    $('#student_ids').val(resp.student_ids);
+                    $('#scholar_nos').val(resp.scholar_nos);
+                    $('#names').val(resp.names);
+                    $('#fname').val(resp.fname);
+                    $('#mname').val(resp.mname);
+                    $('#addres').val(resp.addres);
+                    $('#acc').val(resp.acc);
+                    $('#m2').val(resp.m2);
+                    $('#m1').val(resp.m1);
+                    $('#sdob').val(resp.sdob);
+                    $('#samargid').val(resp.samargid);
+                    $('#aadhar').val(resp.aadhar);
+                    $('#classes').html(resp.output);
+                    $('#sessions').html(resp.y_output);
+                }
+            });
+            $('#sIds').val(id);
+            $('#mySEditModal').modal('show');
+        });
+        //import 
+        $('.import').click(function() {
+            $("#file").click();
+        });
+        $('#file').change(function() {
+            $('#submit').click();
+        });
+        //export
+        $('#export').click(function() {
+            $('.buttons-csv').click();
+        });
+        //edit fees receipt
+        $(".passingID").click(function() {
+            var ids = $(this).attr('data-id');
+            var record_id = $(this).attr('record-id');
+            var d = $(this).attr('d');
+            var r = $(this).attr('r');
+            var fee = $(this).attr('fee');
+            var dat = $(this).attr('dat');
+            $("#idkl").val(record_id);
+            $('#main_id').val(ids);
+            $('#description').val(d);
+            $('#receipt').val(r);
+            $('#fee').val(fee);
+            $('#date').val(dat);
+            $('#myeditModal').modal('show');
+        });
 
-
+        //assign role
+        $(".addUser").click(function() {
+            $('#myAssignModal').modal('show');
+        });
     </script>
     <script>
-        $('.delete-confirm').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            var id = $(this).data("id");
-            event.preventDefault();
-            swal({
-                    title: `Are you sure you want to delete ${name}?`,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: "{{route('feesstructure.store')}}" + '/' + id,
-                            type: "DELETE",
-                            data: {
-                                id: id,
-                                "_token": "{{ csrf_token() }}",
-                            },
-                            success: function(data) {
-                                location.reload();
-                            }
-                        });
-                    }
-                });
-        });
-        $('body').on('click', '.student-delete', function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            var id = $(this).data("id");
-            var url = location.origin;
-            event.preventDefault();
-            swal({
-                    title: `Are you sure you want to delete ?`,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: url + "/GB-convent/delete",
-                            type: "DELETE",
-                            data: {
-                                id: id,
-                                r_id: name,
-                                "_token": "{{ csrf_token() }}",
-                            },
-                            success: function(data) {
-
-                                location.reload();
-                            }
-                        });
-                    }
-                });
-        });
         $('.role-delete').click(function(event) {
             var form = $(this).closest("form");
             var name = $(this).data("name");
@@ -290,36 +284,7 @@
                     }
                 });
         });
-    </script>
-    <script>
-        $('.import').click(function() {
-            $("#file").click();
-        });
-        $('#file').change(function() {
-            $('#submit').click();
-        });
-    </script>
-    <script>
-        $('#export').click(function() {
-            $('.buttons-csv').click();
-        });
-    </script>
-    <script>
-        $(".passingID").click(function() {
-            var ids = $(this).attr('data-id');
-            var record_id = $(this).attr('record-id');
-            var d = $(this).attr('d');
-            var r = $(this).attr('r');
-            var fee = $(this).attr('fee');
-            var dat = $(this).attr('dat');
-            $("#idkl").val(record_id);
-            $('#main_id').val(ids);
-            $('#description').val(d);
-            $('#receipt').val(r);
-            $('#fee').val(fee);
-            $('#date').val(dat);
-            $('#myeditModal').modal('show');
-        });
+        
     </script>
     <script>
         $(function() {

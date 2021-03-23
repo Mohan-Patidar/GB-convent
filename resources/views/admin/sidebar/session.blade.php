@@ -40,7 +40,7 @@
             <div class="page-inr">
                 <div class="tabel-head">
                     <div class="form-group">
-                        <select>
+                        <select name="change" id="changes">
                             @php
                             $posts= App\Models\Student_classe::get();
                             $current_year=$y_id;

@@ -21,10 +21,6 @@ class StudentController extends Controller
         $tests = Student_classe::all();
         $records = Record::get();
         $year = Year::get();
-        // if($year->isEmpty()){
-        //     Session::flash('message', 'First add session with selcting checkbox !!');
-        //     return redirect('years');
-        // } else{
         foreach($year as $y){
             if($y->status==1){
                 $y_id=$y->id;
@@ -93,17 +89,37 @@ class StudentController extends Controller
     }
     public function edit($student)
     {
-        $tests = Student_classe::all();
-        $year = Year::all();
+       
+      
+       
         $records = Record::where("students_id", "=", $student)->first();
         $students = Student::where("id", "=", $student)->first();
+        $cid=$records->student_classes_id;
+        $yid=$records->years_id;
+        $class = Student_classe::all();
+      
+            $output = '';
+            foreach($class as $c){
+                $output .= '<option value="'.$c->id. ',' .$records->id.'" '.(($cid == $c->id) ? 'selected="selected"':"").'>'.$c->class_name.'</option>';  
+            }
 
-        return view('admin.student.edit', compact("students", "tests", "year", "records"));
+            $year = Year::all();
+        $year_output ='';
+        foreach($year as $y){
+            $year_output .= '<option value="'.$y->id.'" '.(($yid == $y->id) ? 'selected="selected"':"").'>'.$y->years.'</option>';  
+        }
+            
+
+        $arr = array('student_ids'=>$students->student_id,'scholar_nos'=>$students->scholar_no,'names'=>$students->name,'fname'=> $students->father_name,'mname'=>$students->mother_name,'addres'=> $students->address,
+    'aadhar'=> $students->aadhar_no,'samargid'=>$students->samarg_id,'sdob'=>$students->dob,'m1'=>$students->mobile_no ,'m2'=>$students->mobile_no2,'acc'=> $students->account_no,'output'=>$output,'y_output'=>$year_output);
+        echo json_encode($arr); 
+        // return view('admin.student.edit', compact("students", "tests", "year", "records"));
+        // return $student;
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $request->validate([]);
+        $id = $request->sId;
         $students = Student::where("id", "=", $id)->first();
 
         $students->student_id = $request->student_id;
@@ -159,14 +175,7 @@ class StudentController extends Controller
     }
      public function delete(Request $request)
     {
-        // $id = $request->record_id;
-        // Student::destroy($student);
-        // Record::destroy($id);
-        // return redirect('students');
-        // Session::flash('message', ' data delete successfuly!');
-        
-      
-
+        // 
     }
     public function StudentShow($student,$session){
         
