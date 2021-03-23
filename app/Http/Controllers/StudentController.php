@@ -110,7 +110,7 @@ class StudentController extends Controller
         }
             
 
-        $arr = array('student_ids'=>$students->student_id,'scholar_nos'=>$students->scholar_no,'names'=>$students->name,'fname'=> $students->father_name,'mname'=>$students->mother_name,'addres'=> $students->address,
+        $arr = array('id'=>$students->id,'student_ids'=>$students->student_id,'scholar_nos'=>$students->scholar_no,'names'=>$students->name,'fname'=> $students->father_name,'mname'=>$students->mother_name,'addres'=> $students->address,
     'aadhar'=> $students->aadhar_no,'samargid'=>$students->samarg_id,'sdob'=>$students->dob,'m1'=>$students->mobile_no ,'m2'=>$students->mobile_no2,'acc'=> $students->account_no,'output'=>$output,'y_output'=>$year_output);
         echo json_encode($arr); 
         // return view('admin.student.edit', compact("students", "tests", "year", "records"));

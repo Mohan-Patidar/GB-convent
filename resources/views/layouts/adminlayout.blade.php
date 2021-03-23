@@ -193,16 +193,13 @@
             $('#studentDeleteModal').modal('show');
         });
         $(".studentpopup").click(function() {
-            var ids = $(this).attr('data-id');
-            $('#main_id').val(ids);
-            $('#mystudentModal').modal('show');
-        });
-        $(".studentEditModal").click(function() {
-            var id = $('#main_id').val();
+            var url = $(this).attr('data-href');
+        
             $.ajax({
-                url: "Sedit" + '/' + id,
+                url: url,
+                method: "GET",
                 success: function(fb) {
-                    $('#mystudentModal').modal('hide');
+                   
                     var resp = $.parseJSON(fb);
                     $('#student_ids').val(resp.student_ids);
                     $('#scholar_nos').val(resp.scholar_nos);
@@ -218,12 +215,13 @@
                     $('#aadhar').val(resp.aadhar);
                     $('#classes').html(resp.output);
                     $('#sessions').html(resp.y_output);
+                    $('#sIds').val(resp.id);
                 }
             });
-            $('#sIds').val(id);
-            $('#mySEditModal').modal('show');
+            
+            $('#mystudentModal').modal('show');
         });
-
+        
         //import 
         $('.import').click(function() {
             $("#file").click();
@@ -260,18 +258,24 @@
         });
         $(".editrole").click(function() {
             var url = $(this).attr('data-href');
+           
             $.ajax({
                 url: url,
                 method: "GET",
                 success: function(fb) {
+                   
                     var resp = $.parseJSON(fb);
-                    $('#student_classes_ids').html(resp.output);
-                    $('#year_ids').html(resp.y_output);
-                    $('#main_id').val(resp.id);
-                    $('#amounts').val(resp.amount);
+                    // $('#passwords').val(resp.password);
+                    $('#uid').val(resp.id);
+                    $('#uname').val(resp.name);
                 }
             });
-            $('#myEfeesModal').modal('show');
+            $('#myAssignEModal').modal('show');
+        });
+        $(document).on('click', '.deleterole', function() {
+            var userID = $(this).attr('data-id');
+            $('#app_id').val(userID);
+            $('#RoleDeleteModal').modal('show');
         });
 
         // group calendar

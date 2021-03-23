@@ -47,6 +47,9 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
      Route::get('show/{id}/{yid}','App\Http\Controllers\StudentController@StudentShow')->name('StudentShow');
     Route::get('remove/{id}', 'App\Http\Controllers\YearController@RemoveCurrent')->name('RemoveCurrent');
     Route::resource('assignrole', 'App\Http\Controllers\RoleAssign');
+    Route::post('editrole', 'App\Http\Controllers\RoleAssign@update')->name('update');
+    Route::delete('roledelete', 'App\Http\Controllers\RoleAssign@destroy')->name('destroy');
+    
 });
 // Route::group(['middleware' => ['auth','role:Admin']], function () 
 // {

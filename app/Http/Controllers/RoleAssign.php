@@ -35,12 +35,7 @@ class RoleAssign extends Controller
         $user->user_type=$request->user_type;
         $user->password= Hash::make($request->password);
         $user->save();
-        // $user = User::create([
-        //     'name'      => $request->name,
-        //     'user_type' =>$request->user_type,
-        //     'password'  => Hash::make($request->password),
-           
-        // ]);
+       
 
         Session::flash('message', 'Role assign added successfuly!');
 
@@ -50,16 +45,17 @@ class RoleAssign extends Controller
     public function edit($id)
     {
         $user = User::where("id", "=", $id)->first();
+      
         
-        return view('backend.assignrole.edit', compact('user'));
+
+        $arr = array('id'=>$user->id,'name'=>$user->name,'password'=> $user->password);
+        echo json_encode($arr); 
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $request->validate([
-            'name'  => 'required|string|max:255',
-            
-        ]);
+        $id = $request->u_id;
+        
         $user = User::where("id", "=", $id)->first();
         
         $user->name = $request->name;
@@ -67,39 +63,19 @@ class RoleAssign extends Controller
         $user->password= Hash::make($request->password);
         $user->update();
         
-
-        return redirect()->route('assignrole.index');
+        Session::flash('message', 'data updated successfuly!');
+        return redirect('assignrole');
+       
     }
 
     public function destroy(request $request){
-        $id = $request->all();
+        $id = $request->input('role_id');
+       
         User::destroy($id);
-        // Session::flash('message', ' data delete successfuly!');
+        Session::flash('message', ' data delete successfuly!');
+       
+        return redirect('assignrole');
        
 
     }
-    // NOT DONE
-    // public function destroy($id)
-    // {
-    //     $user = User::findOrFail($id);
-        
-    //     // $user->removeRole('writer');
-    //     // $user->syncRoles(['writer', 'admin']);
-
-    //     // if ($user->delete()) {
-
-    //     //     if($user->profile_picture != 'avatar.png') {
-
-    //     //         $image_path = public_path() . '/images/profile/' . $user->profile_picture;
-
-    //     //         if (is_file($image_path) && file_exists($image_path)) {
-
-    //     //             unlink($image_path);
-    //     //         }
-    //     //     }
-            
-    //     // }
-
-    //     return back();
-    // }
 }
