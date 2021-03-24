@@ -79,9 +79,9 @@
                             <table id="fees-table" class="table table-striped custom-table" style="width:100%;">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th class="width-20">#</th>
                                         <th>Image</th>
-                                        <th>Student Name</th>
+                                        <th class="width-200">Student Name</th>
                                         <th>Father's Name</th>
                                         <th>Class</th>
                                         <th>Deposit fees</th>
@@ -92,9 +92,9 @@
                                     @php $i = 0;
                                     @endphp
                                     <tr>
-                                        <td>@php echo ++$i @endphp</td>
+                                        <td class="width-20">@php echo ++$i @endphp</td>
                                         <td><img class="student-img" src="{{url('/')}}/assets/image/student-1.jpg" /></td>
-                                        <td>prem</td>
+                                        <td class="width-200">prem</td>
                                         <td>babu</td>
                                         <td>LKG</td>
                                         <td><span class="deposit-box">2000</span></td>

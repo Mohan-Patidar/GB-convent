@@ -5,6 +5,7 @@ $(document).ready(function() {
         buttons: [
             'csv'
         ],
+        "bInfo": false,
         "scrollX": true,
         'columnDefs': [{
             'targets': 0,
@@ -18,24 +19,24 @@ $(document).ready(function() {
         },
         'order': [
             [1, 'asc']
-        ]
+        ],
+        "oLanguage": {
+            "sEmptyTable": "No data available in table",
+            "sSearch": "",
+            "sPlaceholder": "Search Here",
+            "sZeroRecords": "No matching records found",
+        }
     });
 
     // Handle form submission event 
     $('#frm-example').on('submit', function(e) {
-
-
         var form = this;
-
         var rows_selected = table.column(0).checkboxes.selected();
         $b = [];
 
-
         // Iterate over all selected checkboxes
         $.each(rows_selected, function(index, rowId) {
-
             $b.push(rowId);
-
         });
         var row = JSON.stringify($b);
         $('#promote').val(row);
@@ -90,12 +91,12 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('.table').removeAttr('width').DataTable({
+    $('.table').DataTable({
         //disable sorting on last column
         //   "scrollY": 500,
         "scrollX": true,
         "columnDefs": [
-            { "orderable": false, "targets": 5 }
+            { width: 0, "targets": 0 }
         ],
         "lengthMenu": [
             [10, 50, 100, -1],

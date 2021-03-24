@@ -12,8 +12,8 @@
             <div class="page-header">
                 <div class="page-title">
                     <h3><span>All Students</span></h3>
-                    <span class="c_session"><b>Current Session</b> {{$y_name}} </span>
                     <div class="user-drop-sec">
+                        <span class="c_session"><b><img src="{{url('/')}}/assets/image/sess.svg" alt=""></b> {{$y_name}} </span>
                         <ul>
                             <li>
                                 <a href="javascript:void(0)">
@@ -45,15 +45,6 @@
             <div class="page-inr">
                 <div class="tabel-head">
                     <div class="form-group">
-                        <!-- <ul class="cus-menu">
-                        @php
-                        $posts= App\Models\Student_classe::get();
-                        $current_year=$y_id;
-                        @endphp
-                        @foreach($posts as $post)
-                        <li @if(request()->segment(2) == $post->id) class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$current_year]) }}">{{$post->class_name}}</a></li>
-                        @endforeach
-                    </ul> -->
                         <select name="change" id="changes">
                             @php
                             $posts= App\Models\Student_classe::get();
@@ -79,130 +70,6 @@
                         </form>
                         <div class="page-btn">
                             <a href="javascript:void(0)" class="add-btn addStudent">Add Student</a>
-
-                            <div class="modal fade" id="myaddModal" role="dialog">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Add <span> Student</span></h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{route('students.store')}}" id="studentAdd" method="Post" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Student Id</label>
-                                                            <input type="text" name="student_id" id="student_id">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Scholar No.</label>
-                                                            <input type="text" name="scholar_no" id="scholar_no">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Name</label>
-                                                            <input type="text" name="name" id="name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Father name</label>
-                                                            <input type="text" name="father_name" id="father_name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Mother name</label>
-                                                            <input type="text" name="mother_name" id="mother_name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Address</label>
-                                                            <input type="text" name="address" id="address">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Aadhar No.</label>
-                                                            <input type="number" name="aadhar_no" id="aadhar_no">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Samagra Id</label>
-                                                            <input type="number" name="samarg_id" id="samarg_id">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Date of Birth</label>
-                                                            <input type="date" name="dob" id="dob">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Class</label>
-                                                            <select name="class_name" id="class_name">
-                                                                <option value="" selected>Select Class</option>
-                                                                @foreach($tests as $test)
-                                                                <option value="{{$test->id}}">{{$test->class_name}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Mobile No. 1</label>
-                                                            <input type="number" name="mobile_no" id="mobile_no">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label>Mobile No. 2</label>
-                                                            <input type="number" name="mobile_no2" id="mobile_no2">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 last-input-margin" style="display: none;">
-                                                        <div class="form-group">
-                                                            <label>Current Session</label>
-                                                            <select name="session" id="session">
-
-                                                                <option value="{{$y_id}}" selected>{{$y_name }}
-                                                                </option>
-
-                                                            </select>
-                                                            <input type="hidden" name="session" value="{{$y_id}}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 last-input-margin">
-                                                        <div class="form-group">
-                                                            <label>Bank Account No.</label>
-                                                            <input type="number" name="account_no" id="account_no">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 last-input-margin">
-                                                        <div class="form-group">
-                                                            <label> Picture </label>
-                                                            <input type="file" name="profile_picture" id="profile_picture">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 text-center">
-
-                                                        <input type="submit" name="save" class="add-btn" id="butsave" value="Add Student">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -211,9 +78,9 @@
                         <thead>
                             <tr>
                                 <th class="width-30">#</th>
-                                <th class="width-200">Name</th>
+                                <th class="width-160">Name</th>
                                 <th style="display: none;">Father Name</th>
-                                <th class="width-30">Id</th>
+                                <th class="width-50">Id</th>
                                 <th>Scholar No.</th>
                                 <th>Address</th>
                                 <th>Aadhar Number</th>
@@ -228,7 +95,7 @@
                             @if(($r->students_id==$student->id) &&($r->session==$y_id))
                             <tr>
                                 <td class="width-30">@php echo ++$i @endphp</td>
-                                <td class="width-200"><b>{{ strtolower($student->name)}}</b><br>
+                                <td class="width-160"><b>{{$student->name}}</b><br>
                                     <div class="user-dtls">
                                         <span><img src="{{url('/')}}/assets/image/men.svg" alt="">{{ strtolower($student->father_name)}}</span>
                                         <span><img src="{{url('/')}}/assets/image/women.svg" alt="">{{ strtolower($student->mother_name)}}</span>
@@ -236,7 +103,7 @@
                                 </td>
                                 <td style="display: none;">{{$student->father_name}}
                                 </td>
-                                <td class="width-30">{{$student->student_id}}</td>
+                                <td class="width-50">{{$student->student_id}}</td>
                                 <td>{{$student->scholar_no}}</td>
                                 <td>{{$student->address}}</td>
                                 <td>{{$student->aadhar_no}}</td>
@@ -247,8 +114,6 @@
                                     <ul class="d-flex">
                                         <li class="tool tool-edit">
                                             <a class="studentpopup" data-id="{{$student->id}}" data-href="{{route('students.edit',$student->id)}}">view </a>
-
-
                                         </li>
                                         <li class="tool tool-edit">
                                             <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
@@ -276,158 +141,475 @@
                 </div>
                 <!-- student delete modal -->
                 <div id="studentDeleteModal" class="modal modal-danger fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog" style="width:55%;">
+                    <div class="modal-dialog modal-dialog-centered" style="width:55%;">
                         <div class="modal-content">
                             <form action="{{url('studentdelete')}}" method="POST" class="remove-record-model">
                                 {{ method_field('delete') }}
                                 {{ csrf_field() }}
-
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h4 class="modal-title text-center" id="custom-width-modalLabel">Delete Applicant Record</h4>
+                                    <h5 class="modal-title text-center width-100" id="custom-width-modalLabel">Delete Student</h5>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18.535" height="19.256" viewBox="0 0 18.535 19.256">
+                                            <g id="Group_846" data-name="Group 846" transform="translate(-5587.733 110.989)">
+                                                <line id="Line_31" data-name="Line 31" x2="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#ffc5a0" stroke-linecap="round" stroke-width="2.5" />
+                                                <line id="Line_32" data-name="Line 32" x1="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#654fd3" stroke-linecap="round" stroke-width="2.5" />
+                                            </g>
+                                        </svg>
+                                    </button>
                                 </div>
                                 <div class="modal-body">
-                                    <h4>You Want You Sure Delete This Record?</h4>
+                                    <h6 class="">Are you sure you want to delete this record?</h6>
                                     <input type="hidden" , name="sid" id="s_id">
                                     <input type="hidden" , name="rid" id="r_id">
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger waves-effect remove-data-from-delete-form">Delete</button>
+                                <div class="modal-footer justify-content-center">
+                                    <button type="button" class="add-btn waves-effect" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="delete-data-btn waves-effect remove-data-from-delete-form">Delete</button>
                                 </div>
-
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="mystudentModal" role="dialog">
-                    <div class="modal-dialog modal-dialog-centered">
+                <!-- student edit modal -->
+                <div class="modal right fade" id="mystudentModal" role="dialog">
+                    <div class="modal-dialog">
                         <!-- Modal content-->
-                        <div class="modal-content">
+                        <div class="modal-content student-modal-content">
                             <div class="modal-header">
-                                <h4>Edit Student</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <ul>
+                                    <li class="active">
+                                        <a href="#tabs-1" data-toggle="tab" role="tab">Edit Student</a>
+                                    </li>
+                                    <li>
+                                        <a href="#tabs-2" data-toggle="tab" role="tab"> Student Fees Details</a>
+                                    </li>
+                                </ul>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18.535" height="19.256" viewBox="0 0 18.535 19.256">
+                                        <g id="Group_846" data-name="Group 846" transform="translate(-5587.733 110.989)">
+                                            <line id="Line_31" data-name="Line 31" x2="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#ffc5a0" stroke-linecap="round" stroke-width="2.5" />
+                                            <line id="Line_32" data-name="Line 32" x1="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#654fd3" stroke-linecap="round" stroke-width="2.5" />
+                                        </g>
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="modal-body">
-                                <form method="Post" action="{{url('editstudent')}}" enctype="multipart/form-data" id="edit-student">
-
-                                    <input type="hidden" name="sId" id="sIds" value="">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-
-                                                <label>Student Id</label>
-                                                <input type="text" name="student_id" id="student_ids" value="">
+                            <div class="modal-body after-design">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                        <form method="Post" action="{{url('editstudent')}}" enctype="multipart/form-data" id="edit-student">
+                                            <input type="hidden" name="sId" id="sIds" value="">
+                                            @csrf
+                                            <div class="min-height">
+                                                <div class="row ">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="text" name="student_id" id="student_ids" value="" placeholder="Student Id">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="text" name="scholar_no" id="scholar_nos" value="" placeholder="Scholar No.">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="text" name="name" id="names" value="" placeholder="Name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="text" name="father_name" id="fname" value="" placeholder="Father name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <input type="text" name="mother_name" id="mname" value="" placeholder="Mother name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="text" name="address" id="addres" value="" placeholder="Address">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="number" name="aadhar_no" id="aadhar" value="" placeholder="Aadhar No.">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="number" name="samarg_id" id="samargid" value="" placeholder="Samagra Id">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group birth-date">
+                                                            <input type="text" name="dob" id="sdob" value="" placeholder="DOB">
+                                                            <span class="input-group-btn" for="dob">
+                                                                <img src="http://localhost/GB-convent/assets/image/feather-calendar.svg">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <select name="class_name" id="classes">
+                                                                <option>Class</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="number" name="mobile_no" id="m1" value="" placeholder="Mobile No.">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="number" name="mobile_no2" id="m2" value="" placeholder="Telephone No.">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 last-input-margin">
+                                                        <div class="form-group">
+                                                            <select name="session" id="sessions">
+                                                                <option>Current Session</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 last-input-margin">
+                                                        <div class="form-group">
+                                                            <input type="number" name="account_no" id="acc" value="" placeholder="Bank Account No.">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 last-input-margin">
+                                                        <div class="form-group picture-grp">
+                                                            <label for="file" class="pic-label">Upload Student Photo</label>
+                                                            <input type="file" name="profile_picture" id="profile">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Scholar No.</label>
-                                                <input type="text" name="scholar_no" id="scholar_nos" value="">
+                                            <div class="col-12 text-center">
+                                                <input type="submit" name="save" class="add-btn align-center" id="save" value="Update">
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <input type="text" name="name" id="names" value="">
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                        <div class="min-height">
+                                            <div class="detail-head">
+                                                <div class="detail-head-inr">
+                                                    <div class="head-left">
+                                                        <div class="stuedent-img">
+                                                            <img src="{{url('/')}}/assets/image/student-1.jpg" alt="">
+                                                        </div>
+                                                        <div class="student-name">
+                                                            <h5>Mukta Bhabor</h5>
+                                                            <div class="stu-detail">
+                                                                <div class="user-dtls">
+                                                                    <span><img src="{{url('/')}}/assets/image/men.svg" alt="">fgfgf</span>
+                                                                    <span><img src="{{url('/')}}/assets/image/women.svg" alt="">fgfg</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="stu-id">
+                                                                <p>Student ID: <span>2050</span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="head-right">
+                                                        <div class="">
+                                                            <span>
+                                                                <span>
+                                                                    <img src="{{url('/')}}/assets/image/location.svg" alt=""> Gadwada
+                                                                </span>
+                                                            </span>
+                                                            <br>
+                                                            <span>
+                                                                <span>
+                                                                    <img src="{{url('/')}}/assets/image/call.svg" alt=""> 454545454
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="scholar-no">
+                                                            <p>Scholar N: <span>0050</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Father name</label>
-                                                <input type="text" name="father_name" id="fname" value="">
+                                            <div class="fee-sec">
+                                                <div class="fee-left">
+                                                    <h6>Total Fees: <span class="total-fee"><label>₹</label>3900</span></h6>
+                                                </div>
+                                                <div class="fee-right">
+                                                    <h6>Due Fees: <span class="due-fee"><label>₹</label>1300</span></h6>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Mother name</label>
-                                                <input type="text" name="mother_name" id="mname" value="">
+                                            <div class="fee-list-head">
+                                                <h6>Fees Summery</h6>
+                                                <a href="javascript:void(0)" class="add-btn deposit-modal">Deposit Fee</a>
                                             </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <input type="text" name="address" id="addres" value="">
+                                            <div class="fee-list-table">
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Rec No.</th>
+                                                            <th>Amount</th>
+                                                            <th>Date</th>
+                                                            <th>By</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                0021
+                                                            </td>
+                                                            <td>₹1300</td>
+                                                            <td>21 Mar 2021</td>
+                                                            <td>
+                                                                Father
+                                                            </td>
+                                                            <td>
+                                                                <ul class="d-flex">
+                                                                    <li class="tool tool-edit">
+                                                                        <a class="edit-btn" href="javascript:void(0)">
+                                                                            <img src="http://localhost/GB-convent/assets/image/feather-edit.svg" width="16px" alt=""></a>
+                                                                        <span class="tooltips">Edit</span>
+                                                                    </li>
+                                                                    <li class="tool tool-delete">
+                                                                        <a href="javascript:void(0)" type="submit" class="delete-btn">
+                                                                            <img src="http://localhost/GB-convent/assets/image/feather-trash.svg" width="16px" alt="">
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                0021
+                                                            </td>
+                                                            <td>₹1300</td>
+                                                            <td>21 Mar 2021</td>
+                                                            <td>
+                                                                Father
+                                                            </td>
+                                                            <td>
+                                                                <ul class="d-flex">
+                                                                    <li class="tool tool-edit">
+                                                                        <a class="edit-btn" href="javascript:void(0)">
+                                                                            <img src="http://localhost/GB-convent/assets/image/feather-edit.svg" width="16px" alt=""></a>
+                                                                        <span class="tooltips">Edit</span>
+                                                                    </li>
+                                                                    <li class="tool tool-delete">
+                                                                        <a href="javascript:void(0)" type="submit" class="delete-btn">
+                                                                            <img src="http://localhost/GB-convent/assets/image/feather-trash.svg" width="16px" alt="">
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label>Aadhar No.</label>
-                                                <input type="number" name="aadhar_no" id="aadhar" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label>Samagra Id</label>
-                                                <input type="number" name="samarg_id" id="samargid" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label>Date of Birth</label>
-                                                <input type="date" name="dob" id="sdob" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Class</label>
-                                                <select name="class_name" id="classes">
-
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label>Mobile No. 1</label>
-                                                <input type="number" name="mobile_no" id="m1" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label>Mobile No. 2</label>
-                                                <input type="number" name="mobile_no2" id="m2" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 last-input-margin">
-                                            <div class="form-group">
-                                                <label>Current Session</label>
-                                                <select name="session" id="sessions">
-
-                                                </select>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-6 last-input-margin">
-                                            <div class="form-group">
-                                                <label>Bank Account No.</label>
-                                                <input type="number" name="account_no" id="acc" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-6 last-input-margin">
-                                            <div class="form-group">
-                                                <label> Picture </label>
-                                                <input type="file" value="" name="profile_picture" id="profile">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 text-center">
-                                            <input type="submit" name="save" class="login-btn" id="save" value="Update Student Information">
                                         </div>
                                     </div>
-                                </form>
-
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
+                <!-- add student modal -->
+                <div class="modal right fade" id="myaddModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content student-modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"></h4>
+                                <ul>
+                                    <li class="active">
+                                        <a href="JavaScript:Void(0);">Add <span> Student</span></a>
+                                    </li>
+                                </ul>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18.535" height="19.256" viewBox="0 0 18.535 19.256">
+                                        <g id="Group_846" data-name="Group 846" transform="translate(-5587.733 110.989)">
+                                            <line id="Line_31" data-name="Line 31" x2="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#ffc5a0" stroke-linecap="round" stroke-width="2.5" />
+                                            <line id="Line_32" data-name="Line 32" x1="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#654fd3" stroke-linecap="round" stroke-width="2.5" />
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal-body after-design">
+                                <form action="{{route('students.store')}}" id="studentAdd" method="Post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="min-height">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="student_id" id="student_id" placeholder="Student Id">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="scholar_no" id="scholar_no" placeholder="Scholar No.">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="name" id="name" placeholder="Name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="father_name" id="father_name" placeholder="Father name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="mother_name" id="mother_name" placeholder="Mother name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="address" id="address" placeholder="Address">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="number" name="aadhar_no" id="aadhar_no" placeholder="Aadhar No.">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="number" name="samarg_id" id="samarg_id" placeholder="Samagra Id">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group birth-date">
+                                                    <input type="text" name="dob" id="dob" value="" placeholder="DOB">
+                                                    <span class="input-group-btn" for="dob">
+                                                        <img src="http://localhost/GB-convent/assets/image/feather-calendar.svg">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <select name="class_name" id="class_name">
+                                                        <option value="" selected>Select Class</option>
+                                                        @foreach($tests as $test)
+                                                        <option value="{{$test->id}}">{{$test->class_name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="number" name="mobile_no" id="mobile_no" placeholder="Mobile No.">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="number" name="mobile_no2" id="mobile_no2" placeholder="Telephone No.">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 last-input-margin" style="display: none;">
+                                                <div class="form-group">
+                                                    <select name="session" id="session">
+                                                        <option value="">Current Session</option>
+                                                        <option value="{{$y_id}}" selected>{{$y_name }}
+                                                        </option>
+                                                    </select>
+                                                    <input type="hidden" name="session" value="{{$y_id}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 last-input-margin">
+                                                <div class="form-group">
+                                                    <input type="number" name="account_no" id="account_no" placeholder="Bank Account No.">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 last-input-margin">
+                                                <div class="form-group picture-grp">
+                                                    <label for="file" class="pic-label">Upload Student Photo</label>
+                                                    <input type="file" name="profile_picture" id="profile_picture">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-center">
+                                        <input type="submit" name="save" class="add-btn align-center" id="butsave" value="Add Student">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fees Deposit modal -->
+                <div class="modal right fade" id="feeDepositModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content student-modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"></h4>
+                                <ul>
+                                    <li class="active">
+                                        <a href="JavaScript:Void(0);">Deposit Fee</a>
+                                    </li>
+                                </ul>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18.535" height="19.256" viewBox="0 0 18.535 19.256">
+                                        <g id="Group_846" data-name="Group 846" transform="translate(-5587.733 110.989)">
+                                            <line id="Line_31" data-name="Line 31" x2="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#ffc5a0" stroke-linecap="round" stroke-width="2.5" />
+                                            <line id="Line_32" data-name="Line 32" x1="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#654fd3" stroke-linecap="round" stroke-width="2.5" />
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal-body after-design">
+                                <div class="min-height">
+                                    <div class="fee-sec">
+                                        <div class="fee-left">
+                                            <h6>Total Fees: <span class="total-fee"><label>₹</label>3900</span></h6>
+                                        </div>
+                                        <div class="fee-right">
+                                            <h6>Due Fees: <span class="due-fee"><label>₹</label>1300</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="deposit-form">
+                                        <form action="" method="Post" enctype="">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="" placeholder="Receipt No.">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="" placeholder="Amount">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group birth-date">
+                                                        <input type="text" name="date" value="" placeholder="Date">
+                                                        <span class="input-group-btn" for="date">
+                                                            <img src="http://localhost/GB-convent/assets/image/feather-calendar.svg">
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="" placeholder="Received By">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <input type="submit" name="save" class="add-btn align-center" id="butsave" value="Add Fee">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
     </section>
 </div>
 @endsection
 @section('additionalscripts')
-
 @endsection

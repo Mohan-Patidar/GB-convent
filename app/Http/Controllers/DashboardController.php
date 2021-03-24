@@ -49,7 +49,7 @@ class DashboardController extends Controller
        
         foreach ($report as $re) {
             $record_id = $re->records_id;
-            $record_fees =$re->fees;
+            // $record_fees =$re->fees;
 
             $record = Record::where("id", "=", $record_id)->get();
             $cid = $record[0]->class_name;
@@ -76,6 +76,6 @@ class DashboardController extends Controller
                 </tr>';
         }
          return response()->json(["total"=>$total,"table"=>$table]);
-        return response()->json( );
+        // return response()->json( );
     }
 }

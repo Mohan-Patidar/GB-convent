@@ -12,8 +12,8 @@
             <div class="page-header">
                 <div class="page-title">
                     <h3><span>student </span></h3> <a href="#" class="btn btn-warning" id="export" role='button'>Export</a>
-                    <span class="c_session"><b>Current Session</b> {{$y_name}} </span>
                     <div class="user-drop-sec">
+                    <span class="c_session"><b><img src="{{url('/')}}/assets/image/sess.svg" alt=""></b> {{$y_name}} </span>
                         <ul>
                             <li>
                                 <a href="javascript:void(0)"><i>
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="page-table" id="dvData">
-                <table id="student-table" class="table tabel-res table-striped" style="width:100%;">
+                <table id="class-table" class="tabel-res table-striped" style="width:100%;">
                     <thead>
                         <tr>
                             <th>S.No.</th>

@@ -1,9 +1,5 @@
 @media(max-width:1500px) {
-    form input[type=text],
-    form input[type=email],
-    form input[type=number],
-    form input[type=date],
-    form input[type=password],
+    form input,
     form textarea {
         height: 45px;
     }
@@ -218,8 +214,6 @@
     .login-bg {
         max-width: 450px;
         min-width: auto;
-    }
-    .login-bg {
         padding: 30px 20px;
     }
     .login-heading {
@@ -268,14 +262,6 @@
         width: 100%;
         margin: 10px 0;
     }
-    .tabel-head .cus-menu li a {
-        padding: 3px 15px;
-        font-size: 12px;
-    }
-    /* .main-wrapper,
-    .page-color {
-        padding: 30px 20px;
-    } */
     .add-btn {
         padding: 8px 15px;
         font-size: 13px;
@@ -294,15 +280,12 @@
         font-size: 18px;
         margin-bottom: 10px;
     }
-    .profile-title {
-        font-size: 18px
-    }
     form label {
         font-size: 16px;
     }
-    .profile-box {
+    /* .profile-box {
         margin-top: 25px;
-    }
+    } */
     .dataTables_wrapper .dataTables_paginate {
         justify-content: center;
         float: none;
@@ -327,6 +310,13 @@
     }
     .login-head p {
         font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        text-align: left !important;
     }
 }
 
@@ -360,11 +350,11 @@
     .page-color {
         padding: 15px;
     }
-    .profile-title {
+    /* .profile-title {
         font-size: 16px;
         padding-bottom: 5px;
         margin-bottom: 15px;
-    }
+    } */
     .table-bordered td,
     .table-bordered th {
         padding: 10px !important;
@@ -374,9 +364,9 @@
         padding-bottom: 5px;
         margin-bottom: 5px;
     }
-    .profile-box {
+    /* .profile-box {
         margin-top: 5px;
-    }
+    } */
     form input,
     form textarea {
         font-size: 14px;

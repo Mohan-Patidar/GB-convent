@@ -2,6 +2,10 @@ a#export {
     display: inline-table;
 }
 
+.width-100 {
+    width: 100%;
+}
+
 .login-bg p {
     color: rgb(0 0 0 / 30%);
 }
@@ -43,8 +47,15 @@ a#export {
 }
 
 .input-daterange form {
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.input-daterange .input-group {
+    align-items: center !important;
+    width: auto;
 }
 
 .input-daterange .sec-inp-group {
@@ -57,6 +68,8 @@ a#export {
 
 .date-select input {
     width: 190px !important;
+    background: #F9F7FE;
+    color: #654fd3;
 }
 
 .range {
@@ -195,10 +208,6 @@ ul.log-our-sec li a {
     margin-left: 10px;
 }
 
-.page-title span {
-    font-weight: 700;
-}
-
 .active .drop-arrow path,
 .main-menus ul li a:hover .drop-arrow path {
     fill: #654fd3;
@@ -212,6 +221,7 @@ ul.log-our-sec li a {
 
 .user-drop-sec {
     position: relative;
+    display: flex;
 }
 
 .user-drop-sec ul ul {
@@ -241,7 +251,8 @@ ul.log-our-sec li a {
     padding: 0px;
 }
 
-.add-btn {
+.add-btn,
+.delete-data-btn {
     padding: 8px 30px;
     background-color: #654fd3;
     border-radius: 5px;
@@ -252,6 +263,17 @@ ul.log-our-sec li a {
     border: 2px solid #654fd3;
     display: flex;
     align-items: baseline;
+    transition: 300ms all;
+}
+
+.delete-data-btn {
+    background: #FF0000;
+    border: 2px solid #FF0000;
+}
+
+.delete-data-btn:hover {
+    background: transparent;
+    color: #FF0000;
 }
 
 .recent-head .add-btn svg {
@@ -335,18 +357,6 @@ table.dataTable thead .th-max-width {
     padding: 9px;
     width: 250px;
 }
-
-
-/* .dataTables_wrapper .dataTables_filter label::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50px;
-    height: 45px;
-    border-radius: 0 5px 5px 0;
-    background-color: #654fd3;
-} */
 
 .dataTables_wrapper .dataTables_filter label::after {
     content: "";
@@ -447,11 +457,6 @@ table.dataTable thead .th-max-width {
     max-height: 381px !important;
 }
 
-
-/* .dataTables_wrapper .dataTables_paginate span .paginate_button:hover {
-    background: linear-gradient(to bottom, #4b5687 0%, #4b5687 100%) !important;
-} */
-
 .edit-btn,
 .delete-btn,
 .view-btn {
@@ -495,21 +500,6 @@ table.dataTable thead .th-max-width {
 
 /* Profile page css start */
 
-.profile-box {
-    width: 100%;
-    max-width: 650px;
-    margin: auto;
-    margin-top: 30px;
-}
-
-.profile-title {
-    font-size: 18px;
-    text-transform: capitalize;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #4b568740;
-}
-
 form label {
     margin-bottom: 10px;
     font-size: 16px;
@@ -517,20 +507,23 @@ form label {
     color: rgb(0 0 0 / 30%);
 }
 
-form input[type=text],
-form input[type=email],
-form input[type=number],
-form input[type=date],
-form input[type=password],
+form input,
 form textarea {
     width: 100%;
     padding: 8px 20px;
     border-radius: 5px;
     border: 0;
-    color: #707070;
     font-size: 14px;
     height: 44px;
-    background: #F9F7FE;
+    background: #fafafa;
+    transition: 300ms all;
+    text-transform: capitalize;
+}
+
+input:focus,
+select:focus {
+    background-color: #EFEDFB;
+    color: #654FD3;
 }
 
 .form-group {
@@ -539,19 +532,6 @@ form textarea {
 
 
 /* Profile page css end */
-
-
-/* short code css start */
-
-.short-code {
-    width: 100%;
-    max-width: 650px;
-    margin: 30px auto;
-}
-
-.short-code form {
-    margin-top: 30px;
-}
 
 .btn-arrow-show,
 .btn-arrow-hide {
@@ -569,42 +549,7 @@ form textarea {
 }
 
 
-/* short code css end */
-
-.student-dtl {
-    padding: 40px;
-    max-width: 550px;
-    margin: 40px auto;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-}
-
-.student-dtl-field {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.student-dtl-field label {
-    min-width: 150px;
-    font-weight: 500;
-}
-
-.student-dtl-field p {
-    margin: 0;
-}
-
-
 /* Login page css start */
-
-
-/* .login-page {
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    background-color: #f5f5f5;
-    display: flex;
-    align-items: center;
-} */
 
 .login-box {
     width: 100%;
@@ -654,7 +599,7 @@ form textarea {
 .login-btn {
     width: 100%;
     background: #654FD3;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: #FFFFFF;
     text-transform: capitalize;
@@ -697,7 +642,7 @@ form textarea {
 /* Login page css end */
 
 .page-inr {
-    padding: 20px 30px;
+    padding: 30px;
     background: #fff;
     border-radius: 20px;
 }
@@ -722,37 +667,9 @@ form textarea {
     padding: 5px 10px;
 }
 
-.tabel-head .cus-menu {
-    display: flex;
-}
-
-.tabel-head .cus-menu li a {
-    border: 1px solid #4b5687;
-    margin: 10px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    display: flex;
-    background: rgb(75 86 135 / 70%);
-}
-
 .tabel-head-right {
     display: flex;
     align-items: center;
-}
-
-.tabel-head .cus-menu li a {
-    border: 1px solid #654fd3;
-    margin: 5px;
-    padding: 5px 20px;
-    border-radius: 3px;
-    display: flex;
-    color: #654fd3;
-}
-
-.tabel-head .cus-menu li.active a,
-.tabel-head .cus-menu li:hover a {
-    color: #fff;
-    background: #654fd3;
 }
 
 .tabel-head .form-group {
@@ -801,9 +718,18 @@ img.student-img {
     max-width: 30px;
 }
 
-.tabel-res .width-200 {
-    min-width: 200px;
-    max-width: 200px;
+.tabel-res .width-50 {
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.checkbox-table .width-30 {
+    width: 30px !important;
+}
+
+.tabel-res .width-160 {
+    min-width: 160px;
+    max-width: 160px;
 }
 
 .table.tabel-res tbody {
@@ -814,13 +740,6 @@ div#DataTables_Table_0_paginate {
     display: flex;
     align-items: center;
     margin-top: 30px;
-}
-
-@media screen and (max-width: 640px) {
-    .dataTables_wrapper .dataTables_length,
-    .dataTables_wrapper .dataTables_filter {
-        text-align: left !important;
-    }
 }
 
 #student-table a.active {
@@ -848,8 +767,8 @@ div#DataTables_Table_0_paginate {
     content: '';
     -webkit-appearance: none;
     background-color: transparent;
-    border: 2px solid #0079bf;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    border: 2px solid #654fd3;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 5%), inset 0px -15px 10px -12px rgb(0 0 0 / 5%);
     padding: 10px;
     display: inline-block;
     position: relative;
@@ -862,13 +781,13 @@ div#DataTables_Table_0_paginate {
     content: '';
     display: block;
     position: absolute;
-    top: 4px;
+    top: 7px;
     left: 9px;
     width: 6px;
     height: 14px;
-    border: solid #4b5687;
+    border: solid #654fd3;
     border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+    transform: rotate( 45deg);
 }
 
 
@@ -941,24 +860,19 @@ div#DataTables_Table_0_paginate {
     background-size: contain;
 }
 
-span.c_session b {
+.c_session img {
+    width: 30px;
+    object-fit: contain;
+    margin-right: 10px;
+}
+
+.c_session {
+    font-size: 28px;
     font-weight: 500;
-    padding-right: 10px;
-    font-size: 22px;
-    position: relative;
-    top: -4px;
-    color: #000;
-}
-
-span.c_session {
-    font-size: 32px;
-    font-weight: 900;
     color: #654fd3;
-}
-
-.tabel-head .cus-menu li.active a {
-    background: #654fd3;
-    border: 1px solid #654fd3;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
 }
 
 .login-head p {
@@ -983,6 +897,8 @@ span.c_session {
 .user-name input,
 .pass-word input {
     padding-right: 55px;
+    background: #F9F7FE;
+    color: #654fd3;
 }
 
 .user-name:after {
@@ -1031,11 +947,12 @@ span.c_session {
 }
 
 .dash-wrap-left {
-    flex: 0 0 70%;
+    flex: 0 0 65%;
+    width: 65%;
 }
 
 .dash-wrap-right {
-    flex: 0 0 30%;
+    flex: 0 0 35%;
     margin: 10px 0;
 }
 
@@ -1125,11 +1042,13 @@ span.c_session {
 }
 
 .recent-head {
-    display: flex;
+    display: inline-flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgb(0 0 0 / 10%);
     padding: 10px 0 25px;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .recent-fees-sec {
@@ -1147,10 +1066,11 @@ span.c_session {
 .user-dtls span {
     display: inline-flex;
     align-items: center;
+    font-size: 14px;
 }
 
 .user-dtls span:first-child {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .user-dtls span img {
@@ -1193,7 +1113,7 @@ span.c_session {
     background: rgb(255 0 0);
 }
 
-#result li:hover .tooltips {
+.tool:hover .tooltips {
     opacity: 1;
 }
 
@@ -1214,4 +1134,309 @@ span.c_session {
 
 .tool-delete .tooltips:after {
     background: rgb(255 0 0);
+}
+
+
+/*Right*/
+
+.modal.right.fade .modal-dialog {
+    right: -320px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+}
+
+.modal.right .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 560px;
+    height: 100%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+
+.modal.right .modal-content {
+    height: 100%;
+}
+
+.student-modal-content .modal-header ul {
+    display: flex;
+}
+
+.student-modal-content .modal-header a {
+    color: rgb(101 79 211 / 40%);
+    padding: 20px 0px;
+    border-bottom: 2px solid transparent;
+    font-weight: 500;
+}
+
+.student-modal-content .modal-header .active a {
+    color: rgb(101 79 211);
+    border-bottom: 2px solid rgb(101 79 211);
+}
+
+.student-modal-content .modal-header {
+    border: 0;
+    padding: 40px 40px 20px;
+}
+
+.student-modal-content .close {
+    opacity: 1;
+}
+
+.student-modal-content .modal-body {
+    padding: 40px;
+}
+
+.modal-header li:first-child {
+    margin-right: 25px;
+}
+
+.modal-backdrop {
+    background-color: rgb(0 0 0 / 30%) !important;
+}
+
+.after-design:after {
+    content: "";
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 170px;
+    height: 370px;
+    background-image: url(../../assets/image/before-bottom.svg);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: contain;
+}
+
+.tab-content {
+    position: relative;
+    z-index: 1;
+}
+
+.picture-grp {
+    position: relative;
+}
+
+.picture-grp input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+}
+
+.picture-grp {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    border: 1px dashed #654fd3;
+    cursor: pointer;
+    background: #fff;
+}
+
+.pic-label {
+    color: #654fd3;
+    margin: 0;
+}
+
+.add-btn.align-center {
+    margin: auto;
+    width: auto;
+}
+
+.student-modal-content select {
+    border: 0 !important;
+}
+
+.birth-date {
+    display: flex;
+    align-items: center;
+}
+
+.detail-head {
+    background: #F4F2FC;
+    border: 1px dashed #654fd3;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.detail-head-inr {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.head-left {
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.student-name {
+    margin-left: 10px;
+}
+
+.stuedent-img {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0px 6px 14px 0px rgb(0 0 0 / 8%);
+}
+
+.stuedent-img img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.stu-id,
+.scholar-no {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+.stu-id {
+    background: #654fd3;
+}
+
+.scholar-no {
+    background: #FFC5A0;
+    right: 20px;
+    left: initial;
+}
+
+.scholar-no p,
+.stu-id p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.stu-id p {
+    color: #fff;
+}
+
+.head-right span img {
+    margin-right: 10px;
+    vertical-align: text-bottom;
+}
+
+.head-right span {
+    font-size: 14px;
+}
+
+.student-name h5 {
+    font-size: 16px;
+    color: #654fd3;
+    font-weight: 500;
+    padding-bottom: 5px;
+}
+
+.fee-sec {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 30px 0;
+}
+
+.total-fee {
+    background: rgb(0 136 9 / 10%);
+    padding: 5px 20px;
+    border-radius: 5px;
+    color: #008809;
+}
+
+.due-fee {
+    background: rgb(255, 0, 0, 10%);
+    padding: 5px 20px;
+    border-radius: 5px;
+    color: #FF0000;
+}
+
+.fee-list-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgb(0 0 0 / 10%);
+    border-bottom: 1px solid rgb(0 0 0 / 10%);
+    padding: 20px 0;
+}
+
+.fee-list-table table {
+    width: 100%;
+}
+
+.fee-list-table {
+    display: block;
+    overflow: auto;
+}
+
+.fee-list-table td,
+.fee-list-table th {
+    padding: 15px 5px;
+    min-width: 95px;
+}
+
+.fee-list-table td {
+    border-bottom: 1px dashed rgb(0 0 0 / 10%);
+}
+
+.fee-list-table tr:last-child() td {
+    border-bottom: none;
+}
+
+.deposit-form {
+    padding: 15px 0;
+    border-top: 1px solid rgb(0 0 0 / 10%);
+}
+
+#studentDeleteModal .modal-body {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#studentDeleteModal .modal-footer {
+    border: 0;
+}
+
+.min-height {
+    min-height: calc(100vh - 220px);
+    max-height: calc(100vh - 220px);
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.dt-checkboxes,
+input[type=checkbox] {
+    width: auto;
+}
+
+#promoteModal .modal-body {
+    padding: 40px;
 }

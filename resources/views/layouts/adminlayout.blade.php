@@ -79,7 +79,7 @@
 
                         <a href="{{ url('/assignrole') }}">
                             <i>
-                                <img src="{{url('/')}}/assets/image/expertise-area.svg" class="menu-show" alt="">
+                                <img src="{{url('/')}}/assets/image/assign-role.svg" class="menu-show" alt="">
                             </i>
                             <span>Assign Role</span>
                         </a>
@@ -137,8 +137,8 @@
     <!-- data table js -->
     <script src="{{url('/')}}/assets/js/jquery-3.5.1.min.js"></script>
     <script src="{{url('/')}}/assets/js/bootstrap.min.js"></script>
-    <script src="{{url('/')}}/assets/js/datatables.min.js"></script>
-    <script src="{{url('/')}}/assets/js/dataTables.checkboxes.min.js"></script>
+     <script src="{{url('/')}}/assets/js/datatables.min.js"></script>
+   <script src="{{url('/')}}/assets/js/dataTables.checkboxes.min.js"></script>
     <script src="{{url('/')}}/assets/js/dataTables.buttons.min.js"></script>
     <script src="{{url('/')}}/assets/js/buttons.html5.min.js"></script>
     <script src="{{url('/')}}/assets/js/sweetalert.min.js"></script>
@@ -184,6 +184,11 @@
         // student
         $(".addStudent").click(function() {
             $('#myaddModal').modal('show');
+        });
+
+        // Fees deposite
+        $(".deposit-modal").click(function() {
+            $('#feeDepositModal').modal('show');
         });
         $(document).on('click', '.deletestudent', function() {
             var userID = $(this).attr('data-id');
@@ -309,6 +314,12 @@
 
         // inline calendar
         $('#inline-cal').datepicker({
+            todayHighlight: true,
+            daysOfWeekHighlighted: "0",
+        });
+
+        // inline calendar
+        $('.birth-date input').datepicker({
             todayHighlight: true,
             daysOfWeekHighlighted: "0",
         });

@@ -12,8 +12,8 @@
             <div class="page-header">
                 <div class="page-title">
                     <h3><span>{{$class_name}}</span></h3>
-                    <span class="c_session"><b>Current Session</b> {{$y_name}} </span>
                     <div class="user-drop-sec">
+                    <span class="c_session"><b><img src="{{url('/')}}/assets/image/sess.svg" alt=""></b> {{$y_name}} </span>
                         <ul>
                             <li>
                                 <a href="javascript:void(0)"><i>
@@ -46,7 +46,7 @@
                             $current_year=$y_id;
                             @endphp
                             @foreach($posts as $post)
-                            <option @if(request()->segment(2) == $post->id) selected  @endif value="{{ $post->id }}" session="{{$current_year}}">{{$post->class_name}}</option>
+                            <option @if(request()->segment(2) == $post->id) selected @endif value="{{ $post->id }}" session="{{$current_year}}">{{$post->class_name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -55,8 +55,12 @@
                             @csrf
                             <input type="file" name="file" id="file" class="my-profile-choose-file">
                             <input type="submit" id="submit" style="display: none;">
-                            <button type="button" class="btn btn-success import">Import</button>
-                            <a href="#" class="btn btn-warning" id="export" role='button'>Export</a>
+                            <a href="#" class="import btn-data" role='button'>
+                                <img src="{{url('/')}}/assets/image/export.svg" alt="">
+                            </a>
+                            <a href="#" id="export" class="btn-data" role='button'>
+                                <img src="{{url('/')}}/assets/image/import.svg" alt="">
+                            </a>
                         </form>
                         <div class="page-btn">
                             <a href="{{route('students.create')}}" class="add-btn">Add Student</a>
@@ -65,23 +69,24 @@
                 </div>
                 <form id="frm-example" action="javascript:void(0)" method="get">
                     <div class="page-table" id="dvData">
-                        <table id="class-table" class="table-bordered table-striped" style="width:100%;">
+                        <table id="class-table" class="tabel-res checkbox-table table-striped" style="width:100%;">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Actions</th>
-                                <th>Id</th>
-                                <th style="display: none;">Profile</th>
-                                <th>Name</th>
-                                <th>Scholar No.</th>
-                                <!-- <th>Class</th> -->
-                                <!-- <th>D.O.B</th> -->
-                                <th>Address</th>
-                                <th>Aadhar Number</th>
-                                <!-- <th>Samagar Id</th> -->
-                                <th>Mob No.</th>
-                                <th>Bank Acc/No.</th>
-                            </tr>
+                                <tr>
+                                    <!-- <th class="width-30"></th> -->
+                                    <th class="width-30">#</th>
+                                    <th class="width-160">Name</th>
+                                    <th class="width-50">Id</th>
+                                    <th>Scholar No.</th>
+                                    <th>Address</th>
+                                    <th>Aadhar Number</th>
+                                    <th>Mob No.</th>
+                                    <th>Actions</th>
+                                    <!-- <th>Bank Acc/No.</th> -->
+                                    <!-- <th>Class</th> -->
+                                    <!-- <th>D.O.B</th> -->
+                                    <!-- <th style="display: none;">Profile</th> -->
+                                    <!-- <th>Samagar Id</th> -->
+                                </tr>
                             </thead>
                             <tbody id="result">
                                 @php $i = 0; @endphp
@@ -89,38 +94,45 @@
                                 @foreach($b as $student)
                                 @if($t->students_id==$student->id)
                                 <tr>
-                                   
-                                    <td>@php echo ++$i @endphp</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
-                                                <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt="">
-                                            </a>
-                                            <a class="view-btn" href="{{url('show',['student'=>$student->id,'session'=>$t->session])}}">
-                                                <img src="{{url('/')}}/assets/image/feather-eye.svg" width="16px" alt="">
-                                            </a>
-                                            @if(Auth::check() && Auth::user()->user_type == "Admin")
-                                            <button type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{$t->id}}">
-                                                <img src="{{url('/')}}/assets/image/feather-trash.svg" width="16px" alt="">
-                                            </button>
-                                            @endif
+                                    <td class="width-30"></td>
+                                    <!-- <td class="width-30">@php echo ++$i @endphp</td> -->
+                                    <td class="width-160"><b>{{$student->name}}</b><br>
+                                        <div class="user-dtls">
+                                            <span><img src="{{url('/')}}/assets/image/men.svg" alt="">{{$student->father_name}}</span>
+                                            <span><img src="{{url('/')}}/assets/image/women.svg" alt="">{{$student->mother_name}}</span>
                                         </div>
                                     </td>
-                                    <td>{{$student->student_id}}</td>
-                                    <td style="display: none;">{{$student->father_name}}</td>
-                                    <td><b>{{$student->name}}</b><br>
-                                    <div class="user-dtls">
-                                    <span><img src="{{url('/')}}/assets/image/men.svg" alt="">{{$student->father_name}}</span>
-                                    <span><img src="{{url('/')}}/assets/image/women.svg" alt="">{{$student->mother_name}}</span>
-                                    </div>
-                                    </td>   
+                                    <td class="width-50">{{$student->student_id}}</td>
                                     <td>{{$student->scholar_no}}</td>
                                     <td>{{$student->address}}</td>
                                     <td>{{$student->aadhar_no}}</td>
                                     <td>{{$student->mobile_no}} <br>
-                                         {{$student->mobile_no2}}
+                                        {{$student->mobile_no2}}
                                     </td>
-                                <td>{{$student->account_no}}</td>
+                                    <td>
+                                        <ul class="d-flex">
+                                        <li class="tool tool-edit">
+                                        <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
+                                                <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt="">
+                                            </a>
+                                            <span class="tooltips">Edit</span>
+                                        </li>
+                                        <li class="tool tool-view">
+                                        <a class="view-btn" href="{{url('show',['student'=>$student->id,'session'=>$t->session])}}">
+                                                <img src="{{url('/')}}/assets/image/feather-eye.svg" width="16px" alt="">
+                                            </a>
+                                            <span class="tooltips">Preview</span>
+                                        </li>
+                                        <li class="tool tool-delete">
+                                            @if(Auth::check() && Auth::user()->user_type == "Admin")
+                                            <a href="javascript:void(0)" type="submit" class="delete-btn student-delete" data-id="{{$student->id}}" data-name="{{$t->id}}">
+                                                <img src="{{url('/')}}/assets/image/feather-trash.svg" width="16px" alt="">
+                                            </a>
+                                            <span class="tooltips">Delete</span>
+                                        </li>
+                                        @endif
+                                    </ul>
+                                    </td>
                                 </tr>
                                 @endif
                                 @endforeach
@@ -137,29 +149,42 @@
                                 <div class="modal-content">
                                     <!-- Modal Header -->
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Student Promote</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h5 class="modal-title text-center width-100">Student Promote</h5>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18.535" height="19.256" viewBox="0 0 18.535 19.256">
+                                            <g id="Group_846" data-name="Group 846" transform="translate(-5587.733 110.989)">
+                                                <line id="Line_31" data-name="Line 31" x2="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#ffc5a0" stroke-linecap="round" stroke-width="2.5" />
+                                                <line id="Line_32" data-name="Line 32" x1="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#654fd3" stroke-linecap="round" stroke-width="2.5" />
+                                            </g>
+                                        </svg>
+                                        </button>
                                     </div>
                                     <!-- Modal body -->
                                     <div class="modal-body">
                                         <form action="{{ url('promote') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="students_id" id="promote" value="">
-                                            <label>Session </label>
+                                            <div class="form-group">
                                             <select name="year" id="year">
+                                                <option value="">Session</option>
                                                 @foreach($year as $y)
                                                 @if($y->status!=1)
                                                 <option value="{{$y->id}}">{{$y->years}}</option>
                                                 @endif
                                                 @endforeach
                                             </select>
-                                            <label>Class</label>
+                                            </div>
+                                            <div class="form-group">
                                             <select name="class" id="class">
+                                                <option value="">Class</option>
                                                 @foreach($class as $c)
                                                 <option value="{{$c->id}}">{{$c->class_name}}</option>
                                                 @endforeach
                                             </select>
-                                            <input type="submit" value="Add">
+                                            </div>
+                                            <div class="form-group">
+                                            <input type="submit" value="Add" class="add-btn align-center">
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
