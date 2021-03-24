@@ -43,6 +43,8 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     Route::get('year/{id}', 'App\Http\Controllers\SidebarController@YearData')->name('YearData');
     Route::get('fees/{id}', 'App\Http\Controllers\FeesController@FeesData')->name('FeesData');
     Route::get('dashboard', 'App\Http\Controllers\DashboardController@index')->name('index');
+    
+    Route::post('datefilter', 'App\Http\Controllers\DashboardController@DateFilter')->name('DateFilter');
     Route::post('promote', 'App\Http\Controllers\ClassController@PromoteData')->name('PromoteData');
      Route::get('show/{id}/{yid}','App\Http\Controllers\StudentController@StudentShow')->name('StudentShow');
     Route::get('remove/{id}', 'App\Http\Controllers\YearController@RemoveCurrent')->name('RemoveCurrent');

@@ -216,6 +216,7 @@
                     $('#classes').html(resp.output);
                     $('#sessions').html(resp.y_output);
                     $('#sIds').val(resp.id);
+                   
                 }
             });
             
@@ -250,6 +251,28 @@
             $('#fee').val(fee);
             $('#date').val(dat);
             $('#myeditModal').modal('show');
+        });
+        //dashboard
+        $(".earning").click(function() {
+        var start=$("#starts").val();
+        var end=$("#ends").val();
+            $.ajax({
+                url: 'datefilter',
+                method: "Post",
+                data: {
+                       start: start,
+                       end:end,
+                      "_token": "{{ csrf_token() }}",
+                            },
+                success: function(fb) {
+                    $('#total').html(fb.total);
+                    $('#fees-table').html(fb.table);
+                    // console.log(fb);
+                   
+                   
+                }
+            });
+            
         });
 
         //assign role

@@ -26,6 +26,7 @@ class FeesController extends Controller
         $classes = Student_classe::all();
         $years = Year::all();
         return view('admin.fees.index',compact("tests","year","class","classes","years"));
+        
     }
     public function create(){
         //

@@ -12,12 +12,14 @@
             <div class="page-header">
                 <div class="page-title">
                     <h3>student <span> class</span></h3>
+                   
                     <a href="javascript:void(0)" class="add-btn addFees">Add Fees Structure</a>
                     <div class="modal fade" id="myfeesModal" role="dialog">
                         <div class="modal-dialog modal-dialog-centered">
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
+                                    
                                     <h4 class="modal-title">Add Fess</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
@@ -71,6 +73,8 @@
             <div class="tabel-head">
                 <h5 class="page-title"><span>Session </span></h5>
                 <div class="form-group">
+               
+                  
                     <ul class="cus-menu">
                         @php
                         $posts= App\Models\Year::orderBy('id','DESC')->get();

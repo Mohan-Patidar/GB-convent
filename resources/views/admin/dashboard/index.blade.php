@@ -43,28 +43,29 @@
                         </div>
                         <div class="dash-box dash-box-third">
                             <p>Weekly Collection</p>
-                            <h2>{{$year}}</h2>
+                            <h2 id="total">{{$total}}</h2>
                         </div>
                     </div>
                     <div class="recent-fees-sec">
                         <div class="recent-head">
                             <div class="date-select">
                                 <div class="input-daterange input-group" id="datepicker">
-                                    <form>
+                                    <form action="javascript:void(0)" id="date-form">
+                                    @csrf
                                         <div class="input-group">
-                                            <input type="text" id="start" class="input-sm" name="start" placeholder="From" />
+                                            <input type="text" id="starts" class="input-sm" name="start" placeholder="From" autocomplete="off"/>
                                             <span class="input-group-btn" for="start">
                                                 <img src="{{url('/')}}/assets/image/feather-calendar.svg">
                                             </span>
                                         </div>
                                         <div class="input-group sec-inp-group">
                                             <!-- <span class="input-group-addon">to</span> -->
-                                            <input type="text" class="input-sm" name="end" placeholder="To" />
+                                            <input type="text" class="input-sm" name="end" id="ends" placeholder="To" />
                                             <span class="input-group-btn" for="start">
                                                 <img src="{{url('/')}}/assets/image/feather-calendar.svg">
                                             </span>
                                         </div>
-                                        <button class="filter-btn" type="submit">Filter</button>
+                                        <button class="filter-btn earning" type="submit">Filter</button>
                                     </form>
                                 </div>
                             </div>
@@ -75,7 +76,7 @@
                             </a>
                         </div>
                         <div class="page-table">
-                            <table id="" class="table table-striped custom-table" style="width:100%;">
+                            <table id="fees-table" class="table table-striped custom-table" style="width:100%;">
                                 <thead>
                                     <tr>
                                         <th>#</th>

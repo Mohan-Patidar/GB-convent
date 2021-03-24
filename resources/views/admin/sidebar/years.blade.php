@@ -39,18 +39,18 @@
             </div>
             <div class="page-inr">
             <div class="tabel-head">
-                <h5 class="page-title"><span>Classes </span></h5>
-                <div class="form-group">
-                    <ul class="cus-menu">
-                        @php
-                        $posts= App\Models\Student_classe::get();
-                        $y_id=request()->segment(2);
-                        @endphp
-                        @foreach($posts as $post)
-                        <li @if(request()->segment(2) == $post->id && request()->segment(1)=='classes') class="active" @endif ><a href="{{ url('classes',['classes'=>$post->id,'session'=>$y_id]) }}">{{$post->class_name}}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="form-group">
+                        <select name="change" id="changes">
+                            @php
+                            $posts= App\Models\Student_classe::get();
+                            $y_id=request()->segment(2);
+                            @endphp
+                            @foreach($posts as $post)
+                            <option @if(request()->segment(3) == $post->id) selected  @endif value="{{ $post->id }}" session={{$y_id}}>{{$post->class_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                
                 <div class="tabel-head-right">
                         <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
                             @csrf
@@ -100,29 +100,26 @@
                                     </div>
                                 </td>
                             <td>{{$student->student_id}}</td>
-                            <!-- <td>@if($student->profile_picture==NULL)<img class="student-img" src="{{url('/')}}/assets/image/download.png" />
-                                @else<img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" />@endif</td> -->
+                          
                             <td>{{$student->scholar_no}}</td>
                             @foreach($class as $c)
                             @if($c->id == $t->class_name)
-                            <!-- <td class="sorting_1">{{$c->class_name}}</td> -->
+                            
                             @endif
                             @endforeach
-                            <!-- <td>{{$student->father_name}}</td>
-                            <td>{{$student->mother_name}}</td> -->
-                            <!-- <td>{{$student->dob}}</td> -->
+                          
                             <td>{{$student->address}}</td>
                             <td>{{$student->aadhar_no}}</td>
-                            <!-- <td>{{$student->samarg_id}}</td> -->
+                          
                             <td>{{$student->mobile_no}}<br>
                                     {{$student->mobile_no2}}
                                 </td>
-                            <!-- <td>{{$student->mobile_no2}}</td>
-                            <td>{{$student->account_no}}</td> -->
+                       
                             <td>
                                 <div class="d-flex">
                                 <ul class="d-flex">
                                         <li class="tool tool-edit">
+                                     
                                     <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
                                         <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt=""></a>
                                         <span class="tooltips">Edit</span>

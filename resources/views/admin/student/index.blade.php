@@ -59,6 +59,7 @@
                             $posts= App\Models\Student_classe::get();
                             $current_year=$y_id;
                             @endphp
+                            <option>select class</option>
                             @foreach($posts as $post)
                             <option value="{{ $post->id }}" session="{{$current_year}}">{{$post->class_name}}</option>
                             @endforeach
@@ -227,10 +228,10 @@
                             @if(($r->students_id==$student->id) &&($r->session==$y_id))
                             <tr>
                                 <td class="width-30">@php echo ++$i @endphp</td>
-                                <td class="width-200"><b>{{$student->name}}</b><br>
+                                <td class="width-200"><b>{{ strtolower($student->name)}}</b><br>
                                     <div class="user-dtls">
-                                        <span><img src="{{url('/')}}/assets/image/men.svg" alt="">{{$student->father_name}}</span>
-                                        <span><img src="{{url('/')}}/assets/image/women.svg" alt="">{{$student->mother_name}}</span>
+                                        <span><img src="{{url('/')}}/assets/image/men.svg" alt="">{{ strtolower($student->father_name)}}</span>
+                                        <span><img src="{{url('/')}}/assets/image/women.svg" alt="">{{ strtolower($student->mother_name)}}</span>
                                     </div>
                                 </td>
                                 <td style="display: none;">{{$student->father_name}}

@@ -128,6 +128,7 @@
                             </tbody>
                         </table>
                     </div>
+                    
                     <p><button type="submit" data-toggle="modal" data-target="#promoteModal">Promote</button></p>
                     <div class="container">
                         <!-- The Modal -->
