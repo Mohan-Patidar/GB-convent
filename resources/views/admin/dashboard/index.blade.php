@@ -91,42 +91,26 @@
                                 <tbody>
                                     @php $i = 0;
                                     @endphp
+                                    @foreach($users as $student)
                                     <tr>
                                         <td class="width-20">@php echo ++$i @endphp</td>
-                                        <td><img class="student-img" src="{{url('/')}}/assets/image/student-1.jpg" /></td>
-                                        <td class="width-200">prem</td>
-                                        <td>babu</td>
-                                        <td>LKG</td>
-                                        <td><span class="deposit-box">2000</span></td>
-                                        <td><span class="remain-box">2000</span></td>
+                                        <td>@if($student->profile_picture==NULL)<img class="student-img" src="{{url('/')}}/assets/image/download.png" />
+                                        @else<img class="student-img" src="{{asset('image/profile_picture/' .$student->profile_picture) }}" />@endif</td>
+                                        <td class="width-200">{{$student->name}}</td>
+                                        <td>{{$student->father_name}}</td>
+                                       @foreach($classes as $c)
+                                       @if($c->id==$student->class_name)
+                                        <td>{{$c->class_name}}</td>
+                                        @endif
+                                       @endforeach
+                                        <td><span class="deposit-box">{{$student->fees}}</span></td>
+                                        @foreach($fees as $f)
+                                        @if($f->student_classes_id==$student->class_name)
+                                        <td><span class="remain-box">{{$f->amount - $student->fees}}</span></td>
+                                        @endif
+                                        @endforeach
                                     </tr>
-                                    <tr>
-                                        <td>@php echo ++$i @endphp</td>
-                                        <td><img class="student-img" src="{{url('/')}}/assets/image/student-2.jpg" /></td>
-                                        <td>anklesh</td>
-                                        <td>babu</td>
-                                        <td>LKG</td>
-                                        <td><span class="deposit-box">2000</span></td>
-                                        <td><span class="remain-box">2000</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>@php echo ++$i @endphp</td>
-                                        <td><img class="student-img" src="{{url('/')}}/assets/image/student-1.jpg" /></td>
-                                        <td>balu</td>
-                                        <td>babu</td>
-                                        <td>LKG</td>
-                                        <td><span class="deposit-box">2000</span></td>
-                                        <td><span class="remain-box">2000</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>@php echo ++$i @endphp</td>
-                                        <td><img class="student-img" src="{{url('/')}}/assets/image/student-2.jpg" /></td>
-                                        <td>shyam</td>
-                                        <td>babu</td>
-                                        <td>LKG</td>
-                                        <td><span class="deposit-box">2000</span></td>
-                                        <td><span class="remain-box">2000</span></td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -142,3 +126,9 @@
     </div>
 </section>
 @endsection
+@push('scripts')
+    <script>
+    
+   
+    </script>
+@endpush

@@ -1,6 +1,7 @@
 @extends('layouts.adminlayout')
 @section('content')
 <div class="page-inner ad-inr">
+    <div style="display: none;" class="error"></div>
     @if(Session::has('message'))
     <div class="save-alert alert alert-success alert-dismissible fade in" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -45,7 +46,23 @@
             <div class="page-inr">
                 <div class="tabel-head">
                     <div class="form-group">
-                        <select name="change" id="changes">
+                    <p>
+                        <select id="table-filter">
+                        <option value="">All</option>
+                        <option>Nursery</option>
+                        <option>First</option>
+                        <option>Second</option>
+                        <option>Third</option>
+                        <option>Fourth</option>
+                        <option>Fifth</option>
+                        <option>Sixth</option>
+                        <option>Seventh</option>
+                        <option>Eigth</option>
+                        <option>Ninth</option>
+                        <option>Tenth</option>
+                        </select>
+                        </p>
+                        <!-- <select name="change" id="changes">
                             @php
                             $posts= App\Models\Student_classe::get();
                             $current_year=$y_id;
@@ -54,7 +71,7 @@
                             @foreach($posts as $post)
                             <option value="{{ $post->id }}" session="{{$current_year}}">{{$post->class_name}}</option>
                             @endforeach
-                        </select>
+                        </select> -->
                     </div>
                     <div class="tabel-head-right">
                         <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
@@ -73,13 +90,15 @@
                         </div>
                     </div>
                 </div>
+                <form id="frm-example" action="javascript:void(0)" method="get">
                 <div class="page-table" id="dvData">
-                    <table id="student-table" class="table tabel-res table-striped" style="width:100%;" data-plugin-options='{"searchPlaceholder": "Suchen"}'>
+                    <table id="" class="studenttable tabel-res table-striped" style="width:100%;" data-plugin-options='{"searchPlaceholder": "Suchen"}'>
                         <thead>
                             <tr>
                                 <th class="width-30">#</th>
                                 <th class="width-160">Name</th>
                                 <th style="display: none;">Father Name</th>
+                                <th style="display: none;">Class</th>
                                 <th class="width-50">Id</th>
                                 <th>Scholar No.</th>
                                 <th>Address</th>
@@ -94,7 +113,8 @@
                             @foreach($students as $student)
                             @if(($r->students_id==$student->id) &&($r->session==$y_id))
                             <tr>
-                                <td class="width-30">@php echo ++$i @endphp</td>
+                                <td class="width-30">{{$student->id}}</td>
+                                <!-- <td class="width-30">@php echo ++$i @endphp</td> -->
                                 <td class="width-160"><b>{{$student->name}}</b><br>
                                     <div class="user-dtls">
                                         <span><img src="{{url('/')}}/assets/image/men.svg" alt="">{{ strtolower($student->father_name)}}</span>
@@ -103,6 +123,12 @@
                                 </td>
                                 <td style="display: none;">{{$student->father_name}}
                                 </td>
+                                @foreach($tests as $class)
+                                @if($r->class_name==$class->id)
+                                <td style="display: none;">{{$class->class_name}}
+                                </td>
+                                @endif
+                                @endforeach
                                 <td class="width-50">{{$student->student_id}}</td>
                                 <td>{{$student->scholar_no}}</td>
                                 <td>{{$student->address}}</td>
@@ -112,19 +138,11 @@
                                 </td>
                                 <td>
                                     <ul class="d-flex">
-                                        <li class="tool tool-edit">
-                                            <a class="studentpopup" data-id="{{$student->id}}" data-href="{{route('students.edit',$student->id)}}">view </a>
-                                        </li>
-                                        <li class="tool tool-edit">
-                                            <a class="edit-btn" href="{{route('students.edit',$student->id)}}">
-                                                <img src="{{url('/')}}/assets/image/feather-edit.svg" width="16px" alt=""></a>
-                                            <span class="tooltips">Edit</span>
-                                        </li>
                                         <li class="tool tool-view">
-                                            <a class="view-btn" href="{{url('show',['student'=>$student->id,'session'=>$r->session])}}">
-                                                <img src="{{url('/')}}/assets/image/feather-eye.svg" width="16px" alt=""></a>
+                                            <a class="studentpopup" data-id="{{$student->id}}" data-href="{{route('students.edit',$student->id)}}" fees-href="{{url('show',['student'=>$student->id,'session'=>$r->session])}}">  <img src="{{url('/')}}/assets/image/feather-eye.svg" width="16px" alt=""> </a>
                                             <span class="tooltips">Preview</span>
                                         </li>
+
                                         <li class="tool tool-delete">
                                             @if(Auth::check() && Auth::user()->user_type == "Admin")
                                             <a href="javascript:void(0)" type="submit" class="delete-btn deletestudent" data-id="{{$student->id}}" data-name="{{$r->id}}"><img src="{{url('/')}}/assets/image/feather-trash.svg" width="16px" alt=""></a>
@@ -139,6 +157,57 @@
                         </tbody>
                     </table>
                 </div>
+                <p><button type="submit" data-toggle="modal" data-target="#promoteModal">Promote</button></p>
+                    <div class="container">
+                      
+                </form>
+                 <!-- The Modal -->
+                 <div class="modal" id="promoteModal">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-center width-100">Student Promote</h5>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18.535" height="19.256" viewBox="0 0 18.535 19.256">
+                                            <g id="Group_846" data-name="Group 846" transform="translate(-5587.733 110.989)">
+                                                <line id="Line_31" data-name="Line 31" x2="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#ffc5a0" stroke-linecap="round" stroke-width="2.5" />
+                                                <line id="Line_32" data-name="Line 32" x1="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#654fd3" stroke-linecap="round" stroke-width="2.5" />
+                                            </g>
+                                        </svg>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <form action="{{ url('promote') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="students_id" id="promote" value="">
+                                            <div class="form-group">
+                                            <select name="year" id="year">
+                                                <option value="">Session</option>
+                                                @foreach($year as $y)
+                                                @if($y->status!=1)
+                                                <option value="{{$y->id}}">{{$y->years}}</option>
+                                                @endif
+                                                @endforeach
+                                            </select>
+                                            </div>
+                                            <div class="form-group">
+                                            <select name="class" id="class">
+                                                <option value="">Class</option>
+                                                @foreach($tests as $c)
+                                                <option value="{{$c->id}}">{{$c->class_name}}</option>
+                                                @endforeach
+                                            </select>
+                                            </div>
+                                            <div class="form-group">
+                                            <input type="submit" value="Add" class="add-btn align-center">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 <!-- student delete modal -->
                 <div id="studentDeleteModal" class="modal modal-danger fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog modal-dialog-centered" style="width:55%;">
@@ -181,7 +250,7 @@
                                         <a href="#tabs-1" data-toggle="tab" role="tab">Edit Student</a>
                                     </li>
                                     <li>
-                                        <a href="#tabs-2" data-toggle="tab" role="tab"> Student Fees Details</a>
+                                        <a href="#tabs-2" data-toggle="tab" id="fees-details"   role="tab"> Student Fees Details</a>
                                     </li>
                                 </ul>
                                 <button type="button" class="close" data-dismiss="modal">
@@ -203,7 +272,7 @@
                                                 <div class="row ">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <input type="text" name="student_id" id="student_ids" value="" placeholder="Student Id">
+                                                            <input type="text" name="student_id" id="student_ids"  value="" placeholder="Student Id">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -296,48 +365,48 @@
                                             <div class="detail-head">
                                                 <div class="detail-head-inr">
                                                     <div class="head-left">
-                                                        <div class="stuedent-img">
-                                                            <img src="{{url('/')}}/assets/image/student-1.jpg" alt="">
+                                                        <div class="stuedent-img"  id="profile_pic">
+                                                            
                                                         </div>
                                                         <div class="student-name">
-                                                            <h5>Mukta Bhabor</h5>
+                                                            <h5 class="s_name"></h5>
                                                             <div class="stu-detail">
                                                                 <div class="user-dtls">
-                                                                    <span><img src="{{url('/')}}/assets/image/men.svg" alt="">fgfgf</span>
-                                                                    <span><img src="{{url('/')}}/assets/image/women.svg" alt="">fgfg</span>
+                                                                    <span class="f_name"><img src="{{url('/')}}/assets/image/men.svg" alt=""></span>
+                                                                    <span class="m_name"> <img src="{{url('/')}}/assets/image/women.svg" alt=""></span>
                                                                 </div>
                                                             </div>
                                                             <div class="stu-id">
-                                                                <p>Student ID: <span>2050</span></p>
+                                                                <p>Student ID: <span class="student_ids"></span></p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="head-right">
                                                         <div class="">
                                                             <span>
-                                                                <span>
-                                                                    <img src="{{url('/')}}/assets/image/location.svg" alt=""> Gadwada
+                                                                <span class="address">
+                                                                    <img src="{{url('/')}}/assets/image/location.svg" alt=""> 
                                                                 </span>
                                                             </span>
                                                             <br>
                                                             <span>
-                                                                <span>
-                                                                    <img src="{{url('/')}}/assets/image/call.svg" alt=""> 454545454
+                                                                <span class="contact">
+                                                                    <img src="{{url('/')}}/assets/image/call.svg" alt="">
                                                                 </span>
                                                             </span>
                                                         </div>
                                                         <div class="scholar-no">
-                                                            <p>Scholar N: <span>0050</span></p>
+                                                            <p>Scholar N: <span class="scholar"></span></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="fee-sec">
                                                 <div class="fee-left">
-                                                    <h6>Total Fees: <span class="total-fee"><label>₹</label>3900</span></h6>
+                                                    <h6>Total Fees: <span class="total-fee amounts"><label>₹</label></span></h6>
                                                 </div>
                                                 <div class="fee-right">
-                                                    <h6>Due Fees: <span class="due-fee"><label>₹</label>1300</span></h6>
+                                                    <h6>Due Fees: <span class="due-fee remaining"><label>₹</label></span></h6>
                                                 </div>
                                             </div>
                                             <div class="fee-list-head">
@@ -345,7 +414,7 @@
                                                 <a href="javascript:void(0)" class="add-btn deposit-modal">Deposit Fee</a>
                                             </div>
                                             <div class="fee-list-table">
-                                                <table>
+                                                <table >
                                                     <thead>
                                                         <tr>
                                                             <th>Rec No.</th>
@@ -355,8 +424,8 @@
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
+                                                    <tbody id="student-fees">
+                                                    <tr>
                                                             <td>
                                                                 0021
                                                             </td>
@@ -404,6 +473,7 @@
                                                                 </ul>
                                                             </td>
                                                         </tr>
+                                                       
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -423,7 +493,7 @@
                                 <h4 class="modal-title"></h4>
                                 <ul>
                                     <li class="active">
-                                        <a href="JavaScript:Void(0);">Add <span> Student</span></a>
+                                        <a href="JavaScript:void(0);">Add <span> Student</span></a>
                                     </li>
                                 </ul>
                                 <button type="button" class="close" data-dismiss="modal">
@@ -548,7 +618,7 @@
                                 <h4 class="modal-title"></h4>
                                 <ul>
                                     <li class="active">
-                                        <a href="JavaScript:Void(0);">Deposit Fee</a>
+                                        <a href="JavaScript:void(0);">Deposit Fee</a>
                                     </li>
                                 </ul>
                                 <button type="button" class="close" data-dismiss="modal">
@@ -564,28 +634,32 @@
                                 <div class="min-height">
                                     <div class="fee-sec">
                                         <div class="fee-left">
-                                            <h6>Total Fees: <span class="total-fee"><label>₹</label>3900</span></h6>
+                                            <h6>Total Fees: <span class="total-fee amounts"><label>₹</label></span></h6>
                                         </div>
                                         <div class="fee-right">
-                                            <h6>Due Fees: <span class="due-fee"><label>₹</label>1300</span></h6>
+                                            <h6>Due Fees: <span class="due-fee remaining"><label>₹</label></span></h6>
                                         </div>
                                     </div>
                                     <div class="deposit-form">
-                                        <form action="" method="Post" enctype="">
+                                    <p id="msg"></p>
+                                        <form action="JavaScript:void(0)" id="add-fees" method="post">
+                                        @csrf
+                                            <input type="hidden" name="id" id="record_id" value="">
+                                            <input type="hidden" name="amount" id="total_amount" value="">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="text" name="" placeholder="Receipt No.">
+                                                        <input type="text" id="rno" name="receipt_no" placeholder="Receipt No.">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="text" name="" placeholder="Amount">
+                                                        <input type="text" id="fe" name="fees" placeholder="Amount">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group birth-date">
-                                                        <input type="text" name="date" value="" placeholder="Date">
+                                                        <input type="text" name="date" value="" id="dat"  placeholder="Date">
                                                         <span class="input-group-btn" for="date">
                                                             <img src="http://localhost/GB-convent/assets/image/feather-calendar.svg">
                                                         </span>
@@ -593,16 +667,90 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="text" name="" placeholder="Received By">
+                                                        <input type="text" name="description" id="des" placeholder="Received From">
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-12 text-center">
+                                    <input type="submit" name="save" class="add-btn align-center" id="but-save" value="Add Fee">
+                                </div>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="col-md-12 text-center">
-                                    <input type="submit" name="save" class="add-btn align-center" id="butsave" value="Add Fee">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- edit fees modal -->
+                <div class="modal right fade" id="feeEditModal" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content student-modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"></h4>
+                                <ul>
+                                    <li class="active">
+                                        <a href="JavaScript:void(0);">Edit Fee</a>
+                                    </li>
+                                </ul>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18.535" height="19.256" viewBox="0 0 18.535 19.256">
+                                        <g id="Group_846" data-name="Group 846" transform="translate(-5587.733 110.989)">
+                                            <line id="Line_31" data-name="Line 31" x2="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#ffc5a0" stroke-linecap="round" stroke-width="2.5" />
+                                            <line id="Line_32" data-name="Line 32" x1="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#654fd3" stroke-linecap="round" stroke-width="2.5" />
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="modal-body after-design">
+                                <div class="min-height">
+                                    <div class="fee-sec">
+                                        <div class="fee-left">
+                                            <h6>Total Fees: <span class="total-fee amounts"><label>₹</label></span></h6>
+                                        </div>
+                                        <div class="fee-right">
+                                            <h6>Due Fees: <span class="due-fee remaining"><label>₹</label></span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="deposit-form">
+                                    <p id="msg"></p>
+                                        <form action="JavaScript:void(0)" id="edit-fees" method="post">
+                                        @csrf
+                                                <input type="hidden" name="main_id" id="main_id" value="">
+                                                <input type="hidden" name="id" id="idkl" value="">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="receipt_no" id="receipt" placeholder="Receipt No.">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="fees" id="fee" placeholder="Amount">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group birth-date">
+                                                        <input type="text" name="date" id="dates" value="" placeholder="Date">
+                                                        <span class="input-group-btn" for="date">
+                                                            <img src="http://localhost/GB-convent/assets/image/feather-calendar.svg">
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" name="description" id="descriptions" placeholder="Received From">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 text-center">
+                                    <input type="submit" name="save" class="add-btn align-center" id="but-edit" value="Add Fee">
                                 </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>

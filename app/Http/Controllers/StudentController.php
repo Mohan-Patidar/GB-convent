@@ -29,7 +29,7 @@ class StudentController extends Controller
         }
         $students = Student::get();
      
-        return view('admin.student.index', compact("students", "tests", "records","y_id","y_name"));
+        return view('admin.student.index', compact("students", "tests", "records","y_id","y_name","year"));
     // }
 }
 
@@ -190,7 +190,7 @@ class StudentController extends Controller
         $class = $classes->class_name;
 
 
-        if (Student_fee::where('student_classes_id', $records->class_name)->where("years_id", "=",$session)->exists()) {
+        if(Student_fee::where("student_classes_id", "=", $records->class_name)->exists()) {
             $tests = Student_fee::where("student_classes_id", "=", $records->class_name)->where("years_id", "=",$session)->first();
 
 
@@ -202,10 +202,45 @@ class StudentController extends Controller
 
             $students = Student::where("id", "=", $student)->first();
             $record_id = $records->id;
-            return view('admin.report.index', compact("students", "amount", "class", "sessions", "record_id", "session_id", "r"));
-        } else {
-            Session::flash('message', 'First fill fees details of class !!');
-            return redirect()->back();
+
+            $reports= Report::where("records_id","=",$record_id)->get();
+            $l = count($reports);
+            $table = '';
+           
+            for ($i = 0; $i < $l; $i++) {
+          
+                $table .= '<tr>
+                        <td>' . $reports[$i]->receipt_no . '</td>
+                        <td>' . $reports[$i]->fees . '</td>
+                        <td>'.$reports[$i]->date.'</td>
+                        <td>'.$reports[$i]->description.'</td>
+                        <td><ul class="d-flex">
+                        <li class="tool tool-edit">
+                            <a class="edit-btn passingID" href="javascript:void(0)"  r="'.$reports[$i]->receipt_no.'" dat="'.$reports[$i]->date.'" fee="'.$reports[$i]->fees.'" data-id="'.$reports[$i]->id.'" record-id="'.$reports[$i]->records_id.'" d="'.$reports[$i]->description.'">
+                                <img src="http://localhost/GB-convent/assets/image/feather-edit.svg" width="16px" alt=""></a>
+                            <span class="tooltips">Edit</span>
+                        </li>
+                        <li class="tool tool-delete">
+                            <a href="javascript:void(0)" type="submit" class="delete-btn">
+                                <img src="http://localhost/GB-convent/assets/image/feather-trash.svg" width="16px" alt="">
+                            </a>
+                        </li>
+                    </ul></td>
+                    </tr>';
+                
+            }
+
+            $profile= '<div class="stuedent-img">'.((($students->profile_picture==NULL)==true) ?'<img class="student-img" src="image/profile_picture/download.png" />':
+            '<img class="student-img" src="image/profile_picture/' . $students->profile_picture .'"/>').'</div>';
+            $arr = array('students'=>$students,'students_id'=>$student,'amount'=>$amount,'class'=>$class,'sessions'=>$sessions,'record_id'=>$record_id,'session_id'=>$session_id,'r'=>$r,'table'=>$table,'profile'=>$profile);
+            echo json_encode($arr); 
+           
+        } 
+        else {
+            $arr=["message"=>"first fill fees details of $class" ,"success"=>0];
+            echo json_encode($arr); 
+            
         }
+    
     }
 }

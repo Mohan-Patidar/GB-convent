@@ -9,13 +9,14 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Record;
 use App\Models\Report;
-
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $total = 0;
+        $report= DB::table("reports")->latest()->take(2)->get()->sum("fees");
+        $total = $report;
         $student = 0;
         $year = 0;
         $student = Student::get()->count();
@@ -23,59 +24,72 @@ class DashboardController extends Controller
         foreach ($session as $s) {
             $year = $s->years;
         }
+       
+        $classes = Student_classe::get();
+        $users = DB::table('students')
+        ->join('records', 'students.id', '=', 'records.students_id')
+        ->join('reports', 'records.id', '=', 'reports.records_id')
+        ->select('students.*', 'records.class_name', 'reports.fees')->latest()->take(2)->get();
+        
+       
+        $fees = Student_fee::get();
 
-        $reports = Report::get();
-        foreach ($reports as $r) {
-            $student_id = $r->records_id;
-        }
 
+       
 
-        return view('admin.dashboard.index', compact("student", "year", "total"));
+        // var_dump($users);
+        
+        return view('admin.dashboard.index', compact("student", "year", "total","users","classes","fees"));
     }
 
     public function DateFilter(Request $request)
     {
         $total=0;
-        $from = date('Y-m-d', strtotime($request->start));
-        $to  = date('Y-m-d', strtotime($request->end));
-
-        $reports = Report::whereBetween('date',[$from, $to])->selectRaw('sum(fees)')->groupBy('date')->get();
-        foreach($reports as $r){
-           $total=$r->sum('fees');
-        }
-        $report = Report::whereBetween('date', [$from, $to])->selectRaw('records_id')->selectRaw('fees')->get();
+        $from = $request->start;
+        $to  = $request->end;
         
-        $b = array();
-       
-        foreach ($report as $re) {
-            $record_id = $re->records_id;
-            // $record_fees =$re->fees;
 
-            $record = Record::where("id", "=", $record_id)->get();
-            $cid = $record[0]->class_name;
-            $classes = Student_classe::where("id", "=", $cid)->get();
-          
-            $sid = $record[0]->students_id;
+        $classes = Student_classe::get();
+        $fees = Student_fee::get();
+        $users = DB::table('students')
+        ->join('records', 'students.id', '=', 'records.students_id')
+        ->join('reports', 'records.id', '=', 'reports.records_id')
+        ->select('students.*', 'records.class_name', 'reports.fees')->whereBetween('date',[$from, $to])->get();
 
-            $students = Student::where("id", "=", $sid)->get();
-            array_push($b, $students[0]);
+        
+        foreach($users as $u){
+            $total += $u->fees;
         }
-        $l = count($b);
-        $table = '';
-        $c=1;
-        for ($i = 0; $i < $l; $i++) {
-
+       
+    
+       
+        $table ='';
+        $m=1;
+        foreach($users as $u) {
+            foreach($classes as $c){
+                if($c->id==$u->class_name){
+                    $class=$c->class_name;
+                }
+                foreach($fees as  $f){
+                    if($f->student_classes_id==$u->class_name)
+                        $fee =$f->amount - $u->fees;
+                        
+                    }
+            }
             $table .= '<tr>
-                    <td>' . $c++. '</td>
-                    <td><img class="student-img" src="image/profile_picture/' . $b[$i]->profile_picture . '"/></td>
-                    <td>' . $b[$i]->name . '</td>
-                    <td>' . $b[$i]->father_name . '</td>
-                    <td>'. $classes[0]->class_name.'</td>
-                    <td></td>
-                    <td></td>
+                    <td>' . $m++. '</td>
+                    <td>'.((($u->profile_picture==NULL)==true) ?'<img class="student-img" src="image/profile_picture/download.png" />':
+                    '<img class="student-img" src="image/profile_picture/' . $u->profile_picture .'"/>').'</td>
+                    <td>' . $u->name . '</td>
+                    <td>' . $u->father_name . '</td>
+                    <td>'.$class.'</td>
+                    <td>' . $u->fees . '</td>
+                    <td>'.$fee.'</td>
                 </tr>';
+            
         }
          return response()->json(["total"=>$total,"table"=>$table]);
-        // return response()->json( );
+        // return response()->json($table);
+        
     }
 }

@@ -29,19 +29,19 @@ $(document).ready(function() {
     });
 
     // Handle form submission event 
-    $('#frm-example').on('submit', function(e) {
+    $('#frm-example').on('submit', function (e) {
         var form = this;
         var rows_selected = table.column(0).checkboxes.selected();
-        $b = [];
-
+        $b=[];
         // Iterate over all selected checkboxes
-        $.each(rows_selected, function(index, rowId) {
-            $b.push(rowId);
+        $.each(rows_selected, function (index, rowId) { 
+          $b.push(rowId); 
+            
         });
-        var row = JSON.stringify($b);
-        $('#promote').val(row);
+        var row=JSON.stringify($b);
+            $('#promote').val(row);
         // $.ajax({
-        //     url: location.origin +'/school_manage/promote',
+        //     url: location.origin +'/sms/promote',
         //     type: "get",
         //     data: {
         //        'data': row,
@@ -59,6 +59,8 @@ $(document).ready(function() {
 
         e.preventDefault();
     });
+
+    
 });
 // data table js end
 $(document).ready(function() {
@@ -90,6 +92,67 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    var table = $('.studenttable').DataTable({
+        //disable sorting on last column
+        //   "scrollY": 500,
+        "scrollX": true,
+        "columnDefs": [
+            { width: 0, "targets": 0 }
+        ],
+        "lengthMenu": [
+            [10, 50, 100, -1],
+            [10, 50, 100, "All"]
+        ],
+        dom: 'lBfrtip',
+       
+        buttons: [
+            'csv'
+        ],
+        "bInfo": false,
+        "scrollX": true,
+        'columnDefs': [{
+            'targets': 0,
+            'checkboxes': {
+                'selectRow': true
+            }
+        }],
+        'select': {
+            'style': 'multi',
+            'selector': 'td:first-child'
+        },
+        'order': [
+            [1, 'asc']
+        ],
+        "oLanguage": {
+            "sEmptyTable": "No data available in table",
+            "sSearch": "",
+            "sPlaceholder": "Search Here",
+            "sZeroRecords": "No matching records found",
+        }
+    
+    });
+
+    $('#frm-example').on('submit', function (e) {
+        var form = this;
+        var rows_selected = table.column(0).checkboxes.selected();
+        $b=[];
+        // Iterate over all selected checkboxes
+        $.each(rows_selected, function (index, rowId) { 
+          $b.push(rowId); 
+            
+        });
+        var row=JSON.stringify($b);
+            $('#promote').val(row);
+            e.preventDefault();
+        });
+     
+    $('#table-filter').on('change', function(){
+        table.search(this.value).draw();   
+     });
+});
+
+//
 $(document).ready(function() {
     $('.table').DataTable({
         //disable sorting on last column

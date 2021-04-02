@@ -16,12 +16,9 @@ class ReportController extends Controller
     }
     public function store(Request $request){
 
-        $request->validate([
-        
-        ]);
+     
     
         $reports = new Report;
-
         $reports->records_id = $request->id;
         $reports->receipt_no = $request->receipt_no;
         $reports->fees = $request->fees;
@@ -30,10 +27,9 @@ class ReportController extends Controller
     
         $reports->save();
 
-        
-       
+        return response()->json("fees deposite");
       
-        return redirect()->back();
+        // return redirect()->back();
 
     }
     public function show()
@@ -59,7 +55,7 @@ class ReportController extends Controller
        
         $reports->update(); 
       
-        return redirect()->back();
+        return response()->json("fees update");
 
 
     

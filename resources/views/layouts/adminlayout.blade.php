@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G.B.Convent</title>
     <link rel="stylesheet" href="{{url('/')}}/assets/css/global.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.css">
 </head>
 
 <body>
@@ -111,8 +112,8 @@
                         </a>
                     </li>
                     @endif
-                    <li>
-                        <a href="">
+                    <li @if(request()->segment(1) == 'profile') class="active" @endif>
+                        <a href="{{ url('/profile') }}">
                             <i>
                                 <img src="{{url('/')}}/assets/image/setting-icon.svg" class="menu-show" alt="">
                             </i>
@@ -137,8 +138,9 @@
     <!-- data table js -->
     <script src="{{url('/')}}/assets/js/jquery-3.5.1.min.js"></script>
     <script src="{{url('/')}}/assets/js/bootstrap.min.js"></script>
-     <script src="{{url('/')}}/assets/js/datatables.min.js"></script>
-   <script src="{{url('/')}}/assets/js/dataTables.checkboxes.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.js"></script> -->
+    <script src="{{url('/')}}/assets/js/datatables.min.js"></script>
+    <script src="{{url('/')}}/assets/js/dataTables.checkboxes.min.js"></script>
     <script src="{{url('/')}}/assets/js/dataTables.buttons.min.js"></script>
     <script src="{{url('/')}}/assets/js/buttons.html5.min.js"></script>
     <script src="{{url('/')}}/assets/js/sweetalert.min.js"></script>
@@ -199,13 +201,15 @@
         });
         $(".studentpopup").click(function() {
             var url = $(this).attr('data-href');
-        
+            var fees = $(this).attr('fees-href');
+            
             $.ajax({
                 url: url,
                 method: "GET",
                 success: function(fb) {
-                   
+                    // console.log(fb);
                     var resp = $.parseJSON(fb);
+                  
                     $('#student_ids').val(resp.student_ids);
                     $('#scholar_nos').val(resp.scholar_nos);
                     $('#names').val(resp.names);
@@ -221,13 +225,43 @@
                     $('#classes').html(resp.output);
                     $('#sessions').html(resp.y_output);
                     $('#sIds').val(resp.id);
-                   
+
+                    $.ajax({
+
+                        url: fees,
+                        method: "GET",
+                        success: function(data) {
+                            // console.log(data);
+                            var resp = $.parseJSON(data);
+                            if(resp.success ==0){
+                               $('#tabs-2').html(resp.message);
+                            }else{
+
+                            
+                            $('.student_ids').html(resp.students.student_id);
+                            $('.scholar').html(resp.students.scholar_no);
+                            $('.s_name').html(resp.students.name);
+                            $('.f_name').html(resp.students.father_name);
+                            $('.m_name').html(resp.students.mother_name);
+                            $('.address').html(resp.students.address);
+                            $('.contact').html(resp.students.mobile_no);
+                            $('.amounts').html(resp.amount);
+                            $('.remaining').html(resp.r);
+                            $('#record_id').val(resp.record_id);
+                            $('#total_amount').val(resp.amount);
+                            $('#student-fees').html(resp.table);
+                            $('#profile_pic').html(resp.profile);
+
+                        }
+                        }
+                    });
+
                 }
             });
-            
+
+
             $('#mystudentModal').modal('show');
         });
-        
         //import 
         $('.import').click(function() {
             $("#file").click();
@@ -240,9 +274,9 @@
         $('#export').click(function() {
             $('.buttons-csv').click();
         });
-        
+
         //edit fees receipt
-        $(".passingID").click(function() {
+        $('body').on('click', '.passingID', function() {
             var ids = $(this).attr('data-id');
             var record_id = $(this).attr('record-id');
             var d = $(this).attr('d');
@@ -251,33 +285,37 @@
             var dat = $(this).attr('dat');
             $("#idkl").val(record_id);
             $('#main_id').val(ids);
-            $('#description').val(d);
+            $('#descriptions').val(d);
             $('#receipt').val(r);
             $('#fee').val(fee);
-            $('#date').val(dat);
-            $('#myeditModal').modal('show');
+            $('#dates').val(dat);
+            $('#feeEditModal').modal('show');
+
         });
+       
+
+
         //dashboard
         $(".earning").click(function() {
-        var start=$("#starts").val();
-        var end=$("#ends").val();
+            var start = $("#starts").val();
+            var end = $("#ends").val();
             $.ajax({
                 url: 'datefilter',
                 method: "Post",
                 data: {
-                       start: start,
-                       end:end,
-                      "_token": "{{ csrf_token() }}",
-                            },
+                    start: start,
+                    end: end,
+                    "_token": "{{ csrf_token() }}",
+                },
                 success: function(fb) {
                     $('#total').html(fb.total);
                     $('#fees-table').html(fb.table);
                     // console.log(fb);
-                   
-                   
+
+
                 }
             });
-            
+
         });
 
         //assign role
@@ -286,12 +324,12 @@
         });
         $(".editrole").click(function() {
             var url = $(this).attr('data-href');
-           
+
             $.ajax({
                 url: url,
                 method: "GET",
                 success: function(fb) {
-                   
+
                     var resp = $.parseJSON(fb);
                     // $('#passwords').val(resp.password);
                     $('#uid').val(resp.id);
@@ -355,7 +393,50 @@
                     }
                 });
         });
-    </script>
+        
+        //fees deposite
+    function saveData(formId, action_url, responseDiv = '') {
+
+
+formId = '#' + formId;
+var formData = new FormData(jQuery(formId)[0]);
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$.ajax({
+    url: action_url,
+    data: formData,
+    type: 'POST',
+    processData: false,
+    contentType: false,
+    success: function(res) {
+        var res = jQuery.parseJSON(res);
+        if (res.status == 'success') {
+            $('.' + responseDiv).html('<div class="alert alert-success">' + res.msg + '</div>');
+        } else {
+            $('.' + responseDiv).html('<div class="alert alert-danger">' + res.msg + '</div>');
+            setTimeout(function() {
+                $('.' + responseDiv).html('');
+            }, 4000);
+        }
+    },
+    error: function() {
+        $(".loader").css("transform", 'scale(0)');
+        alert('An error has occurred');
+    }
+});
+}
+$('#but-save').click(function(){
+    saveData("add-fees","{{route('reports.store')}}","");
+});
+$('#but-edit').click(function(){
+    saveData("edit-fees","{{url('report')}}","");
+});
+ </script>
 </body>
 
 </html>

@@ -14,6 +14,7 @@ class SidebarController extends Controller
 
        
         $year= Year::get();
+        $allclass= Student_classe::get(); 
         $class = Student_classe::where("id","=",$id)->get();
         foreach($class as $c){
             $class_name=$c->class_name;
@@ -38,7 +39,7 @@ class SidebarController extends Controller
            }
         
        
-        return view('admin.sidebar.session',compact("b","tests","class","year","y_name","y_id","class_name"));
+        return view('admin.sidebar.session',compact("b","tests","class","year","y_name","y_id","class_name","allclass"));
         // return response()->json( $yid );
        
     }

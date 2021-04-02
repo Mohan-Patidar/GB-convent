@@ -51,7 +51,8 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     Route::resource('assignrole', 'App\Http\Controllers\RoleAssign');
     Route::post('editrole', 'App\Http\Controllers\RoleAssign@update')->name('update');
     Route::delete('roledelete', 'App\Http\Controllers\RoleAssign@destroy')->name('destroy');
-    
+    Route::resource('/profile','App\Http\Controllers\ProfileController');
+    Route::post('updatepassword', 'App\Http\Controllers\ProfileController@updatePassword')->name("updatepassword");
 });
 // Route::group(['middleware' => ['auth','role:Admin']], function () 
 // {

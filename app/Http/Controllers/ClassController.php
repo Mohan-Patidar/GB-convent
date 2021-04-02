@@ -110,7 +110,7 @@ class ClassController extends Controller
         $a=json_decode($data);
         $l=count($a);
        
-        
+     
 
        for($i=0;$i<$l;$i++){
 
@@ -125,7 +125,9 @@ class ClassController extends Controller
         $record->session=$year;
         $record->save();
        
-       } return redirect('students');
+       } 
+       Session::flash('message', ' student promoted to next class');
+       return redirect('students');
       
       
  }
