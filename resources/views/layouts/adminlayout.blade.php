@@ -151,13 +151,6 @@
 
 
     <script>
-        // class script
-        $("#changes").change(function() {
-            var id = $(this).val();
-            var yid = $('#changes option:selected').attr("session");
-            location.href = location.origin + '/GB-convent/classes/' + id + '/' + yid;
-        });
-
         //  fees javascript 
         $(".addFees").click(function() {
             $('#myfeesModal').modal('show');
@@ -199,6 +192,12 @@
             $('#r_id').val(recordID);
             $('#studentDeleteModal').modal('show');
         });
+        $(document).on('click', '.deletereport', function() {
+            var userID = $(this).attr('data-id'); 
+            
+            $('#report_id').val(userID); 
+            $('#reportDeleteModal').modal('show');
+        });
         $(".studentpopup").click(function() {
             var url = $(this).attr('data-href');
             var fees = $(this).attr('fees-href');
@@ -207,7 +206,6 @@
                 url: url,
                 method: "GET",
                 success: function(fb) {
-                    // console.log(fb);
                     var resp = $.parseJSON(fb);
                   
                     $('#student_ids').val(resp.student_ids);
@@ -236,8 +234,6 @@
                             if(resp.success ==0){
                                $('#tabs-2').html(resp.message);
                             }else{
-
-                            
                             $('.student_ids').html(resp.students.student_id);
                             $('.scholar').html(resp.students.scholar_no);
                             $('.s_name').html(resp.students.name);
@@ -258,8 +254,6 @@
 
                 }
             });
-
-
             $('#mystudentModal').modal('show');
         });
         //import 
@@ -311,13 +305,9 @@
                     $('#total').html(fb.total);
                     $('#fees-table').html(fb.table);
                     // console.log(fb);
-
-
                 }
             });
-
         });
-
         //assign role
         $(".addUser").click(function() {
             $('#myAssignModal').modal('show');
@@ -395,7 +385,7 @@
         });
         
         //fees deposite
-    function saveData(formId, action_url, responseDiv = '') {
+function saveData(formId, action_url, responseDiv) {
 
 
 formId = '#' + formId;
@@ -416,8 +406,12 @@ $.ajax({
     success: function(res) {
         var res = jQuery.parseJSON(res);
         if (res.status == 'success') {
-            $('.' + responseDiv).html('<div class="alert alert-success">' + res.msg + '</div>');
-        } else {
+            $(formId).trigger('reset');
+            $('.' + responseDiv).html('<div class="alert alert-success">' + res.msg + '<button type="button" class="closedeposite" data-dismiss="modal">x</button></div>');
+           
+        }
+        
+         else {
             $('.' + responseDiv).html('<div class="alert alert-danger">' + res.msg + '</div>');
             setTimeout(function() {
                 $('.' + responseDiv).html('');
@@ -431,10 +425,11 @@ $.ajax({
 });
 }
 $('#but-save').click(function(){
-    saveData("add-fees","{{route('reports.store')}}","");
+    saveData("add-fees","{{route('reports.store')}}","msg");
+    
 });
 $('#but-edit').click(function(){
-    saveData("edit-fees","{{url('report')}}","");
+    saveData("edit-fees","{{url('report')}}","msg");
 });
  </script>
 </body>

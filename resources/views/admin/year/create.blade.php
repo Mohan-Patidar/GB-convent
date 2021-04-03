@@ -1,6 +1,12 @@
 @extends('layouts.adminlayout')
 @section('content')
 <div class="page-inner ad-inr">
+@if(Session::has('message'))
+    <div class="alert alert-success alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <p>{{ Session::get('message') }}</p>
+    </div>
+    @endif
     <section class="main-wrapper">
         <div class="page-color">
             <div class="page-header">
@@ -37,12 +43,7 @@
             </div>
             @if(App\Models\Year::exists())
             <div class="page-table" id="dvData">
-            @if(Session::has('message'))
-    <div class="alert alert-success alert-dismissible fade in" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <p>{{ Session::get('message') }}</p>
-    </div>
-    @endif
+           
                 <table id="student-table" class="table tabel-res table-striped" style="width:100%;">
                     <thead>
                         <tr>

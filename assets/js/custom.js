@@ -1,67 +1,4 @@
-// data table js start
-$(document).ready(function() {
-    var table = $('#class-table').DataTable({
-        dom: 'lBfrtip',
-        buttons: [
-            'csv'
-        ],
-        "bInfo": false,
-        "scrollX": true,
-        'columnDefs': [{
-            'targets': 0,
-            'checkboxes': {
-                'selectRow': true
-            }
-        }],
-        'select': {
-            'style': 'multi',
-            'selector': 'td:first-child'
-        },
-        'order': [
-            [1, 'asc']
-        ],
-        "oLanguage": {
-            "sEmptyTable": "No data available in table",
-            "sSearch": "",
-            "sPlaceholder": "Search Here",
-            "sZeroRecords": "No matching records found",
-        }
-    });
 
-    // Handle form submission event 
-    $('#frm-example').on('submit', function (e) {
-        var form = this;
-        var rows_selected = table.column(0).checkboxes.selected();
-        $b=[];
-        // Iterate over all selected checkboxes
-        $.each(rows_selected, function (index, rowId) { 
-          $b.push(rowId); 
-            
-        });
-        var row=JSON.stringify($b);
-            $('#promote').val(row);
-        // $.ajax({
-        //     url: location.origin +'/sms/promote',
-        //     type: "get",
-        //     data: {
-        //        'data': row,
-        //     },
-        //     success: function (data) {
-        //          console.log(data);
-        //         // location.reload();
-        //     }
-        // });
-        // FOR DEMONSTRATION ONLY
-        // The code below is not needed in production
-
-        // Output form data to a console     
-        // var a = $('#example-console-rows').text(rows_selected.join(","));
-
-        e.preventDefault();
-    });
-
-    
-});
 // data table js end
 $(document).ready(function() {
     $(".menu-button").click(function() {
@@ -129,7 +66,12 @@ $(document).ready(function() {
             "sSearch": "",
             "sPlaceholder": "Search Here",
             "sZeroRecords": "No matching records found",
-        }
+        }, 
+      
+     
+      
+        "info": true,   
+       
     
     });
 

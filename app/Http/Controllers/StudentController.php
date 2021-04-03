@@ -81,7 +81,7 @@ class StudentController extends Controller
         $records->save();
         Session::flash('message', 'Student added successfuly!');
 
-        return redirect('students');
+        return redirect()->back();
 
     }
     public function show()
@@ -161,7 +161,7 @@ class StudentController extends Controller
         $records->class_name = $class;
         $records->update();
         Session::flash('message', 'data updated successfuly!');
-        return redirect('students');
+        return redirect()->back();
     }
     public function destroy(Request $request)
     { 
@@ -172,7 +172,7 @@ class StudentController extends Controller
         Record::destroy($rid);
 
         Session::flash('message', ' data delete successfuly!');
-        return redirect('students');
+        return redirect()->back();
     }
      public function delete(Request $request)
     {
@@ -190,7 +190,7 @@ class StudentController extends Controller
         $class = $classes->class_name;
 
 
-        if(Student_fee::where("student_classes_id", "=", $records->class_name)->exists()) {
+        if(Student_fee::where("student_classes_id", "=", $records->class_name)->where("years_id", "=",$session)->exists()) {
             $tests = Student_fee::where("student_classes_id", "=", $records->class_name)->where("years_id", "=",$session)->first();
 
 
@@ -221,7 +221,7 @@ class StudentController extends Controller
                             <span class="tooltips">Edit</span>
                         </li>
                         <li class="tool tool-delete">
-                            <a href="javascript:void(0)" type="submit" class="delete-btn">
+                            <a href="javascript:void(0)" type="submit" class="delete-btn deletereport" data-id="'.$reports[$i]->id.'">
                                 <img src="http://localhost/GB-convent/assets/image/feather-trash.svg" width="16px" alt="">
                             </a>
                         </li>
@@ -237,7 +237,7 @@ class StudentController extends Controller
            
         } 
         else {
-            $arr=["message"=>"first fill fees details of $class" ,"success"=>0];
+            $arr=["message"=>"first fill fees details of class $class go to the fees structure !!" ,"success"=>0];
             echo json_encode($arr); 
             
         }

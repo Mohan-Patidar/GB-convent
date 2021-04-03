@@ -62,16 +62,7 @@
                         <option>Tenth</option>
                         </select>
                         </p>
-                        <!-- <select name="change" id="changes">
-                            @php
-                            $posts= App\Models\Student_classe::get();
-                            $current_year=$y_id;
-                            @endphp
-                            <option>select class</option>
-                            @foreach($posts as $post)
-                            <option value="{{ $post->id }}" session="{{$current_year}}">{{$post->class_name}}</option>
-                            @endforeach
-                        </select> -->
+                    
                     </div>
                     <div class="tabel-head-right">
                         <form action="{{ route('import') }}" method="Post" enctype="multipart/form-data" class="export-form">
@@ -114,7 +105,6 @@
                             @if(($r->students_id==$student->id) &&($r->session==$y_id))
                             <tr>
                                 <td class="width-30">{{$student->id}}</td>
-                                <!-- <td class="width-30">@php echo ++$i @endphp</td> -->
                                 <td class="width-160"><b>{{$student->name}}</b><br>
                                     <div class="user-dtls">
                                         <span><img src="{{url('/')}}/assets/image/men.svg" alt="">{{ strtolower($student->father_name)}}</span>
@@ -631,6 +621,7 @@
                                 </button>
                             </div>
                             <div class="modal-body after-design">
+                            
                                 <div class="min-height">
                                     <div class="fee-sec">
                                         <div class="fee-left">
@@ -641,7 +632,7 @@
                                         </div>
                                     </div>
                                     <div class="deposit-form">
-                                    <p id="msg"></p>
+                                    <p class="msg"></p>
                                         <form action="JavaScript:void(0)" id="add-fees" method="post">
                                         @csrf
                                             <input type="hidden" name="id" id="record_id" value="">
@@ -714,7 +705,7 @@
                                         </div>
                                     </div>
                                     <div class="deposit-form">
-                                    <p id="msg"></p>
+                                    <p class="msg"></p>
                                         <form action="JavaScript:void(0)" id="edit-fees" method="post">
                                         @csrf
                                                 <input type="hidden" name="main_id" id="main_id" value="">
@@ -752,6 +743,37 @@
                                 </div>
                                 
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //fees delete -->
+                <div id="reportDeleteModal" class="modal modal-danger fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-dialog-centered" style="width:55%;">
+                        <div class="modal-content">
+                            <form action="{{url('reportdelete')}}" method="POST" class="remove-record-model">
+                                {{ method_field('delete') }}
+                                {{ csrf_field() }}
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-center width-100" id="custom-width-modalLabel">Delete Receipt</h5>
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18.535" height="19.256" viewBox="0 0 18.535 19.256">
+                                            <g id="Group_846" data-name="Group 846" transform="translate(-5587.733 110.989)">
+                                                <line id="Line_31" data-name="Line 31" x2="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#ffc5a0" stroke-linecap="round" stroke-width="2.5" />
+                                                <line id="Line_32" data-name="Line 32" x1="15" y2="15.721" transform="translate(5589.5 -109.221)" fill="none" stroke="#654fd3" stroke-linecap="round" stroke-width="2.5" />
+                                            </g>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h6 class="">Are you sure you want to delete this record?</h6>
+                                    <input type="hidden" , name="sid" id="report_id">
+                                  
+                                </div>
+                                <div class="modal-footer justify-content-center">
+                                    <button type="button" class="add-btn waves-effect" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="delete-data-btn waves-effect remove-data-from-delete-form">Delete</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

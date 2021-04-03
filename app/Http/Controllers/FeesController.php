@@ -115,7 +115,7 @@ class FeesController extends Controller
      return view('admin.fees.view',compact("tests","year","class"));
 
     }
-     public function PromoteData(Request $request){
+    public function PromoteData(Request $request){
 
         $years = Year::where("status","=",1)->get();
         foreach($years as $y){
@@ -128,7 +128,7 @@ class FeesController extends Controller
         $a=json_decode($data);
         $l=count($a);
        
-        
+     
 
        for($i=0;$i<$l;$i++){
 
@@ -143,8 +143,11 @@ class FeesController extends Controller
         $record->session=$year;
         $record->save();
        
-       } return redirect('students');
+       } 
+       Session::flash('message', ' student promoted to next class');
+       return redirect('students');
       
       
  }
+    
 }
