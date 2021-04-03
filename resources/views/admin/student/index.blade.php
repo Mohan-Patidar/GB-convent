@@ -117,6 +117,9 @@
                                 @if($r->class_name==$class->id)
                                 <td style="display: none;">{{$class->class_name}}
                                 </td>
+                                @elseif($r->class_name==NULL)
+                                <td style="display: none;">
+                                </td>
                                 @endif
                                 @endforeach
                                 <td class="width-50">{{$student->student_id}}</td>
@@ -636,6 +639,9 @@
                                         <form action="JavaScript:void(0)" id="add-fees" method="post">
                                         @csrf
                                             <input type="hidden" name="id" id="record_id" value="">
+                                            <input type="hidden" name="sid" id="student-id" value="">
+                                            <input type="hidden" name="year" id="" value="{{$y_id}}">
+                                          
                                             <input type="hidden" name="amount" id="total_amount" value="">
                                             <div class="row">
                                                 <div class="col-md-6">

@@ -1,3 +1,4 @@
+// data table js start
 
 // data table js end
 $(document).ready(function() {
@@ -67,12 +68,7 @@ $(document).ready(function() {
             "sPlaceholder": "Search Here",
             "sZeroRecords": "No matching records found",
         }, 
-      
-     
-      
         "info": true,   
-       
-    
     });
 
     $('#frm-example').on('submit', function (e) {
@@ -97,9 +93,7 @@ $(document).ready(function() {
 //
 $(document).ready(function() {
     $('.table').DataTable({
-        //disable sorting on last column
-        //   "scrollY": 500,
-        "scrollX": true,
+      
         "columnDefs": [
             { width: 0, "targets": 0 }
         ],
@@ -107,16 +101,18 @@ $(document).ready(function() {
             [10, 50, 100, -1],
             [10, 50, 100, "All"]
         ],
-        dom: 'lBfrtip',
         "bInfo": false,
-        buttons: [
-            'csv'
+        'order': [
+            [1, 'asc']
         ],
         "oLanguage": {
             "sEmptyTable": "No data available in table",
             "sSearch": "",
             "sPlaceholder": "Search Here",
             "sZeroRecords": "No matching records found",
-        }
+        }, 
+        "info": true,   
+       
     })
 });
+

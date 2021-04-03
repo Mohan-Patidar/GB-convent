@@ -46,6 +46,8 @@
                         <select id="table-filter">
                         <option value="">All</option>
                         <option>Nursery</option>
+                        <option>LKG</option>
+                        <option>UKG</option>
                         <option>First</option>
                         <option>Second</option>
                         <option>Third</option>
@@ -113,6 +115,9 @@
                                 @foreach($allclass as $c)
                                 @if($c->id == $t->class_name)
                                 <td style="display: none;">{{$c->class_name}}
+                                </td>
+                                @elseif($t->class_name==NULL)
+                                <td style="display: none;">
                                 </td>
                                 @endif
                                 @endforeach
@@ -580,9 +585,11 @@
                                     </div>
                                     <div class="deposit-form">
                                     <p id="msg"></p>
-                                        <form action="JavaScript:Void(0)" id="add-fees" method="post">
+                                        <form action="JavaScript:void(0)" id="add-fees" method="post">
                                         @csrf
                                             <input type="hidden" name="id" id="record_id" value="">
+                                            <input type="hidden" name="sid" id="student-id" value="">
+                                            <input type="hidden" name="year" id="" value="{{$y_id}}">
                                             <input type="hidden" name="amount" id="total_amount" value="">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -599,7 +606,7 @@
                                                     <div class="form-group birth-date">
                                                         <input type="text" name="date" value="" placeholder="Date">
                                                         <span class="input-group-btn" for="date">
-                                                            <img src="http://localhost/GB-convent/assets/image/feather-calendar.svg">
+                                                            <img src="{{url('/')}}/assets/image/feather-calendar.svg">
                                                         </span>
                                                     </div>
                                                 </div>

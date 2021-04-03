@@ -136,6 +136,7 @@
     <!-- dashboard ends here -->
 
     <!-- data table js -->
+    
     <script src="{{url('/')}}/assets/js/jquery-3.5.1.min.js"></script>
     <script src="{{url('/')}}/assets/js/bootstrap.min.js"></script>
     <!-- <script src="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.js"></script> -->
@@ -143,7 +144,7 @@
     <script src="{{url('/')}}/assets/js/dataTables.checkboxes.min.js"></script>
     <script src="{{url('/')}}/assets/js/dataTables.buttons.min.js"></script>
     <script src="{{url('/')}}/assets/js/buttons.html5.min.js"></script>
-    <script src="{{url('/')}}/assets/js/sweetalert.min.js"></script>
+  
     <script src="{{url('/')}}/assets/js/validate.js"></script>
     <script src="{{url('/')}}/assets/js/bootstrap-datepicker.js"></script>
     <!-- custom js -->
@@ -223,7 +224,8 @@
                     $('#classes').html(resp.output);
                     $('#sessions').html(resp.y_output);
                     $('#sIds').val(resp.id);
-
+                    $('#student-id').val(resp.id);
+                  
                     $.ajax({
 
                         url: fees,
@@ -404,11 +406,13 @@ $.ajax({
     processData: false,
     contentType: false,
     success: function(res) {
+
         var res = jQuery.parseJSON(res);
+       
         if (res.status == 'success') {
             $(formId).trigger('reset');
             $('.' + responseDiv).html('<div class="alert alert-success">' + res.msg + '<button type="button" class="closedeposite" data-dismiss="modal">x</button></div>');
-           
+            $('#student-fees').html(res.table);
         }
         
          else {

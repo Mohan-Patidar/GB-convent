@@ -86,11 +86,10 @@
                 </div>
             </div>
             <div class="page-table">
-                <table id="example" class="table table-striped custom-table" style="width:100%;">
+                <table  class="table table-striped custom-table" style="width:100%;">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            
+                            <th>S.No.</th>
                             <th>Class Name</th>
                             <th>Fees Structure</th>
                             <th>Actions</th>

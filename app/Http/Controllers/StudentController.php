@@ -180,7 +180,7 @@ class StudentController extends Controller
     }
     public function StudentShow($student,$session){
         
-       
+     
         $records = Record::where("students_id", "=", $student)->where("session", "=", $session)->first();
        
         $year = Year::where("id", "=",$session)->first();
@@ -202,6 +202,9 @@ class StudentController extends Controller
 
             $students = Student::where("id", "=", $student)->first();
             $record_id = $records->id;
+
+            $url=url("image/profile_picture").'/'.$students->profile_picture;
+            $durl=url("image/profile_picture/download.png");
 
             $reports= Report::where("records_id","=",$record_id)->get();
             $l = count($reports);
@@ -230,8 +233,8 @@ class StudentController extends Controller
                 
             }
 
-            $profile= '<div class="stuedent-img">'.((($students->profile_picture==NULL)==true) ?'<img class="student-img" src="image/profile_picture/download.png" />':
-            '<img class="student-img" src="image/profile_picture/' . $students->profile_picture .'"/>').'</div>';
+            $profile= '<div class="stuedent-img">'.((($students->profile_picture==NULL)==true) ?'<img class="student-img" src="'.$durl.'" />':
+            '<img class="student-img" src="'.$url.'"/>').'</div>';
             $arr = array('students'=>$students,'students_id'=>$student,'amount'=>$amount,'class'=>$class,'sessions'=>$sessions,'record_id'=>$record_id,'session_id'=>$session_id,'r'=>$r,'table'=>$table,'profile'=>$profile);
             echo json_encode($arr); 
            

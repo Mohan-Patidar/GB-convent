@@ -12,7 +12,7 @@ class SidebarController extends Controller
     public function YearData(Request $request,$id){
         $year= Year::get();
         $allclass= Student_classe::get(); 
-        // $class = Student_classe::get();
+       
         $tests =Record::where("session","=",$id)->get();
          foreach($year as $y){
             if($y->status==1){
