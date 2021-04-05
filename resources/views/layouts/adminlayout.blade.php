@@ -305,7 +305,7 @@
                 },
                 success: function(fb) {
                     $('#total').html(fb.total);
-                    $('#fees-table').html(fb.table);
+                    $('.fees-tables').html(fb.table);
                     // console.log(fb);
                 }
             });
@@ -387,11 +387,13 @@
         });
         
         //fees deposite
+       
 function saveData(formId, action_url, responseDiv) {
 
 
 formId = '#' + formId;
 var formData = new FormData(jQuery(formId)[0]);
+
 
 $.ajaxSetup({
     headers: {
@@ -413,6 +415,12 @@ $.ajax({
             $(formId).trigger('reset');
             $('.' + responseDiv).html('<div class="alert alert-success">' + res.msg + '<button type="button" class="closedeposite" data-dismiss="modal">x</button></div>');
             $('.student-fees').html(res.table);
+            $(document).click(function (event) {            
+    
+            $(".msg").html('');
+            });
+            
+            
         }
         
          else {
@@ -422,19 +430,48 @@ $.ajax({
             }, 4000);
         }
     },
-    error: function() {
-        $(".loader").css("transform", 'scale(0)');
-        alert('An error has occurred');
-    }
+    
 });
 }
+
 $('#but-save').click(function(){
-    saveData("add-fees","{{route('reports.store')}}","msg");
+    
+
+        $("#add-fees").validate({
+        rules: {
+            fees: {
+            required: true,
+            
+            },
+            receipt_no: {
+            required: true,
+      
+            },
+            action: "required"
+            },
+        messages: {
+            fees: {
+            required: "fees is required",
+            
+            },
+            receipt_no: {
+            required: "receipt no is required",
+            
+            },
+        },
+        submitHandler: function() {
+            saveData("add-fees","{{route('reports.store')}}","msg");
+    }
+});
+
+    
     
 });
 $('#but-edit').click(function(){
     saveData("edit-fees","{{url('report')}}","msg");
 });
+
+
  </script>
 </body>
 

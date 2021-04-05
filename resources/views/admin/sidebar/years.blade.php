@@ -535,7 +535,7 @@
                                         </div>
                                     </div>
                                     <div class="deposit-form">
-                                    <p class="msg"></p>
+                                    <p style="display: none;" class="msg"></p>
                                         <form action="JavaScript:void(0)" id="add-fees" method="post">
                                         @csrf
                                             <input type="hidden" name="id" id="record_id" value="">
@@ -610,7 +610,7 @@
                                         </div>
                                     </div>
                                     <div class="deposit-form">
-                                    <p class="msg"></p>
+                                    <p style="display: none;" class="msg"></p>
                                         <form action="JavaScript:Void(0)" id="edit-fees" method="post">
                                         @csrf
                                                 <input type="hidden" name="main_id" id="main_id" value="">

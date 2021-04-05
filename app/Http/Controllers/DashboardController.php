@@ -15,7 +15,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $report= DB::table("reports")->latest()->take(2)->get()->sum("fees");
+        $report= DB::table("reports")->latest()->take(5)->get()->sum("fees");
         $total = $report;
         $student = 0;
         $year = 0;
@@ -29,7 +29,7 @@ class DashboardController extends Controller
         $users = DB::table('students')
         ->join('records', 'students.id', '=', 'records.students_id')
         ->join('reports', 'records.id', '=', 'reports.records_id')
-        ->select('students.*', 'records.class_name', 'reports.fees')->latest()->take(2)->get();
+        ->select('students.*', 'records.class_name', 'reports.fees')->latest()->take(5)->get();
         
        
         $fees = Student_fee::get();

@@ -602,7 +602,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <input type="text" id="fe" name="fees" placeholder="Amount">
+                                                        <input type="text" id="fe" name="fees" placeholder="Amount" >
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

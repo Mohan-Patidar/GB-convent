@@ -88,7 +88,7 @@
                                         <th>Remaining fees</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="fees-tables">
                                     @php $i = 0;
                                     @endphp
                                     @foreach($users as $student)
