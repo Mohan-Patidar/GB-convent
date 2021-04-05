@@ -417,56 +417,7 @@
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody id="student-fees">
-                                                    <tr>
-                                                            <td>
-                                                                0021
-                                                            </td>
-                                                            <td>₹1300</td>
-                                                            <td>21 Mar 2021</td>
-                                                            <td>
-                                                                Father
-                                                            </td>
-                                                            <td>
-                                                                <ul class="d-flex">
-                                                                    <li class="tool tool-edit">
-                                                                        <a class="edit-btn" href="javascript:void(0)">
-                                                                            <img src="http://localhost/GB-convent/assets/image/feather-edit.svg" width="16px" alt=""></a>
-                                                                        <span class="tooltips">Edit</span>
-                                                                    </li>
-                                                                    <li class="tool tool-delete">
-                                                                        <a href="javascript:void(0)" type="submit" class="delete-btn">
-                                                                            <img src="http://localhost/GB-convent/assets/image/feather-trash.svg" width="16px" alt="">
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                0021
-                                                            </td>
-                                                            <td>₹1300</td>
-                                                            <td>21 Mar 2021</td>
-                                                            <td>
-                                                                Father
-                                                            </td>
-                                                            <td>
-                                                                <ul class="d-flex">
-                                                                    <li class="tool tool-edit">
-                                                                        <a class="edit-btn" href="javascript:void(0)">
-                                                                            <img src="http://localhost/GB-convent/assets/image/feather-edit.svg" width="16px" alt=""></a>
-                                                                        <span class="tooltips">Edit</span>
-                                                                    </li>
-                                                                    <li class="tool tool-delete">
-                                                                        <a href="javascript:void(0)" type="submit" class="delete-btn">
-                                                                            <img src="http://localhost/GB-convent/assets/image/feather-trash.svg" width="16px" alt="">
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                       
+                                                    <tbody class="student-fees">
                                                     </tbody>
                                                 </table>
                                             </div>

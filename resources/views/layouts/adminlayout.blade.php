@@ -247,7 +247,7 @@
                             $('.remaining').html(resp.r);
                             $('#record_id').val(resp.record_id);
                             $('#total_amount').val(resp.amount);
-                            $('#student-fees').html(resp.table);
+                            $('.student-fees').html(resp.table);
                             $('#profile_pic').html(resp.profile);
 
                         }
@@ -412,7 +412,7 @@ $.ajax({
         if (res.status == 'success') {
             $(formId).trigger('reset');
             $('.' + responseDiv).html('<div class="alert alert-success">' + res.msg + '<button type="button" class="closedeposite" data-dismiss="modal">x</button></div>');
-            $('#student-fees').html(res.table);
+            $('.student-fees').html(res.table);
         }
         
          else {
