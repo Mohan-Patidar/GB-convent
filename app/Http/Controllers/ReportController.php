@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\Report;
 use App\Models\Student;
+use App\Models\Student_fee;
 use App\Models\Record;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 class ReportController extends Controller
 {
     public function index(){
@@ -24,10 +26,15 @@ class ReportController extends Controller
         $reports->date = $request->date;
         $reports->description = $request->description;
         $reports->save();
-
-
-        $s_id = $request->sid;
         $y_id = $request->year;
+        $c_id = $request->cid;
+
+        $r = Student_fee::where("student_classes_id", "=", $c_id )->where("years_id", "=", $y_id)->first();
+        $amounts = $r->amount;
+        $q = Report::where("records_id", "=", $request->id)->sum('fees');
+        $remaining = $amounts-$q;
+        $s_id = $request->sid;
+       
         $records = Record::where("students_id", "=", $s_id)->where("session", "=", $y_id)->first();
         $record_id = $records->id;
         $reports= Report::where("records_id","=",$record_id)->get();
@@ -57,7 +64,8 @@ class ReportController extends Controller
             
         }
        
-        $arr=["msg"=>"fees deposite","status"=>"success","table"=>$table];
+        $arr=["msg"=>"fees deposite","status"=>"success","table"=>$table,"re"=>$remaining];
+         
         echo json_encode($arr); 
       
         

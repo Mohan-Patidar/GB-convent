@@ -188,6 +188,7 @@ class StudentController extends Controller
         $session_id = $year->id;
         $classes = Student_classe::where("id", "=", $records->class_name)->first();
         $class = $classes->class_name;
+        $c_id = $classes->id;
 
 
         if(Student_fee::where("student_classes_id", "=", $records->class_name)->where("years_id", "=",$session)->exists()) {
@@ -235,7 +236,7 @@ class StudentController extends Controller
 
             $profile= '<div class="stuedent-img">'.((($students->profile_picture==NULL)==true) ?'<img class="student-img" src="'.$durl.'" />':
             '<img class="student-img" src="'.$url.'"/>').'</div>';
-            $arr = array('students'=>$students,'students_id'=>$student,'amount'=>$amount,'class'=>$class,'sessions'=>$sessions,'record_id'=>$record_id,'session_id'=>$session_id,'r'=>$r,'table'=>$table,'profile'=>$profile);
+            $arr = array('students'=>$students,'students_id'=>$student,'amount'=>$amount,'class'=>$class,'sessions'=>$sessions,'record_id'=>$record_id,'session_id'=>$session_id,'r'=>$r,'table'=>$table,'profile'=>$profile,'cid'=>$c_id);
             echo json_encode($arr); 
            
         } 

@@ -591,6 +591,7 @@
                                         @csrf
                                             <input type="hidden" name="id" id="record_id" value="">
                                             <input type="hidden" name="sid" id="student-id" value="">
+                                            <input type="hidden" name="cid" id="c_id" value="">
                                             <input type="hidden" name="year" id="" value="{{$y_id}}">
                                           
                                             <input type="hidden" name="amount" id="total_amount" value="">

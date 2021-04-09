@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G.B.Convent</title>
     <link rel="stylesheet" href="{{url('/')}}/assets/css/global.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.css"> -->
 </head>
 
 <body>
@@ -249,6 +249,7 @@
                             $('#total_amount').val(resp.amount);
                             $('.student-fees').html(resp.table);
                             $('#profile_pic').html(resp.profile);
+                            $('#c_id').val(resp.cid);
 
                         }
                         }
@@ -357,36 +358,8 @@
         $('.datepicker-days table').attr('cellspacing', '7');
     </script>
     <script>
-        $('.role-delete').click(function(event) {
-            var form = $(this).closest("form");
-            var name = $(this).data("name");
-            var id = $(this).data("id");
-            event.preventDefault();
-            swal({
-                    title: `Are you sure you want to delete ${name}?`,
-
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: "{{route('assignrole.store')}}" + '/' + id,
-                            type: "DELETE",
-                            data: {
-                                id: id,
-                                "_token": "{{ csrf_token() }}",
-                            },
-                            success: function(data) {
-                                location.reload();
-                            }
-                        });
-                    }
-                });
-        });
         
-        //fees deposite
+             //fees deposite
        
 function saveData(formId, action_url, responseDiv) {
 
@@ -410,13 +383,13 @@ $.ajax({
     success: function(res) {
 
         var res = jQuery.parseJSON(res);
-       
+    // console.log(res);
         if (res.status == 'success') {
             $(formId).trigger('reset');
             $('.' + responseDiv).html('<div class="alert alert-success">' + res.msg + '<button type="button" class="closedeposite" data-dismiss="modal">x</button></div>');
             $('.student-fees').html(res.table);
+            $('.remaining').html(res.re);
             $(document).click(function (event) {            
-    
             $(".msg").html('');
             });
             
@@ -447,6 +420,10 @@ $('#but-save').click(function(){
             required: true,
       
             },
+            date: {
+            required: true,
+      
+            },
             action: "required"
             },
         messages: {
@@ -456,6 +433,10 @@ $('#but-save').click(function(){
             },
             receipt_no: {
             required: "receipt no is required",
+            
+            },
+            date: {
+            required: "Date is required",
             
             },
         },
