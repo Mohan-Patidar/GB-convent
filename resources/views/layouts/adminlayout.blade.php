@@ -112,6 +112,14 @@
                         </a>
                     </li>
                     @endif
+                    <li @if(request()->segment(1) == 'extrapay') class="active" @endif>
+                            <a href="{{ url('/extrapay') }}">
+                                <i>
+                                    <img src="{{url('/')}}/assets/image/extra.svg" class="menu-show" alt="">
+                                </i>
+                                <span>Extra Pay</span>
+                            </a>
+                        </li>
                     <li @if(request()->segment(1) == 'profile') class="active" @endif>
                         <a href="{{ url('/profile') }}">
                             <i>
@@ -384,6 +392,9 @@ $.ajax({
 
         var res = jQuery.parseJSON(res);
     // console.log(res);
+        if (res.status == 'succes') {
+            location.reload();
+        }
         if (res.status == 'success') {
             $(formId).trigger('reset');
             $('.' + responseDiv).html('<div class="alert alert-success">' + res.msg + '<button type="button" class="closedeposite" data-dismiss="modal">x</button></div>');
@@ -452,6 +463,158 @@ $('#but-edit').click(function(){
     saveData("edit-fees","{{url('report')}}","msg");
 });
 
+$('.addstudent').click(function(){
+        $('#studentModal').modal('show');
+        $('.addfees').click(function(){
+    saveData("extrapays","{{route('extrapay.store')}}","msg");
+    
+});
+    });
+    $('.showdetails').click(function(){
+    var id = $(this).attr('data-id');
+    var old = $(this).attr('data-name');
+    $.ajax({
+
+        url: "showdetails", 
+            method:"post",
+            data:{
+                id:id, 
+                old:old,
+                "_token": "{{ csrf_token() }}",           
+            },
+            success: function(fb) { 
+                var res=jQuery.parseJSON(fb);
+                // console.log(res);
+                $('.gave').html(res.gave);
+                $('.take').html(res.due);
+            $('.s_name').html(res.student.name);
+            $('.f_name').html(res.student.fname);
+            $('.m_name').html(res.student.mname);
+            $('#old_pric').val(old);
+            $('#s_id').val(id);
+            $('#showdetail').modal('show'); 
+                     
+       }
+        });   
+});
+$(".addpayment").click(function() {
+
+    var id = $('#s_id').val();
+    var old =$('#old_pric').val();
+    $('#id').val(id);
+    $('#old_price').val(old);
+    $('#gavepayment').modal('show');
+    $('.addpay').click(function(){
+        $("#gave").validate({
+        rules: {
+            price: {
+            required: true,
+            
+            },
+            action: "required"
+            },
+        messages: {
+            price: {
+            required: "amount is required",
+            },
+           
+        },
+        submitHandler: function() {
+            var price = $("#prices").val();
+        var date = $("#dates").val();
+        var detail = $("#details").val();
+        $.ajax({
+            url:'addpayment',
+            method:"post",
+            data:{
+                old_price:old,
+                id:id,
+                price:price,
+                date:date,
+                detail:detail,
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function(fb) {
+                var res=jQuery.parseJSON(fb);
+                $('#gave').trigger('reset');  
+                $('.message').html('<div class="alert alert-success">' + res.msg + '<button type="button" class="closedeposite" data-dismiss="modal">x</button></div>');
+                $('.gave').html(res.gave);
+                $('.take').html(res.due);
+                $(document).click(function (event) {            
+                $(".message").html('');
+                
+             });  
+            //  location.reload();          
+       }
+        });
+    }
+});
+        
+        
+});
+        });
+
+    $(".subpayment").click(function(){
+    var id = $('#s_id').val();
+    var old =$('#old_pric').val();
+    $('#ids').val(id);
+    $('#oldprice').val(old);
+    $('#subpayment').modal('show');
+    
+    $('.subpay').click(function(){
+        $("#takeamount").validate({
+        rules: {
+            price: {
+            required: true,
+            
+            },
+          
+            action: "required"
+            },
+        messages: {
+            price: {
+            required: "amount is required",
+            
+            },
+          
+        },
+        submitHandler: function() {
+        var price = $("#tprices").val();
+        var date = $("#tdates").val();
+        var detail = $("#tdetails").val();
+
+        $.ajax({
+            url:'subpayment',
+            method:"post",
+            data:{
+                old_price:old,
+                id:id, 
+                price:price,
+                date:date,
+                detail:detail,
+                "_token": "{{ csrf_token() }}",           
+            },
+            success: function(fb) {
+                var res=jQuery.parseJSON(fb);
+                $('#takeamount').trigger('reset');  
+                $('.message').html('<div class="alert alert-success">' + res.msg + '<button type="button" class="closedeposite" data-dismiss="modal">x</button></div>');
+                
+                $('.gave').html(res.gave);
+                $('.take').html(res.due);
+                $(document).click(function (event) {            
+                $(".message").html('');
+                
+             });
+            //  location.reload();       
+       }
+        });
+           
+    }
+});
+       
+       
+});
+});
 
  </script>
 </body>

@@ -15,8 +15,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $report= DB::table("reports")->latest()->take(5)->get()->sum("fees");
-        $total = $report;
+        // $report= DB::table("reports")->latest()->take(5)->get()->sum("fees");
+        $total=0;
         $student = 0;
         $year = 0;
         $student = Student::get()->count();
@@ -30,14 +30,16 @@ class DashboardController extends Controller
         ->join('records', 'students.id', '=', 'records.students_id')
         ->join('reports', 'records.id', '=', 'reports.records_id')
         ->select('students.*', 'records.class_name', 'reports.fees')->latest()->take(5)->get();
-        
-       
+    
         $fees = Student_fee::get();
+        $sum=0;
+        foreach($users as $u){
+            $sum +=$u->fees;
+        }
 
+        $total = $sum;
 
-       
-
-        // var_dump($users);
+        // var_dump( $sum);
         
         return view('admin.dashboard.index', compact("student", "year", "total","users","classes","fees"));
     }
@@ -45,8 +47,8 @@ class DashboardController extends Controller
     public function DateFilter(Request $request)
     {
         $total=0;
-        $from = $request->start;
-        $to  = $request->end;
+        $from =  date("Y-m-d", strtotime($request->start));
+        $to  =date("Y-m-d", strtotime($request->end));
         
 
         $classes = Student_classe::get();
@@ -89,7 +91,7 @@ class DashboardController extends Controller
             
         }
          return response()->json(["total"=>$total,"table"=>$table]);
-        // return response()->json($table);
+        // return response()->json(  $from);
         
     }
 }
