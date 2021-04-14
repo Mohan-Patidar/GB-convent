@@ -45,10 +45,12 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     Route::delete('roledelete', 'App\Http\Controllers\RoleAssign@destroy')->name('destroy');
     Route::resource('/profile','App\Http\Controllers\ProfileController');
     Route::post('updatepassword', 'App\Http\Controllers\ProfileController@updatePassword')->name("updatepassword");
-    Route::resource('/extrapay','App\Http\Controllers\ExtraPayController');
-    Route::post('showdetails', 'App\Http\Controllers\ExtraPayController@showDetails')->name('showDetails');
-    Route::post('addpayment', 'App\Http\Controllers\ExtraPayController@addPayment')->name('addPayment');
-    Route::post('subpayment', 'App\Http\Controllers\ExtraPayController@subpayment')->name('subpayment');
+    Route::get('/extrapay','App\Http\Controllers\SidebarController@extraPay')->name('extraPay');
+    Route::post('/extraStore','App\Http\Controllers\SidebarController@extraStore')->name('extraStore');
+    
+    Route::post('showdetails', 'App\Http\Controllers\SidebarController@showDetails')->name('showDetails');
+    Route::post('addpayment', 'App\Http\Controllers\SidebarController@addPayment')->name('addPayment');
+    Route::post('subpayment', 'App\Http\Controllers\SidebarController@subpayment')->name('subpayment');
 });
 // Route::group(['middleware' => ['auth','role:Admin']], function () 
 // {

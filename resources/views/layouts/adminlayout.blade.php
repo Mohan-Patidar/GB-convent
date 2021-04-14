@@ -466,7 +466,7 @@ $('#but-edit').click(function(){
 $('.addstudent').click(function(){
         $('#studentModal').modal('show');
         $('.addfees').click(function(){
-    saveData("extrapays","{{route('extrapay.store')}}","msg");
+    saveData("extrapays","{{url('extraStore')}}","msg");
     
 });
     });
