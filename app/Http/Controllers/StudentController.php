@@ -7,7 +7,7 @@ use App\Models\Student_classe;
 use App\Models\Student;
 use App\Models\Record;
 use App\Models\Report;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Student_fee;
 use Illuminate\Http\Request;
 use Session;
@@ -16,6 +16,8 @@ class StudentController extends Controller
 {
     public function index()
     {
+        
+        $class_name=1;
         $students=0;  $y_name=0;
         $tests=0;   $y_id=0; $records=0;
         $tests = Student_classe::all();
@@ -27,11 +29,11 @@ class StudentController extends Controller
                 $y_name=$y->years;
             }
         }
-        $students = Student::get();
+       
+      $students=Student::get();
      
         return view('admin.student.index', compact("students", "tests", "records","y_id","y_name","year"));
-    // }
-}
+    }
 
     public function create()
     {

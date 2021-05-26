@@ -50,6 +50,8 @@
                         <select id="table-filter">
                         <option value="">All</option>
                         <option>Nursery</option>
+                        <option>LKG</option>
+                        <option>UKG</option>
                         <option>First</option>
                         <option>Second</option>
                         <option>Third</option>
@@ -83,6 +85,8 @@
                 </div>
                 <form id="frm-example" action="javascript:void(0)" method="get">
                 <div class="page-table" id="dvData">
+
+                    
                     <table id="" class="studenttable tabel-res table-striped" style="width:100%;" data-plugin-options='{"searchPlaceholder": "Suchen"}'>
                         <thead>
                             <tr>
@@ -101,8 +105,11 @@
                         <tbody id="result">
                             @php $i = 0; @endphp
                             @foreach($records as $r)
+                           @php
+                            $students= App\Models\Student::Where('id', $r->students_id)->get();
+                           @endphp
                             @foreach($students as $student)
-                            @if(($r->students_id==$student->id) &&($r->session==$y_id))
+                            @if($r->session == $y_id)
                             <tr>
                                 <td class="width-30">{{$student->id}}</td>
                                 <td class="width-160"><b>{{$student->name}}</b><br>
@@ -145,7 +152,7 @@
                                 </td>
                             </tr>
                             @endif
-                            @endforeach
+                         @endforeach
                             @endforeach
                         </tbody>
                     </table>

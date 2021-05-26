@@ -46,7 +46,7 @@
                             </a>
                         </li>
                         <li @if(request()->segment(1) == 'students') class="active" @endif>
-                            <a href="{{ url('/students') }}">
+                            <a href="{{ url('/students') }}" class="student">
                                 <i>
                                     <img src="{{url('/')}}/assets/image/student-icon.svg" class="menu-show" alt="">
                                 </i>
@@ -137,6 +137,7 @@
                         </li>
                     </ul>
                 </div>
+               
             </div>
         </aside>
         @yield('content')
