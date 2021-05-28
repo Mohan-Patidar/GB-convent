@@ -142,7 +142,10 @@
                                             <a class="studentpopup" data-id="{{$student->id}}" data-href="{{route('students.edit',$student->id)}}" fees-href="{{url('show',['student'=>$student->id,'session'=>$r->session])}}">  <img src="{{url('/')}}/assets/image/feather-eye.svg" width="16px" alt=""> </a>
                                             <span class="tooltips">Preview</span>
                                         </li>
-
+                                        <li class="tool tool-view">
+                                            <a class="studentresult" href="{{url('showResult',['student'=>$student->id,'class'=>$r->class_name])}}">  <img src="{{url('/')}}/assets/image/result.png" width="16px" alt=""> </a>
+                                            <span class="tooltips" >Result</span>
+                                        </li>
                                         <li class="tool tool-delete">
                                             @if(Auth::check() && Auth::user()->user_type == "Admin")
                                             <a href="javascript:void(0)" type="submit" class="delete-btn deletestudent" data-id="{{$student->id}}" data-name="{{$r->id}}"><img src="{{url('/')}}/assets/image/feather-trash.svg" width="16px" alt=""></a>

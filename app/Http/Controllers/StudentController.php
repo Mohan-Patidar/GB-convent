@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Student_fee;
 use Illuminate\Http\Request;
 use Session;
+use PDF;
 
 class StudentController extends Controller
 {
@@ -179,6 +180,26 @@ class StudentController extends Controller
      public function delete(Request $request)
     {
         // 
+    }
+    public function ShowResult($student,$class){
+        $tests = Student_classe::where('id','=',$class)->get();
+        
+      
+        foreach($tests as $class){
+            if($class->id){
+               $class_name= $class->class_name;
+  
+            }
+        }
+        $students = Student::where("id", "=", $student)->first();
+        return view('admin.student.result',compact("students","class_name"));
+    }
+    public function PrintResult(Request $request){
+        $students = Student::where("id", "=", $request->student_id)->first();
+        
+        $pdf = PDF::loadView('admin.student.Presult',array('students' => $students));
+        return $pdf->download('itsolutionstuff.pdf');
+        
     }
     public function StudentShow($student,$session){
         

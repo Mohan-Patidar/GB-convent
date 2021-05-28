@@ -161,6 +161,8 @@
 
 
     <script>
+ 
+   
         //  fees javascript 
         $(".addFees").click(function() {
             $('#myfeesModal').modal('show');
@@ -616,8 +618,87 @@ $(".addpayment").click(function() {
        
 });
 });
+   //result
+$(document).ready(function(){
+ 
+ $('.subject1').keyup(function(){
+     var res = 0 ; 
+     $(".subject1").each(function() {
+         if(parseInt($(this).val()))
+      res += parseInt($(this).val());
+     });
+     $('#total1').val(res);
+ });
+ $('.subject2').keyup(function(){
+     var res = 0 ; 
+     $(".subject2").each(function() {
+         if(parseInt($(this).val()))
+      res += parseInt($(this).val());
+     });
+     $('#total2').val(res);
+ });
+ $('.subject3').keyup(function(){
+     var res = 0 ; 
+     $(".subject3").each(function() {
+         if(parseInt($(this).val()))
+      res += parseInt($(this).val());
+     });
+     $('#total3').val(res);
+ });
+ $('.subject4').keyup(function(){
+     var res = 0 ; 
+     $(".subject4").each(function() {
+         if(parseInt($(this).val()))
+      res += parseInt($(this).val());
+     });
+     $('#total4').val(res);
+ });
+ $('.subject5').keyup(function(){
+     var res = 0 ; 
+     $(".subject5").each(function() {
+         if(parseInt($(this).val()))
+      res += parseInt($(this).val());
+     });
+     $('#total5').val(res);
+ });
+ $('.subject6').keyup(function(){
+     var res = 0 ; 
+     $(".subject6").each(function() {
+         if(parseInt($(this).val()))
+      res += parseInt($(this).val());
+     });
+     $('#total6').val(res);
+ });
+ $('.subm1').keyup(function(){
+     var res = 0 ; 
+     $(".subm1").each(function() {
+         if(parseInt($(this).val()))
+      res += parseInt($(this).val());
+     });
+     $('#total7').val(res);
+ 
+ });
+ $('.subm2').keyup(function(){
+     var res = 0 ; 
+     $(".subm2").each(function() {
+         if(parseInt($(this).val()))
+      res += parseInt($(this).val());
+     });
+     $('#total8').val(res);
+ });
+ $('.subm3').keyup(function(){
+     var res = 0 ; 
+     $(".subm3").each(function() {
+         if(parseInt($(this).val()))
+      res += parseInt($(this).val());
+     });
+     $('#total9').val(res);
+ });
+ 
+ });
 
  </script>
+
 </body>
 
 </html>

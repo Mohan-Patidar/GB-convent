@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     Route::post('datefilter', 'App\Http\Controllers\DashboardController@DateFilter')->name('DateFilter');
     Route::post('promote', 'App\Http\Controllers\FeesController@PromoteData')->name('PromoteData');
     Route::get('show/{id}/{yid}','App\Http\Controllers\StudentController@StudentShow')->name('StudentShow');
+    Route::get('showResult/{id}/{cid}','App\Http\Controllers\StudentController@ShowResult')->name('ShowResult');
     Route::get('remove/{id}', 'App\Http\Controllers\YearController@RemoveCurrent')->name('RemoveCurrent');
     Route::resource('assignrole', 'App\Http\Controllers\RoleAssign');
     Route::post('editrole', 'App\Http\Controllers\RoleAssign@update')->name('update');
@@ -47,7 +48,7 @@ Route::group(['middleware' => ['auth', 'disablepreventback']], function () {
     Route::post('updatepassword', 'App\Http\Controllers\ProfileController@updatePassword')->name("updatepassword");
     Route::get('/extrapay','App\Http\Controllers\SidebarController@extraPay')->name('extraPay');
     Route::post('/extraStore','App\Http\Controllers\SidebarController@extraStore')->name('extraStore');
-    
+    Route::post('/printresult','App\Http\Controllers\StudentController@PrintResult')->name('PrintResult');;
     Route::post('showdetails', 'App\Http\Controllers\SidebarController@showDetails')->name('showDetails');
     Route::post('addpayment', 'App\Http\Controllers\SidebarController@addPayment')->name('addPayment');
     Route::post('subpayment', 'App\Http\Controllers\SidebarController@subpayment')->name('subpayment');
